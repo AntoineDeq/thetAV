@@ -1,0 +1,1235 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="The classical representation" href="classical.html" /><link rel="prev" title="Documentation" href="index.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>The \(F_n\) representation - thetAV 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://doc.sagemath.org/html/en/reference/_static/custom-furo.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #0f0fff;
+  --color-brand-content: #0f0fff;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">thetAV 0.1.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo.svg" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">thetAV 0.1.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Quickstart</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">The <span class="math notranslate nohighlight">\(F_n\)</span> representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classical.html">The classical representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphisms.html">Other functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Auxiliary tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/example.html">A tutorial on how to use thetAV in SageMath</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../math/introduction.html">Mathematical background</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Mathematical background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../math/arithmetic.html">Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../math/references.html">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../develop.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section class="tex2jax_ignore mathjax_ignore" id="the-f-n-representation">
+<h1>The <span class="math notranslate nohighlight">\(F_n\)</span> representation<a class="headerlink" href="#the-f-n-representation" title="Link to this heading">#</a></h1>
+<section id="module-thetAV.theta_null_point">
+<span id="varieties"></span><h2>Varieties<a class="headerlink" href="#module-thetAV.theta_null_point" title="Link to this heading">#</a></h2>
+<p>This module defines the classes of Abelian varieties with theta structure
+and Kummer variety with theta structure as abstract schemes.</p>
+<p>Following <a class="reference internal" href="../math/references.html#mum66" id="id1"><span>[Mum66]</span></a> an abelian variety <cite>A</cite> of dimension <cite>g</cite> together with a level <cite>n</cite> theta
+structure is provided with a unique embedding <cite>i: A rightarrow mathbb{P}^{n^g-1}</cite>. The data of
+the theta structure is equivalent to the data of the theta null point <cite>i(0)</cite>. Actually, one
+of the main results of <a class="reference internal" href="../math/references.html#mum66" id="id2"><span>[Mum66]</span></a> states that if <cite>n = 4</cite>, one can recover a complete set of
+equations for <cite>i(A)</cite> thanks to the Riemann equations, which are parametrized by the theta null
+point.</p>
+<p>In the case that <cite>n = 2</cite>, since all the level two theta functions are even, the map <cite>i: A
+rightarrow mathbb{P}^{n^g-1}</cite> factors through the Kummer variety <cite>K = A/(-1)</cite> associated to <cite>A</cite>.</p>
+<p>As for computations, one looks for the most compact and efficient representation, which means that
+in most instances a level <cite>4</cite> representation is enough. In some cases, one can find useful the
+increased speed up provided by the level <cite>2</cite> representation, that is, working with Kummer
+varieties, at the expense of loosing the group law of the abelian variety.</p>
+<p>The main point of this module is to provide constructors for the creation of an Abelian
+and Kummer variety together with a level <cite>n</cite> theta structure (<cite>n=2</cite> in case of Kummer
+variety) and computing Riemann equations to represent its projective embedding and arithmetic.</p>
+<p>AUTHORS:</p>
+<ul class="simple">
+<li><p>Anna Somoza (2020-22): initial implementation</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.AbelianVariety_ThetaStructure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_null_point.</span></span><span class="sig-name descname"><span class="pre">AbelianVariety_ThetaStructure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#AbelianVariety_ThetaStructure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure" title="thetAV.theta_null_point.Variety_ThetaStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variety_ThetaStructure</span></code></a></p>
+<p>Class for Abelian Varieties with theta structure. See also
+<a class="reference internal" href="index.html#thetAV.constructor.AbelianVariety" title="thetAV.constructor.AbelianVariety"><code class="xref py py-func docutils literal notranslate"><span class="pre">AbelianVariety()</span></code></a>.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code> – a field of definition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – an even integer &gt;= 4; the level of the theta structure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code> – an integer; the dimension of the abelian variety.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> - a list of length n<sup>g</sup> elements of R - the theta
+null point determining the abelian variety.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code> (default: <em>False</em>) – A boolean; if <em>True</em>, checks that
+the riemann relations are satisfied by the input.</p></li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">AbelianVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">FF2</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">10753</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A2</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">FF2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">732</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="mi">7</span><span class="p">]);</span> <span class="n">A2</span>
+<span class="n">Abelian</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">1</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">732</span> <span class="p">:</span> <span class="mi">45</span> <span class="p">:</span> <span class="mi">98</span> <span class="p">:</span> <span class="mi">7</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">10753</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.AbelianVariety_ThetaStructure._point">
+<span class="sig-name descname"><span class="pre">_point</span></span><a class="headerlink" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure._point" title="Link to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#thetAV.theta_point.AbelianVarietyPoint" title="thetAV.theta_point.AbelianVarietyPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianVarietyPoint</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.AbelianVariety_ThetaStructure._repr_">
+<span class="sig-name descname"><span class="pre">_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#AbelianVariety_ThetaStructure._repr_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure._repr_" title="Link to this definition">#</a></dt>
+<dd><p>Return a string representation of this abelian variety.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.AbelianVariety_ThetaStructure.change_ring">
+<span class="sig-name descname"><span class="pre">change_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#AbelianVariety_ThetaStructure.change_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure.change_ring" title="Link to this definition">#</a></dt>
+<dd><p>Return the abelian variety with field of definition R.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.AbelianVariety_ThetaStructure.equations">
+<span class="sig-name descname"><span class="pre">equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#AbelianVariety_ThetaStructure.equations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure.equations" title="Link to this definition">#</a></dt>
+<dd><p>Returns a list of defining equations for the abelian variety.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO examples</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_null_point.</span></span><span class="sig-name descname"><span class="pre">KummerVariety</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#KummerVariety"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure" title="thetAV.theta_null_point.Variety_ThetaStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variety_ThetaStructure</span></code></a></p>
+<p>Class for Kummer Varieties with theta structure.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code> – a field of definition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – an integer; the level of the theta structure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code> – an integer; the dimension of the kummer variety.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> - a list of length n<sup>g</sup> elements of R - the theta
+null point determining the kummer variety.</p></li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">FF1</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K1</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">FF1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span><span class="p">,</span><span class="mi">213</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span> <span class="n">K1</span>
+<span class="n">Kummer</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">2</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety._level">
+<span class="sig-name descname"><span class="pre">_level</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety._level" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety._point">
+<span class="sig-name descname"><span class="pre">_point</span></span><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety._point" title="Link to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint" title="thetAV.theta_point.KummerVarietyPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">KummerVarietyPoint</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety._repr_">
+<span class="sig-name descname"><span class="pre">_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#KummerVariety._repr_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety._repr_" title="Link to this definition">#</a></dt>
+<dd><p>Return a string representation of this abelian variety.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety.change_ring">
+<span class="sig-name descname"><span class="pre">change_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#KummerVariety.change_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety.change_ring" title="Link to this definition">#</a></dt>
+<dd><p>Return the kummer variety with field of definition R.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety.equations">
+<span class="sig-name descname"><span class="pre">equations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#KummerVariety.equations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety.equations" title="Link to this definition">#</a></dt>
+<dd><p>Returns a list of defining equations for the abelian variety.</p>
+<p>If the theta null point has dimension 2 and level 2, these are
+the equations as given by Gaudry in <a class="reference internal" href="../math/references.html#gaud" id="id3"><span>[Gaud]</span></a>. In that case, it assumes that the
+genericity conditions are satisfied (see <a class="reference internal" href="../math/references.html#gaud" id="id4"><span>[Gaud]</span></a> for details).</p>
+<p>Otherwise, these are computed using the Riemann relations.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO examples</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.KummerVariety.from_curve">
+<span class="sig-name descname"><span class="pre">from_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#thetAV.theta_null_point.KummerVariety.from_curve" title="Link to this definition">#</a></dt>
+<dd><p>partial(func, <a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>keywords) - new function with partial application
+of the given arguments and keywords.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_null_point.</span></span><span class="sig-name descname"><span class="pre">Variety_ThetaStructure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AlgebraicScheme</span></code></p>
+<p>Generic class for Varieties with theta structure. See also
+<a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure" title="thetAV.theta_null_point.AbelianVariety_ThetaStructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure</span></code></a>, <a class="reference internal" href="#thetAV.theta_null_point.KummerVariety" title="thetAV.theta_null_point.KummerVariety"><code class="xref py py-class docutils literal notranslate"><span class="pre">KummerVariety</span></code></a>..</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code> – a field of definition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – an even integer; the level of the theta structure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g</span></code> – an integer; the dimension of the abelian variety.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> - a list of length n<sup>g</sup> elements of R - the theta
+null point determining the abelian variety.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code> (default: <em>False</em>) – A boolean; if <em>True</em>, checks that
+the riemann relations are satisfied by the input.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure._addition_formula">
+<span class="sig-name descname"><span class="pre">_addition_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure._addition_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure._addition_formula" title="Link to this definition">#</a></dt>
+<dd><p>Given two points P and Q and a list L containing integer triplets [idxchi, idxi, idxj]
+compute
+<cite>sum_{t in Z(2)} chi(t) (P+Q)_{i + t} (P-Q)_{j + t}</cite>
+for every given triplet.</p>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">z2</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">19</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">7</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">8</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">8</span> <span class="p">,</span> <span class="n">z2</span> <span class="o">+</span> <span class="mi">13</span> <span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">12</span> <span class="p">,</span> <span class="mi">14</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">9</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">6</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">14</span> <span class="p">,</span> <span class="mi">16</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">14</span> <span class="p">,</span> <span class="n">z2</span> <span class="o">+</span> <span class="mi">13</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">9</span> <span class="p">,</span> <span class="mi">14</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span> <span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">12</span><span class="p">),</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">)])</span>
+<span class="p">{(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span> <span class="mi">11</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span> <span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span> <span class="mi">11</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span> <span class="mi">8</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure._point">
+<span class="sig-name descname"><span class="pre">_point</span></span><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure._point" title="Link to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint" title="thetAV.theta_point.VarietyThetaStructurePoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure._point_homset">
+<span class="sig-name descname"><span class="pre">_point_homset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure._point_homset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure._point_homset" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.base_extend">
+<span class="sig-name descname"><span class="pre">base_extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.base_extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.base_extend" title="Link to this definition">#</a></dt>
+<dd><p>Return the natural extension of self over R.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.change_ring">
+<span class="sig-name descname"><span class="pre">change_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.change_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.change_ring" title="Link to this definition">#</a></dt>
+<dd><p>Not implemented for a general variety.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.dimension">
+<span class="sig-name descname"><span class="pre">dimension</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.dimension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.dimension" title="Link to this definition">#</a></dt>
+<dd><p>Return the dimension of this variety.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.isogeny">
+<span class="sig-name descname"><span class="pre">isogeny</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">basis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.isogeny"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.isogeny" title="Link to this definition">#</a></dt>
+<dd><p>Given the basis of an isotropic subgroup B of the l-torsion of A, compute
+the thetanullpoints of the isogenous abelian variety A/B. Moreover, given a list of points R, it computes the
+image of these points via the isogeny.</p>
+<p>EXAMPLE:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO examples</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.level">
+<span class="sig-name descname"><span class="pre">level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.level" title="Link to this definition">#</a></dt>
+<dd><p>Return the level of the theta structure.</p>
+<p>TEST</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+<span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">AbelianVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> <span class="n">g</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">331</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">^</span><span class="n">g</span><span class="p">)]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="n">n</span>
+<span class="kc">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.point">
+<span class="sig-name descname"><span class="pre">point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.point" title="Link to this definition">#</a></dt>
+<dd><p>Create a point.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code> – anything that defines a point in a variety
+with theta structure. See <code class="xref py py-class docutils literal notranslate"><span class="pre">VarietyPoint</span></code>
+for details.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code> – boolean (optional, default: <em>False</em>); if <em>True</em>,
+check that the riemann relations are satisfied.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A point of the scheme.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.riemann_relation">
+<span class="sig-name descname"><span class="pre">riemann_relation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.riemann_relation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.riemann_relation" title="Link to this definition">#</a></dt>
+<dd><p>Returns the indices appearing in the Riemann relation associated to a given triple chi, i, j.
+If it has not been computed, it computes it and stores it in the private variable _riemann.</p>
+<p>INPUT:</p>
+<p>Either 3 variables</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chi</span></code> – a character, given by its dual element in Z(2) as a subset of Z(n).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code> – the index of a coordinate of P. For now we are assuming that they are an
+element of Zmod(n)^g.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">j</span></code> – the index of a coordinate of P. For now we are assuming that they are an
+element of Zmod(n)^g.</p></li>
+</ul>
+<p>Or a triple of 3 integers, the integer representation of <code class="docutils literal notranslate"><span class="pre">chi</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
+<p>EXAMPLES:</p>
+<blockquote>
+<div><p>sage: #TODO examples</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.theta_null_point">
+<span class="sig-name descname"><span class="pre">theta_null_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.theta_null_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.theta_null_point" title="Link to this definition">#</a></dt>
+<dd><p>Return the theta null point as a point of the variety.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_null_point.Variety_ThetaStructure.with_theta_basis">
+<span class="sig-name descname"><span class="pre">with_theta_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_null_point.html#Variety_ThetaStructure.with_theta_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_null_point.Variety_ThetaStructure.with_theta_basis" title="Link to this definition">#</a></dt>
+<dd><p>Compute the representation of the thetanullpoint in the given basis of the space of theta functions.</p>
+<p>Possible values are:</p>
+<ul class="simple">
+<li><p>‘F(n)’</p></li>
+<li><p>‘F(2,2)’, for level 4</p></li>
+<li><p>‘F(2,2)^2’, for level 2</p></li>
+<li><p>‘classical’, corresponds to ‘F(2,2)’ or ‘F(2,2)^2’ depending on the level of self.</p></li>
+</ul>
+<p>The method saves the already-computed values in the private variable _with_theta_basis.</p>
+<p>It can also be used as the constructor for the thetanullpoint using other representations, see
+<a class="reference internal" href="index.html#thetAV.constructor._with_theta_basis" title="thetAV.constructor._with_theta_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">_with_theta_basis()</span></code></a></p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">AbelianVariety</span><span class="p">,</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">z2</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">19</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">7</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">8</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">8</span> <span class="p">,</span> <span class="n">z2</span> <span class="o">+</span> <span class="mi">13</span> <span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">12</span> <span class="p">,</span> <span class="mi">14</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">9</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">6</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">14</span> <span class="p">,</span> <span class="mi">16</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">14</span> <span class="p">,</span> <span class="n">z2</span> <span class="o">+</span> <span class="mi">13</span> <span class="p">,</span> <span class="mi">11</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">9</span> <span class="p">,</span> <span class="mi">14</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span> <span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">12</span><span class="p">),</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="s1">&#39;classical&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span> <span class="p">:</span> <span class="mi">8</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">15</span> <span class="p">:</span> <span class="mi">15</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">:</span> <span class="n">z2</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">:</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">16</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">17</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">12</span> <span class="p">:</span> <span class="mi">3</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">17</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">6</span><span class="o">*</span><span class="n">z2</span> <span class="o">+</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K1</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span><span class="p">,</span><span class="mi">213</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">K1</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">173</span> <span class="p">:</span> <span class="mi">327</span> <span class="p">:</span> <span class="mi">8</span> <span class="p">:</span> <span class="mi">163</span> <span class="p">:</span> <span class="mi">49</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">305</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">325</span> <span class="p">:</span> <span class="mi">112</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">42</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">286</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-thetAV.theta_point">
+<span id="theta-points"></span><h2>Theta points<a class="headerlink" href="#module-thetAV.theta_point" title="Link to this heading">#</a></h2>
+<p>This module defines the base class of Theta points as elements of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure</span></code>.</p>
+<p>AUTHORS:</p>
+<ul class="simple">
+<li><p>Anna Somoza (2020-22): initial implementation</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_point.AbelianVarietyPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_point.</span></span><span class="sig-name descname"><span class="pre">AbelianVarietyPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#AbelianVarietyPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.AbelianVarietyPoint" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint" title="thetAV.theta_point.VarietyThetaStructurePoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint</span></code></a></p>
+<p>Constructor for a point on an abelian variety with theta structure.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> – an abelian variety</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code> – data determining a point (another point or a tuple of coordinates)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">good_lift</span></code> – a boolean (default: <cite>False</cite>); indicates if the given affine lift
+is a good lift, i.e. a lift compatible with the lift of the theta null point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code> – a boolean (default: <cite>False</cite>); indicates if computations to check
+the correctness of the input data should be performed, using the Riemann Relations.</p></li>
+</ul>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">P</span>
+<span class="p">(</span><span class="mi">255</span> <span class="p">:</span> <span class="mi">89</span> <span class="p">:</span> <span class="mi">30</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">B</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">Q</span>
+<span class="p">(</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span> <span class="p">:</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span> <span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.AbelianVarietyPoint.abelian_variety">
+<span class="sig-name descname"><span class="pre">abelian_variety</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#AbelianVarietyPoint.abelian_variety"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.AbelianVarietyPoint.abelian_variety" title="Link to this definition">#</a></dt>
+<dd><p>Return the abelian variety that this point is on.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">AbelianVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">A</span>
+<span class="n">Abelian</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">1</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">abelian_variety</span><span class="p">()</span>
+<span class="n">Abelian</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">1</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.AbelianVarietyPoint.diff_add">
+<span class="sig-name descname"><span class="pre">diff_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PmQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#AbelianVarietyPoint.diff_add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.AbelianVarietyPoint.diff_add" title="Link to this definition">#</a></dt>
+<dd><p>Computes the differential addition of self with given point Q.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code> - a theta point</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PmQ</span></code> - The theta point <cite>self - Q</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check</span></code> - (default: False) check with the riemann relations that the
+resulting point is indeed a point of the abelian variety.</p></li>
+</ul>
+<p>OUTPUT: The theta point <cite>self + Q</cite>. If <cite>self</cite>, <cite>Q</cite> and <cite>PmQ</cite> are good lifts,
+then the output is also a good lift.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">AbelianVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">AbelianVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">A</span>
+<span class="n">Abelian</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">1</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO finish example</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#P = A([255 , 89 , 30 , 1]); Q = A([123, 345, 23, 13]); PQ = A([23,12,45,5])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="c1">#P.diff_add(Q, PQ)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.AbelianVarietyPoint.schematic_addition">
+<span class="sig-name descname"><span class="pre">schematic_addition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#AbelianVarietyPoint.schematic_addition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.AbelianVarietyPoint.schematic_addition" title="Link to this definition">#</a></dt>
+<dd><p>Normal addition between self and other on the affine plane with respect to i0.</p>
+<p>If (self - other)[i] == 0, then it tries with another affine plane.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._add_" title="thetAV.theta_point.VarietyThetaStructurePoint._add_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_add_()</span></code></a></p>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO  Find tests where P and Q are not rational in the av but rational in the kummer variety, so P+Q won&#39;t be rational</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_point.</span></span><span class="sig-name descname"><span class="pre">KummerVarietyPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint" title="thetAV.theta_point.VarietyThetaStructurePoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint</span></code></a></p>
+<p>Constructor for a point on an kummer variety with theta structure.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> – a kummer variety</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code> – data determining a point (another point or a tuple of coordinates)</p></li>
+</ul>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">P</span>
+<span class="p">(</span><span class="mi">255</span> <span class="p">:</span> <span class="mi">89</span> <span class="p">:</span> <span class="mi">30</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">B</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">Q</span>
+<span class="p">(</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span> <span class="p">:</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span> <span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint._check">
+<span class="sig-name descname"><span class="pre">_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint._check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint._check" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint._neg_">
+<span class="sig-name descname"><span class="pre">_neg_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint._neg_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint._neg_" title="Link to this definition">#</a></dt>
+<dd><p>Computes the addition opposite of self.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="o">-</span> <span class="n">P</span>
+<span class="p">(</span><span class="mi">255</span> <span class="p">:</span> <span class="mi">89</span> <span class="p">:</span> <span class="mi">30</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint.diff_add">
+<span class="sig-name descname"><span class="pre">diff_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PmQ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint.diff_add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint.diff_add" title="Link to this definition">#</a></dt>
+<dd><p>Computes the differential addition of self with given point Q.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code> - a theta point</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PmQ</span></code> - The theta point <cite>self - Q</cite>.</p></li>
+</ul>
+<p>OUTPUT: The theta point <cite>self + Q</cite>. If <cite>self</cite>, <cite>Q</cite> and <cite>PmQ</cite> are good lifts,
+then the output is also a good lift.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PmQ</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">62</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">16</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">255</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">129</span> <span class="p">,</span> <span class="mi">172</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">157</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">43</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">222</span> <span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">258</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">39</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">313</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">150</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PQ</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">);</span> <span class="n">PQ</span>
+<span class="p">(</span><span class="mi">261</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">107</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">37</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">135</span> <span class="p">:</span> <span class="mi">205</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">88</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">195</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">125</span> <span class="p">:</span> <span class="mi">88</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">99</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">164</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">98</span> <span class="p">:</span> <span class="mi">159</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">279</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">254</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">276</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint.kummer_variety">
+<span class="sig-name descname"><span class="pre">kummer_variety</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint.kummer_variety"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint.kummer_variety" title="Link to this definition">#</a></dt>
+<dd><p>Return the abelian variety that this point is on.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="n">A</span>
+<span class="n">Kummer</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">2</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kummer_variety</span><span class="p">()</span>
+<span class="n">Kummer</span> <span class="n">variety</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">2</span> <span class="k">with</span> <span class="n">theta</span> <span class="n">null</span> <span class="n">point</span> <span class="p">(</span><span class="mi">328</span> <span class="p">:</span> <span class="mi">213</span> <span class="p">:</span> <span class="mi">75</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span> <span class="n">defined</span> <span class="n">over</span> <span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint.schematic_add">
+<span class="sig-name descname"><span class="pre">schematic_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idxi0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint.schematic_add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint.schematic_add" title="Link to this definition">#</a></dt>
+<dd><p>Normal addition between self and other on the affine plane with respect to i0.
+If (self - other)[i] == 0, then it tries with another affine plane.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._add_" title="thetAV.theta_point.VarietyThetaStructurePoint._add_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_add_()</span></code></a></p>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO Find tests where P and Q are not rational in the av but rational in the kummer variety, so P+Q won&#39;t be rational</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.KummerVarietyPoint.weil_pairing">
+<span class="sig-name descname"><span class="pre">weil_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#KummerVarietyPoint.weil_pairing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.KummerVarietyPoint.weil_pairing" title="Link to this definition">#</a></dt>
+<dd><p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wp</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">weil_pairing</span><span class="p">(</span><span class="mi">1889</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="o">**</span><span class="mi">1889</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">wp</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thetAV.theta_point.</span></span><span class="sig-name descname"><span class="pre">VarietyThetaStructurePoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SchemeMorphism_point</span></code></p>
+<p>Constructor for a point on a variety with theta structure.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">X</span></code> – a variety with theta structure</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v</span></code> – data determining a point (another point or a tuple of coordinates)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._acted_upon_">
+<span class="sig-name descname"><span class="pre">_acted_upon_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_left</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._acted_upon_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._acted_upon_" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._add">
+<span class="sig-name descname"><span class="pre">_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._add" title="Link to this definition">#</a></dt>
+<dd><p>Not implemented for a general point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._add_">
+<span class="sig-name descname"><span class="pre">_add_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._add_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._add_" title="Link to this definition">#</a></dt>
+<dd><p>Add self to other.</p>
+<p>If we are in level two, this returns P+Q and P-Q.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">schematic_add</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+<span class="p">((</span><span class="mi">221</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">178</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">126</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">27</span> <span class="p">:</span> <span class="mi">32</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">17</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">175</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">171</span> <span class="p">:</span> <span class="mi">180</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">188</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">161</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">119</span> <span class="p">:</span> <span class="mi">261</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">107</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">37</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">135</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span> <span class="p">:</span> <span class="mi">56</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">312</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">147</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">287</span> <span class="p">:</span> <span class="mi">277</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">295</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">7</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">287</span> <span class="p">:</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">203</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">274</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>TESTS</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO level 4 tests</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQ">
+<span class="sig-name descname"><span class="pre">_diff_add_PQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PmQ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._diff_add_PQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQ" title="Link to this definition">#</a></dt>
+<dd><p>Given a representative of (P+Q), computes the affine representative
+obtained with P.diff_add(Q, PmQ).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQfactor">
+<span class="sig-name descname"><span class="pre">_diff_add_PQfactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PmQ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._diff_add_PQfactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQfactor" title="Link to this definition">#</a></dt>
+<dd><p>Given a representative of (P+Q), computes the raport with respect to
+the representative obtained as P.diff_add(Q, PmQ).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._get_nonzero_coord">
+<span class="sig-name descname"><span class="pre">_get_nonzero_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._get_nonzero_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._get_nonzero_coord" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._latex_">
+<span class="sig-name descname"><span class="pre">_latex_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._latex_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._latex_" title="Link to this definition">#</a></dt>
+<dd><p>Return a LaTeX representation of this point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._mult">
+<span class="sig-name descname"><span class="pre">_mult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Montgomery'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._mult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._mult" title="Link to this definition">#</a></dt>
+<dd><p>Compute scalar multiplication by <cite>k</cite> with a Montgomery ladder type algorithm.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code> (default: ‘Montgomery’): The chosen algorithm for the computation.
+It can either be ‘Montgomery’ for a Montgomery ladder type algorithm, or 
+‘SquareAndMultiply’ for the usual square and multiply algorithm (only for level &gt; 2).</p></li>
+</ul>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">_mult</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">311</span> <span class="p">:</span> <span class="mi">326</span> <span class="p">:</span> <span class="mi">136</span> <span class="p">:</span> <span class="mi">305</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._rmul_" title="thetAV.theta_point.VarietyThetaStructurePoint._rmul_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_rmul_()</span></code></a></p>
+</div>
+<p>TESTS</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO level 4 tests</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._neg_">
+<span class="sig-name descname"><span class="pre">_neg_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._neg_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._neg_" title="Link to this definition">#</a></dt>
+<dd><p>Computes the addition opposite of self.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">]);</span> <span class="o">-</span> <span class="n">P</span>
+<span class="p">(</span><span class="mi">255</span> <span class="p">:</span> <span class="mi">89</span> <span class="p">:</span> <span class="mi">30</span> <span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._repr_">
+<span class="sig-name descname"><span class="pre">_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._repr_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._repr_" title="Link to this definition">#</a></dt>
+<dd><p>Return a string representation of this point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint._rmul_">
+<span class="sig-name descname"><span class="pre">_rmul_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint._rmul_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint._rmul_" title="Link to this definition">#</a></dt>
+<dd><p>Compute scalar multiplication by <cite>k</cite> with a Montgomery ladder type algorithm.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="mi">42</span><span class="o">*</span><span class="n">P</span>
+<span class="p">(</span><span class="mi">311</span> <span class="p">:</span> <span class="mi">326</span> <span class="p">:</span> <span class="mi">136</span> <span class="p">:</span> <span class="mi">305</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TESTS</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO level 4 tests</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.compatible_lift">
+<span class="sig-name descname"><span class="pre">compatible_lift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.compatible_lift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.compatible_lift" title="Link to this definition">#</a></dt>
+<dd><p>Compute a lift of an l-torsion point that is compatible with the chosen affine lift of the
+theta null point.</p>
+<p>INPUT :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self</span></code> – an l-torsion point of the abelian variety</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">other</span></code> – a list of points of the abelian variety, or None if only the lift of an l-torsion
+point is needed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">add</span></code> – the list of sums self + P for all the points in P, or None if only the lift of an l-torsion
+point is needed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> – the torsion</p></li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO examples</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.diff_add">
+<span class="sig-name descname"><span class="pre">diff_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PmQ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.diff_add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.diff_add" title="Link to this definition">#</a></dt>
+<dd><p>Not implemented for a general point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.diff_multadd">
+<span class="sig-name descname"><span class="pre">diff_multadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.diff_multadd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.diff_multadd" title="Link to this definition">#</a></dt>
+<dd><p>Computes k*self + Q, k*self.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PmQ</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">62</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">16</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">255</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">129</span> <span class="p">,</span> <span class="mi">172</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">157</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">43</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">222</span> <span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">258</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">39</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">313</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">150</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PQ</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+<span class="p">((</span><span class="mi">41</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">291</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">122</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">305</span> <span class="p">:</span> <span class="mi">119</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">95</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">120</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">68</span> <span class="p">:</span> <span class="mi">81</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">168</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">326</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">24</span> <span class="p">:</span> <span class="mi">202</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">251</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">246</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">169</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">311</span> <span class="p">:</span> <span class="mi">326</span> <span class="p">:</span> <span class="mi">136</span> <span class="p">:</span> <span class="mi">305</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.is_equal">
+<span class="sig-name descname"><span class="pre">is_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.is_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.is_equal" title="Link to this definition">#</a></dt>
+<dd><p>Check whether two points are equal or not.
+If proj = true we compare them as projective points,
+and if factor = True, return as a second argument
+the rapport Q/P.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code> - a point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proj</span></code> - a boolean (default: <cite>True</cite>). Weather the comparison
+is done as projective points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">factor</span></code> - a boolean (default: <cite>False</cite>). If True, as a second
+argument is returned, the rapport right/self.</p></li>
+</ul>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1">#A 1889-torsion point</span>
+<span class="n">sage</span><span class="p">:</span> <span class="mi">1889</span><span class="o">*</span><span class="n">P</span>
+<span class="p">(</span><span class="mi">12</span> <span class="p">:</span> <span class="mi">141</span> <span class="p">:</span> <span class="mi">31</span> <span class="p">:</span> <span class="mi">327</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="mi">1889</span><span class="o">*</span><span class="n">P</span><span class="p">)</span>
+<span class="kc">True</span>
+</pre></div>
+</div>
+<p>If the points are equal as projective points but not as affine points,
+one can obtain the factor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="p">(</span><span class="mi">1889</span><span class="o">*</span><span class="n">P</span><span class="p">)</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">proj</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">_</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="mi">1889</span><span class="o">*</span><span class="n">P</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span> <span class="n">k</span>
+<span class="mi">327</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.scale">
+<span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.scale" title="Link to this definition">#</a></dt>
+<dd><p>Given an affine lift point ‘P’ and a factor ‘k’ in the field of definition, returns the
+affine lift given by kx.</p>
+<p>EXAMPLE</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">282</span> <span class="p">:</span> <span class="mi">114</span> <span class="p">:</span> <span class="mi">150</span> <span class="p">:</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TEST :</p>
+<p>If the factor to scale by is not in the field of definition, it should raise an error</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">FF</span><span class="o">.&lt;</span><span class="n">z</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">The</span> <span class="n">scalar</span> <span class="n">factor</span> <span class="n">k</span><span class="o">=</span><span class="n">z</span> <span class="n">should</span> <span class="n">be</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">base</span> <span class="n">ring</span> <span class="n">R</span><span class="o">=</span><span class="n">Finite</span> <span class="n">Field</span> <span class="n">of</span> <span class="n">size</span> <span class="mi">331</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.scheme">
+<span class="sig-name descname"><span class="pre">scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.scheme" title="Link to this definition">#</a></dt>
+<dd><p>Return the scheme of this point, i.e., the abelian variety it is on.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.tate_pairing">
+<span class="sig-name descname"><span class="pre">tate_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PQ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.tate_pairing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.tate_pairing" title="Link to this definition">#</a></dt>
+<dd><p>Computes the Weil pairing of P=self and Q.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P=self</span></code> – A point</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> – An integer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code> – A point of torsion <cite>l</cite> in the same Abelian Variety as <cite>P</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PQ</span></code> (default: None) – The addition of P and Q.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>The r-th power of the tate pairing of P and Q, where <cite>r = (p^k - 1)/l</cite>.</p>
+<p>EXAMPLES</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PmQ</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">62</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">16</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">255</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">129</span> <span class="p">,</span> <span class="mi">172</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">157</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">43</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">222</span> <span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">258</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">39</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">313</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">150</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PQ</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">tate_pairing</span><span class="p">(</span><span class="mi">1889</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PQ</span><span class="p">)</span>
+<span class="mi">313</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">144</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">38</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">71</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span><span class="o">.</span><span class="n">tate_pairing</span><span class="p">(</span><span class="mi">1889</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">PQ</span><span class="p">)</span>
+<span class="mi">130</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">124</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">49</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">153</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.three_way_add">
+<span class="sig-name descname"><span class="pre">three_way_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PR</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.three_way_add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.three_way_add" title="Link to this definition">#</a></dt>
+<dd><p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">thetAV</span> <span class="kn">import</span> <span class="n">KummerVariety</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="mi">331</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">poly</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">X</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">290</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">F</span><span class="o">.&lt;</span><span class="n">t</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">splitting_field</span><span class="p">()</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">328</span> <span class="p">,</span> <span class="mi">213</span> <span class="p">,</span> <span class="mi">75</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">255</span> <span class="p">,</span> <span class="mi">89</span> <span class="p">,</span> <span class="mi">30</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">158</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">67</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">293</span><span class="p">,</span> <span class="mi">290</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">25</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">235</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">280</span><span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">155</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">84</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">15</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PmQ</span> <span class="o">=</span> <span class="n">A</span><span class="p">([</span><span class="mi">62</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">16</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">255</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">129</span> <span class="p">,</span> <span class="mi">172</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">157</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">43</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">222</span> <span class="p">,</span>
+<span class="o">....</span><span class="p">:</span> <span class="mi">258</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">39</span><span class="o">*</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">313</span><span class="o">*</span><span class="n">t</span> <span class="o">+</span> <span class="mi">150</span> <span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">PQ</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">Q</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">P</span><span class="o">.</span><span class="n">three_way_add</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">Q</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">P</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">PQ</span><span class="p">)</span>
+<span class="kc">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.weil_pairing">
+<span class="sig-name descname"><span class="pre">weil_pairing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PQ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.weil_pairing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.weil_pairing" title="Link to this definition">#</a></dt>
+<dd><p>Computes the Weil pairing of P=self and Q.  See also
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">_weil_pairing_from_points()</span></code> to use precomputed points.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> – An integer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P=self</span></code> – An point of torsion <cite>level</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Q</span></code> – Another point of torsion <cite>level</cite></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PQ</span></code> (default: None) – The addition of <code class="docutils literal notranslate"><span class="pre">P</span></code> and <code class="docutils literal notranslate"><span class="pre">Q</span></code>.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>The nth power of the weil pairing of P and Q, where n is the level
+of the theta structure.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="c1">#TODO examples</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thetAV.theta_point.VarietyThetaStructurePoint.with_theta_basis">
+<span class="sig-name descname"><span class="pre">with_theta_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/thetAV/theta_point.html#VarietyThetaStructurePoint.with_theta_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thetAV.theta_point.VarietyThetaStructurePoint.with_theta_basis" title="Link to this definition">#</a></dt>
+<dd><p>Let thc be a theta null point given by algebraic coordinates (i.e. <code class="xref py py-class docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">KummerVariety</span></code>). Compute the
+corresponding theta null point (i.e. <code class="xref py py-class docutils literal notranslate"><span class="pre">AnalyticThetaNullPoint</span></code>) in analytic coordinates.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="classical.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">The classical representation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Documentation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Anna Somoza
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">The <span class="math notranslate nohighlight">\(F_n\)</span> representation</a><ul>
+<li><a class="reference internal" href="#module-thetAV.theta_null_point">Varieties</a><ul>
+<li><a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure"><code class="docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure._point"><code class="docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure._point</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure._repr_"><code class="docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure._repr_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure.change_ring"><code class="docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure.change_ring()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.AbelianVariety_ThetaStructure.equations"><code class="docutils literal notranslate"><span class="pre">AbelianVariety_ThetaStructure.equations()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety"><code class="docutils literal notranslate"><span class="pre">KummerVariety</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety._level"><code class="docutils literal notranslate"><span class="pre">KummerVariety._level</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety._point"><code class="docutils literal notranslate"><span class="pre">KummerVariety._point</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety._repr_"><code class="docutils literal notranslate"><span class="pre">KummerVariety._repr_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety.change_ring"><code class="docutils literal notranslate"><span class="pre">KummerVariety.change_ring()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety.equations"><code class="docutils literal notranslate"><span class="pre">KummerVariety.equations()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.KummerVariety.from_curve"><code class="docutils literal notranslate"><span class="pre">KummerVariety.from_curve()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure._addition_formula"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure._addition_formula()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure._point"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure._point</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure._point_homset"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure._point_homset()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.base_extend"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.base_extend()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.change_ring"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.change_ring()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.dimension"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.dimension()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.isogeny"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.isogeny()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.level"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.level()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.point"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.point()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.riemann_relation"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.riemann_relation()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.theta_null_point"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.theta_null_point()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_null_point.Variety_ThetaStructure.with_theta_basis"><code class="docutils literal notranslate"><span class="pre">Variety_ThetaStructure.with_theta_basis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thetAV.theta_point">Theta points</a><ul>
+<li><a class="reference internal" href="#thetAV.theta_point.AbelianVarietyPoint"><code class="docutils literal notranslate"><span class="pre">AbelianVarietyPoint</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_point.AbelianVarietyPoint.abelian_variety"><code class="docutils literal notranslate"><span class="pre">AbelianVarietyPoint.abelian_variety()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.AbelianVarietyPoint.diff_add"><code class="docutils literal notranslate"><span class="pre">AbelianVarietyPoint.diff_add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.AbelianVarietyPoint.schematic_addition"><code class="docutils literal notranslate"><span class="pre">AbelianVarietyPoint.schematic_addition()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint._check"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint._check()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint._neg_"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint._neg_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint.diff_add"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint.diff_add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint.kummer_variety"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint.kummer_variety()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint.schematic_add"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint.schematic_add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.KummerVarietyPoint.weil_pairing"><code class="docutils literal notranslate"><span class="pre">KummerVarietyPoint.weil_pairing()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint</span></code></a><ul>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._acted_upon_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._acted_upon_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._add"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._add_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._add_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQ"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._diff_add_PQ()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._diff_add_PQfactor"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._diff_add_PQfactor()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._get_nonzero_coord"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._get_nonzero_coord()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._latex_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._latex_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._mult"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._mult()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._neg_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._neg_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._repr_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._repr_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint._rmul_"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint._rmul_()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.compatible_lift"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.compatible_lift()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.diff_add"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.diff_add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.diff_multadd"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.diff_multadd()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.is_equal"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.is_equal()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.scale"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.scale()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.scheme"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.scheme()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.tate_pairing"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.tate_pairing()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.three_way_add"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.three_way_add()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.weil_pairing"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.weil_pairing()</span></code></a></li>
+<li><a class="reference internal" href="#thetAV.theta_point.VarietyThetaStructurePoint.with_theta_basis"><code class="docutils literal notranslate"><span class="pre">VarietyThetaStructurePoint.with_theta_basis()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=360bc84d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

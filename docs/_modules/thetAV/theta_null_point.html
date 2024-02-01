@@ -1,0 +1,1083 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>thetAV.theta_null_point - thetAV 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://doc.sagemath.org/html/en/reference/_static/custom-furo.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #0f0fff;
+  --color-brand-content: #0f0fff;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../source/index.html"><div class="brand">thetAV 0.1.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../source/index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo.svg" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">thetAV 0.1.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/install.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/doc/index.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/Fn.html">The <span class="math notranslate nohighlight">\(F_n\)</span> representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/classical.html">The classical representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/morphisms.html">Other functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/tools.html">Auxiliary tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/tutorials/example.html">A tutorial on how to use thetAV in SageMath</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/math/introduction.html">Mathematical background</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Mathematical background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/arithmetic.html">Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/references.html">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/todo.html">Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/develop.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for thetAV.theta_null_point</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the classes of Abelian varieties with theta structure</span>
+<span class="sd">and Kummer variety with theta structure as abstract schemes.</span>
+
+<span class="sd">Following [Mum66]_ an abelian variety `A` of dimension `g` together with a level `n` theta</span>
+<span class="sd">structure is provided with a unique embedding `i: A \rightarrow \mathbb{P}^{n^g-1}`. The data of</span>
+<span class="sd">the theta structure is equivalent to the data of the theta null point `i(0)`. Actually, one</span>
+<span class="sd">of the main results of [Mum66]_ states that if `n = 4`, one can recover a complete set of</span>
+<span class="sd">equations for `i(A)` thanks to the Riemann equations, which are parametrized by the theta null</span>
+<span class="sd">point.</span>
+
+<span class="sd">In the case that `n = 2`, since all the level two theta functions are even, the map `i: A</span>
+<span class="sd">\rightarrow \mathbb{P}^{n^g-1}` factors through the Kummer variety `K = A/(-1)` associated to `A`.</span>
+
+<span class="sd">As for computations, one looks for the most compact and efficient representation, which means that</span>
+<span class="sd">in most instances a level `4` representation is enough. In some cases, one can find useful the</span>
+<span class="sd">increased speed up provided by the level `2` representation, that is, working with Kummer</span>
+<span class="sd">varieties, at the expense of loosing the group law of the abelian variety.</span>
+
+<span class="sd">The main point of this module is to provide constructors for the creation of an Abelian</span>
+<span class="sd">and Kummer variety together with a level `n` theta structure (`n=2` in case of Kummer</span>
+<span class="sd">variety) and computing Riemann equations to represent its projective embedding and arithmetic.</span>
+
+
+<span class="sd">AUTHORS:</span>
+
+<span class="sd">- Anna Somoza (2020-22): initial implementation</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># *****************************************************************************</span>
+<span class="c1">#       Copyright (C) 2022 Anna Somoza &lt;anna.somoza.henares@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  Distributed under the terms of the GNU General Public License (GPL)</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 3 of</span>
+<span class="c1">#  the License, or (at your option) any later version.</span>
+<span class="c1">#                  http://www.gnu.org/licenses/</span>
+<span class="c1"># *****************************************************************************</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span><span class="p">,</span> <span class="n">combinations_with_replacement</span><span class="p">,</span> <span class="n">accumulate</span>
+
+<span class="kn">from</span> <span class="nn">sage.misc.mrange</span> <span class="kn">import</span> <span class="n">cantor_product</span>
+<span class="kn">from</span> <span class="nn">sage.categories.fields</span> <span class="kn">import</span> <span class="n">Fields</span>
+<span class="kn">from</span> <span class="nn">sage.rings.all</span> <span class="kn">import</span> <span class="n">PolynomialRing</span><span class="p">,</span> <span class="n">FractionField</span><span class="p">,</span> <span class="n">ZZ</span><span class="p">,</span> <span class="n">Zmod</span>
+<span class="kn">from</span> <span class="nn">sage.rings.integer</span> <span class="kn">import</span> <span class="n">Integer</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.generic.algebraic_scheme</span> <span class="kn">import</span> <span class="n">AlgebraicScheme</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.generic.homset</span> <span class="kn">import</span> <span class="n">SchemeHomset_points</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.generic.morphism</span> <span class="kn">import</span> <span class="n">SchemeMorphism_point</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.projective.projective_space</span> <span class="kn">import</span> <span class="n">ProjectiveSpace</span>
+<span class="kn">from</span> <span class="nn">sage.structure.element</span> <span class="kn">import</span> <span class="n">is_Vector</span>
+<span class="kn">from</span> <span class="nn">sage.structure.richcmp</span> <span class="kn">import</span> <span class="n">richcmp_method</span><span class="p">,</span> <span class="n">richcmp</span><span class="p">,</span> <span class="n">op_EQ</span><span class="p">,</span> <span class="n">op_NE</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.hyperelliptic_curves.jacobian_morphism</span> <span class="kn">import</span> <span class="n">JacobianMorphism_divisor_class_field</span>
+<span class="kn">from</span> <span class="nn">sage.misc.functional</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">analytic_theta_point</span><span class="p">,</span> <span class="n">constructor</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
+<span class="kn">from</span> <span class="nn">.theta_point</span> <span class="kn">import</span> <span class="n">VarietyThetaStructurePoint</span><span class="p">,</span> <span class="n">AbelianVarietyPoint</span><span class="p">,</span> <span class="n">KummerVarietyPoint</span>
+
+<span class="n">_Fields</span> <span class="o">=</span> <span class="n">Fields</span><span class="p">()</span>
+<span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Integer</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">Variety_ThetaStructure</span><span class="p">(</span><span class="n">AlgebraicScheme</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generic class for Varieties with theta structure. See also</span>
+<span class="sd">    :class:`~thetAV.theta_null_point.AbelianVariety_ThetaStructure`, :class:`~thetAV.theta_null_point.KummerVariety`..</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``R`` -- a field of definition</span>
+<span class="sd">    - ``n`` -- an even integer; the level of the theta structure.</span>
+<span class="sd">    - ``g`` -- an integer; the dimension of the abelian variety.</span>
+<span class="sd">    - ``T`` - a list of length n\ :sup:`g` elements of R - the theta</span>
+<span class="sd">      null point determining the abelian variety.</span>
+<span class="sd">    - ``check`` (default: *False*) -- A boolean; if *True*, checks that</span>
+<span class="sd">      the riemann relations are satisfied by the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_point</span> <span class="o">=</span> <span class="n">VarietyThetaStructurePoint</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="n">Variety_ThetaStructure</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Use either AbelianVariety or KummerVariety.&quot;</span><span class="p">)</span>
+        <span class="n">PP</span> <span class="o">=</span> <span class="n">ProjectiveSpace</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Given a characteristic x in (Z/nZ)^g its theta constant is at position ZZ(x, n)</span>
+        <span class="c1"># Given a coordinate i, T[i] corresponds to the theta constant with characteristic</span>
+        <span class="c1"># i.digits(n, padto=g)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span> <span class="o">=</span> <span class="n">g</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+
+        <span class="n">AlgebraicScheme</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PP</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thetanullpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_riemann</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">__richcmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compare the variety self to X.  If X is a</span>
+<span class="sd">        variety, then self and X are equal if and only if their fields</span>
+<span class="sd">        of definition are equal and their theta null points are equal</span>
+<span class="sd">        as projective points.</span>
+<span class="sd">        </span>
+<span class="sd">        EXAMPLES ::</span>
+<span class="sd">        </span>
+<span class="sd">            sage: from thetAV import AbelianVariety, KummerVariety</span>
+<span class="sd">            sage: F1 = GF(331); F2 = GF(331^2)</span>
+<span class="sd">            sage: pt = [328 , 213 , 75 , 1]</span>
+<span class="sd">            sage: K1 = KummerVariety(F1, 2, pt)</span>
+<span class="sd">            sage: K2 = KummerVariety(F2, 2, pt)</span>
+<span class="sd">            sage: K3 = KummerVariety(F1, 2, [2*F1(el) for el in pt])</span>
+<span class="sd">            sage: K1 == K2</span>
+<span class="sd">            False</span>
+<span class="sd">            sage: K1 == K3</span>
+<span class="sd">            True</span>
+<span class="sd">            sage: pt2 = [68, 33, 46, 33, 29, 77, 81, 16, 8, 67, 48, 67, 29, 16, 81, 77]</span>
+<span class="sd">            sage: A = AbelianVariety(F1, 4, 2, pt2)</span>
+<span class="sd">            sage: A == K1</span>
+<span class="sd">            False</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Variety_ThetaStructure</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">NotImplemented</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span> <span class="o">!=</span> <span class="n">X</span><span class="o">.</span><span class="n">base_ring</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">[</span><span class="n">op_EQ</span><span class="p">,</span> <span class="n">op_NE</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="n">op_EQ</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">op</span> <span class="o">==</span> <span class="n">op_EQ</span>
+        <span class="k">return</span> <span class="n">richcmp</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">op</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Variety_ThetaStructure.dimension">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.dimension">[docs]</a>
+    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the dimension of this variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.level">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.level">[docs]</a>
+    <span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the level of the theta structure.</span>
+<span class="sd">        </span>
+<span class="sd">        TEST ::</span>
+<span class="sd">            </span>
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: F = GF(331)</span>
+<span class="sd">            sage: K = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: K.level()</span>
+<span class="sd">            2</span>
+<span class="sd">            sage: from thetAV import AbelianVariety</span>
+<span class="sd">            sage: n = 2*randint(2,5); g = randint(2,5)</span>
+<span class="sd">            sage: T = [randint(1, 331) for _ in range(n^g)]</span>
+<span class="sd">            sage: A = AbelianVariety(F, n, g, T)</span>
+<span class="sd">            sage: A.level() == n</span>
+<span class="sd">            True</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the length of the coordinate vector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ng</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the n-th coordinate of this point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thetanullpoint</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the coordinates of this point as a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thetanullpoint</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Variety_ThetaStructure.theta_null_point">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.theta_null_point">[docs]</a>
+    <span class="k">def</span> <span class="nf">theta_null_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the theta null point as a point of the variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thetanullpoint</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.change_ring">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.change_ring">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_ring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not implemented for a general variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.base_extend">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.base_extend">[docs]</a>
+    <span class="k">def</span> <span class="nf">base_extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the natural extension of self over R.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">R</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Fields</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (=</span><span class="si">{</span><span class="n">R</span><span class="si">}</span><span class="s2">) must be a field.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span> <span class="ow">is</span> <span class="n">R</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">R</span><span class="o">.</span><span class="n">has_coerce_map_from</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No natural map from the base ring (=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="si">}</span><span class="s2">) to R (=</span><span class="si">{</span><span class="n">R</span><span class="si">}</span><span class="s2">)!&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">R</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure._point_homset">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure._point_homset">[docs]</a>
+    <span class="k">def</span> <span class="nf">_point_homset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SchemeHomset_points</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.point">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.point">[docs]</a>
+    <span class="k">def</span> <span class="nf">point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a point.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        - ``v`` -- anything that defines a point in a variety</span>
+<span class="sd">          with theta structure. See :class:`~thetAV.theta_point.VarietyPoint`</span>
+<span class="sd">          for details.</span>
+
+<span class="sd">        - ``check`` -- boolean (optional, default: *False*); if *True*,</span>
+<span class="sd">          check that the riemann relations are satisfied.</span>
+
+<span class="sd">        OUTPUT:</span>
+
+<span class="sd">        A point of the scheme.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">JacobianMorphism_divisor_class_field</span><span class="p">):</span>
+            <span class="k">match</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">():</span>
+                <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">kwds</span><span class="p">[</span><span class="s1">&#39;basis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;F(2,2)^2&#39;</span>
+                <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">kwds</span><span class="p">[</span><span class="s1">&#39;basis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;F(2,2)&#39;</span>
+                <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Point from divisor only available for level 2 and 4.&quot;</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">label</span> <span class="o">!=</span> <span class="s1">&#39;Fn&#39;</span><span class="p">:</span> <span class="c1">#Classical basis</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="n">AP</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">AP</span><span class="o">.</span><span class="n">to_algebraic</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
+
+
+    <span class="fm">__call__</span> <span class="o">=</span> <span class="n">point</span>
+
+<div class="viewcode-block" id="Variety_ThetaStructure.with_theta_basis">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.with_theta_basis">[docs]</a>
+    <span class="k">def</span> <span class="nf">with_theta_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the representation of the thetanullpoint in the given basis of the space of theta functions.</span>
+
+<span class="sd">        Possible values are:</span>
+
+<span class="sd">        - &#39;F(n)&#39;</span>
+<span class="sd">        - &#39;F(2,2)&#39;, for level 4</span>
+<span class="sd">        - &#39;F(2,2)^2&#39;, for level 2</span>
+<span class="sd">        - &#39;classical&#39;, corresponds to &#39;F(2,2)&#39; or &#39;F(2,2)^2&#39; depending on the level of self.</span>
+
+<span class="sd">        The method saves the already-computed values in the private variable _with_theta_basis.</span>
+
+<span class="sd">        It can also be used as the constructor for the thetanullpoint using other representations, see</span>
+<span class="sd">        :func:`~thetAV.constructor._with_theta_basis`</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: from thetAV import AbelianVariety, KummerVariety</span>
+<span class="sd">            sage: F.&lt;z2&gt; = GF(19^2)</span>
+<span class="sd">            sage: A = AbelianVariety(F, 4, 2, (5*z2 + 7 , 6*z2 + 8 , 6*z2 + 5 , 6*z2 + 8 , z2 + 13 , 4*z2 + 12 , 14*z2 + 11 , 11*z2 + 9 , 11*z2 + 6 , 6*z2 + 14 , 16*z2 + 5 , 6*z2 + 14 , z2 + 13 , 11*z2 + 9 , 14*z2 + 11 , 4*z2 + 12), check=True)</span>
+<span class="sd">            sage: A.with_theta_basis(&#39;classical&#39;)</span>
+<span class="sd">            (1 : 8*z2 + 15 : 15*z2 + 5 : z2 + 5 : 6*z2 + 11 : 0 : 16 : 0 : 17*z2 + 12 : 3*z2 + 1 : 0 : 0 : 17*z2 + 1 : 0 : 0 : 6*z2 + 11)</span>
+<span class="sd">            sage: K1 = KummerVariety(GF(331), 2, [328,213,75,1])</span>
+<span class="sd">            sage: K1.with_theta_basis(&#39;F(2,2)^2&#39;)</span>
+<span class="sd">            (173 : 327 : 8 : 163 : 49 : 0 : 305 : 0 : 325 : 112 : 0 : 0 : 42 : 0 : 0 : 286)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.constructor</span> <span class="kn">import</span> <span class="n">_with_theta_basis</span>
+            <span class="k">return</span> <span class="n">_with_theta_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;Fn&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;classical&#39;</span><span class="p">,</span> <span class="s1">&#39;F(2,2)&#39;</span><span class="p">,</span> <span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The basis </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> is either not implemented or unknown.&#39;</span><span class="p">)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">O</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">**</span> <span class="n">g</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;F(2,2)&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The basis </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> should be of level </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">idxa</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="p">(</span><span class="n">idxb</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">point</span><span class="p">[</span><span class="n">idxa</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span> <span class="o">*</span> <span class="n">idxb</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                    <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">ZZ</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">b</span> <span class="o">+</span> <span class="n">beta</span><span class="p">]</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">idxbeta</span><span class="p">]</span> <span class="k">for</span> <span class="n">idxbeta</span><span class="p">,</span> <span class="n">beta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">analytic_theta_point</span><span class="o">.</span><span class="n">AnalyticThetaNullPoint</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">th</span>
+            <span class="k">return</span> <span class="n">th</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The basis </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> should be of level </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="n">twotorsion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span>  <span class="c1"># Zmod(2)^g</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">idxa</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="p">(</span><span class="n">idxb</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">Db</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+                <span class="n">point</span><span class="p">[</span><span class="n">idxa</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span> <span class="o">*</span> <span class="n">idxb</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                    <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">ZZ</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">Db</span> <span class="o">+</span> <span class="n">beta</span><span class="p">]</span> <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span>
+            <span class="n">th</span> <span class="o">=</span> <span class="n">analytic_theta_point</span><span class="o">.</span><span class="n">AnalyticThetaNullPoint</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">th</span>
+            <span class="k">return</span> <span class="n">th</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.riemann_relation">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.riemann_relation">[docs]</a>
+    <span class="k">def</span> <span class="nf">riemann_relation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the indices appearing in the Riemann relation associated to a given triple chi, i, j.</span>
+<span class="sd">        If it has not been computed, it computes it and stores it in the private variable _riemann.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        Either 3 variables</span>
+
+<span class="sd">        -  ``chi`` -- a character, given by its dual element in Z(2) as a subset of Z(n).</span>
+
+<span class="sd">        -  ``i`` -- the index of a coordinate of P. For now we are assuming that they are an</span>
+<span class="sd">           element of Zmod(n)^g.</span>
+
+<span class="sd">        -  ``j`` -- the index of a coordinate of P. For now we are assuming that they are an</span>
+<span class="sd">           element of Zmod(n)^g.</span>
+
+<span class="sd">        Or a triple of 3 integers, the integer representation of ``chi``, ``i`` and ``j``.</span>
+
+<span class="sd">        EXAMPLES:</span>
+
+<span class="sd">            sage: #TODO examples</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">P0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">())</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="k">match</span> <span class="n">data</span><span class="p">:</span>
+            <span class="k">case</span> <span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)]</span> <span class="o">|</span> <span class="p">[[</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">]]:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">idxj</span><span class="p">]</span>
+                <span class="n">chi</span> <span class="o">=</span> <span class="n">twotorsion</span><span class="p">[</span><span class="n">idxchi</span><span class="p">]</span>
+            <span class="k">case</span> <span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">idxchi</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">idxi</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">idxj</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input should be a tuple of length 3 or 3 elements.&quot;</span><span class="p">)</span>
+        <span class="n">DD</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">tij</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="c1"># we try to find k and l to apply the addition formulas such that</span>
+        <span class="c1"># we can reuse the maximum the computations</span>
+        <span class="c1"># for a differential addition, i == j (generically) and we take k = l = 0</span>
+        <span class="c1"># for a normal addition we have j = 0, so we take k = i, l = j.</span>
+        <span class="n">k0</span><span class="p">,</span> <span class="n">l0</span> <span class="o">=</span> <span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">D</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span> <span class="k">else</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">uv</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">DD</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">uv</span><span class="o">-</span><span class="n">u</span>
+            <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">reduce_symtwotorsion_couple</span><span class="p">(</span><span class="n">k0</span> <span class="o">+</span> <span class="n">u</span><span class="p">,</span> <span class="n">l0</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">el</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">el</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">P0</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">P0</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">kk</span> <span class="o">=</span> <span class="n">k</span>
+                <span class="n">ll</span> <span class="o">=</span> <span class="n">l</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># If we leave the for loop without encountering a break</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_riemann</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">t</span><span class="p">))]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_dual_quadruplet</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">kk</span><span class="p">,</span> <span class="n">ll</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_riemann</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">t</span><span class="p">))]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">kk</span><span class="p">,</span> <span class="n">ll</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_riemann</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure._addition_formula">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure._addition_formula">[docs]</a>
+    <span class="k">def</span> <span class="nf">_addition_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given two points P and Q and a list L containing integer triplets [idxchi, idxi, idxj]</span>
+<span class="sd">        compute</span>
+<span class="sd">        `\\sum_{t \\in Z(2)} \\chi(t) (P+Q)_{i + t} (P-Q)_{j + t}`</span>
+<span class="sd">        for every given triplet.</span>
+
+<span class="sd">        TESTS::</span>
+
+<span class="sd">            sage: from thetAV import *</span>
+<span class="sd">            sage: F.&lt;z2&gt; = GF(19^2)</span>
+<span class="sd">            sage: A = AbelianVariety(F, 4, 2, (5*z2 + 7 , 6*z2 + 8 , 6*z2 + 5 , 6*z2 + 8 , z2 + 13 , 4*z2 + 12 , 14*z2 + 11 , 11*z2 + 9 , 11*z2 + 6 , 6*z2 + 14 , 16*z2 + 5 , 6*z2 + 14 , z2 + 13 , 11*z2 + 9 , 14*z2 + 11 , 4*z2 + 12), check=True)</span>
+<span class="sd">            sage: A._addition_formula(A(0), A(0), [(1,8,7)])</span>
+<span class="sd">            {(1, 0, 15): 11, (1, 2, 13): 8, (1, 8, 7): 11, (1, 10, 5): 8}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">())</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># Are we sure that this pair (i,j) is reduced as in riemann? Or it is not done like that? check.</span>
+            <span class="n">IJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">riemann_relation</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">IJ</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Can&#39;t compute the addition! Either we are in level 2 and computing a normal addition, or a differential addition with null even theta null points.&quot;</span><span class="p">)</span>
+            <span class="n">ci0</span><span class="p">,</span> <span class="n">cj0</span> <span class="o">=</span> <span class="n">IJ</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">k0</span><span class="p">,</span> <span class="n">l0</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">IJ</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">ci20</span><span class="p">,</span> <span class="n">cj20</span> <span class="o">=</span> <span class="n">IJ</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+            <span class="n">ck20</span><span class="p">,</span> <span class="n">cl20</span> <span class="o">=</span> <span class="n">IJ</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+            <span class="n">ck0</span><span class="p">,</span> <span class="n">cl0</span> <span class="o">=</span> <span class="n">IJ</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">cibis</span><span class="p">,</span> <span class="n">cjbis</span><span class="p">,</span> <span class="n">ckbis</span><span class="p">,</span> <span class="n">clbis</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_dual_quadruplet</span><span class="p">(</span><span class="n">ci0</span><span class="p">,</span> <span class="n">cj0</span><span class="p">,</span> <span class="n">ck0</span><span class="p">,</span> <span class="n">cl0</span><span class="p">)</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="n">IJ</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+            <span class="n">chi</span> <span class="o">=</span> <span class="n">twotorsion</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">s1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">ci20</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">cj20</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+            <span class="n">s2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">ck20</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">cl20</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span><span class="p">[(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">k0</span><span class="p">,</span> <span class="n">l0</span><span class="p">)]</span>
+            <span class="c1">#There is a problem with the characters here:</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">tt</span><span class="p">)</span> <span class="o">*</span> <span class="n">s2</span> <span class="o">*</span> <span class="n">s1</span> <span class="o">/</span> <span class="n">A</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">:</span>
+                <span class="n">r</span><span class="p">[(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">idx</span><span class="p">(</span><span class="n">ci0</span> <span class="o">+</span> <span class="n">t</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">cj0</span> <span class="o">+</span> <span class="n">t</span><span class="p">))]</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">S</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="Variety_ThetaStructure.isogeny">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.Variety_ThetaStructure.isogeny">[docs]</a>
+    <span class="k">def</span> <span class="nf">isogeny</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given the basis of an isotropic subgroup B of the l-torsion of A, compute</span>
+<span class="sd">        the thetanullpoints of the isogenous abelian variety A/B. Moreover, given a list of points R, it computes the</span>
+<span class="sd">        image of these points via the isogeny.</span>
+
+<span class="sd">        EXAMPLE::</span>
+
+<span class="sd">            sage: #TODO examples</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="k">if</span> <span class="n">R</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ng</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">deltas</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ei</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
+            <span class="n">Re</span> <span class="o">=</span> <span class="p">[(</span><span class="n">P</span> <span class="o">+</span> <span class="n">ei</span><span class="p">)</span> <span class="k">for</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">R</span><span class="p">]</span>
+            <span class="n">Be</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ei</span> <span class="o">+</span> <span class="n">ej</span><span class="p">)</span> <span class="k">for</span> <span class="n">ej</span> <span class="ow">in</span> <span class="n">basis</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]]</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ei</span><span class="p">]</span> <span class="o">+</span> <span class="n">Re</span> <span class="o">+</span> <span class="n">Be</span><span class="p">)</span>
+            <span class="n">deltas</span> <span class="o">+=</span> <span class="n">ei</span><span class="o">.</span><span class="n">compatible_lift</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Re</span><span class="p">)</span>
+            <span class="n">deltas</span> <span class="o">+=</span> <span class="p">[</span><span class="n">eij</span><span class="o">.</span><span class="n">compatible_lift</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">eij</span> <span class="ow">in</span> <span class="n">Be</span><span class="p">]</span>
+
+        <span class="n">S</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">deltas</span><span class="p">),</span> <span class="s1">&#39;mu&#39;</span><span class="p">)</span>
+        <span class="n">mus</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">gens</span><span class="p">()</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">quotient</span><span class="p">([</span><span class="n">mu</span> <span class="o">**</span> <span class="n">l</span> <span class="o">-</span> <span class="n">delta</span> <span class="k">for</span> <span class="n">mu</span><span class="p">,</span> <span class="n">delta</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mus</span><span class="p">,</span> <span class="n">deltas</span><span class="p">)])</span>
+        <span class="n">AT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">Zl</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">Zl</span><span class="o">.</span><span class="n">basis</span><span class="p">()</span>
+        <span class="n">Bidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">B</span><span class="p">]</span>
+        <span class="n">lg</span> <span class="o">=</span> <span class="n">l</span> <span class="o">**</span> <span class="n">g</span>
+
+        <span class="n">support</span> <span class="o">=</span> <span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span> <span class="o">*</span> <span class="n">g</span> <span class="o">+</span> <span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">accumulate</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">)))</span>
+
+        <span class="n">K</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">lg</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span>
+        <span class="c1"># The cantor_product iterator guarantees that when we reach a certain element</span>
+        <span class="c1"># all the sub-sums are already initialized</span>
+        <span class="k">for</span> <span class="o">*</span><span class="n">lst</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">cantor_product</span><span class="p">(</span><span class="o">*</span><span class="n">support</span><span class="p">):</span>
+            <span class="n">idxe</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">Zl</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+            <span class="n">ite</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">if</span> <span class="n">t</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">AT</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">AT</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="k">continue</span>
+            <span class="n">i0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ite</span><span class="p">)</span>  <span class="c1"># first non-zero element</span>
+            <span class="k">if</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">B</span><span class="p">:</span>  <span class="c1"># i0 will be the index of the element in the basis</span>
+                <span class="n">rowi0</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="n">i0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">i0</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+                <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span> <span class="o">=</span> <span class="n">AT</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i0</span><span class="p">][</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">mus</span><span class="p">[</span><span class="n">rowi0</span> <span class="o">+</span> <span class="n">j</span><span class="p">])</span>
+                <span class="k">continue</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># all elements are 0 or 1, and sum is at least 2</span>
+                <span class="n">i1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ite</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">next</span><span class="p">(</span><span class="n">ite</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># we only have two ones, so it&#39;s still given in the input</span>
+                    <span class="n">rowi0</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="n">i0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">i0</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>  <span class="c1"># i0 &lt; i1 by definition</span>
+                    <span class="n">ij</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">i1</span> <span class="o">-</span> <span class="n">i0</span> <span class="o">-</span> <span class="mi">1</span>
+                    <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span> <span class="o">=</span> <span class="n">AT</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i0</span><span class="p">][</span><span class="n">ij</span><span class="p">])</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">mus</span><span class="p">[</span><span class="n">rowi0</span> <span class="o">+</span> <span class="n">ij</span><span class="p">])</span>
+                    <span class="k">continue</span>
+                <span class="n">e0</span><span class="p">,</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="n">i0</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
+                <span class="n">idx0</span><span class="p">,</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">Bidx</span><span class="p">[</span><span class="n">i0</span><span class="p">],</span> <span class="n">Bidx</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
+                <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx0</span><span class="p">]</span><span class="o">.</span><span class="n">three_way_add</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx1</span><span class="p">],</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)],</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e0</span> <span class="o">+</span> <span class="n">e1</span><span class="p">)],</span>
+                                                      <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span><span class="p">)],</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)])</span>
+                <span class="k">if</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span><span class="o">!=</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx0</span><span class="p">]</span><span class="o">+</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx1</span><span class="p">]</span><span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)]:</span>
+                       <span class="nb">print</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx0</span><span class="p">]</span><span class="o">+</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx1</span><span class="p">]</span><span class="o">==</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e0</span> <span class="o">+</span> <span class="n">e1</span><span class="p">)],</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx0</span><span class="p">]</span><span class="o">+</span><span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)]</span> <span class="o">==</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)],</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx1</span><span class="p">]</span><span class="o">+</span><span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span> <span class="o">-</span> <span class="n">e1</span><span class="p">)]</span><span class="o">==</span>  <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e0</span><span class="p">)]</span> <span class="p">)</span>
+                       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;problem in threeway add&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">Zl</span><span class="p">[</span><span class="n">idxe</span><span class="p">],</span> <span class="n">Zl</span><span class="p">[</span><span class="n">idx0</span><span class="p">],</span> <span class="n">Zl</span><span class="p">[</span><span class="n">idx1</span><span class="p">],</span> <span class="n">e</span><span class="o">-</span><span class="n">e0</span><span class="o">-</span><span class="n">e1</span><span class="p">,</span> <span class="n">e0</span><span class="o">+</span><span class="n">e1</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="n">e0</span><span class="p">,</span> <span class="n">e</span><span class="o">-</span><span class="n">e1</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">ek</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">idxk</span> <span class="o">=</span> <span class="n">Bidx</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">ek</span><span class="p">)]</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idxk</span><span class="p">],</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ek</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idxe</span><span class="p">]</span> <span class="o">!=</span>  <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">idx</span><span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">ek</span><span class="p">)]</span><span class="o">+</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idxk</span><span class="p">]:</span>
+                       <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;problem in diff add&quot;</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">Zl</span><span class="p">[</span><span class="n">idxe</span><span class="p">],</span> <span class="n">e</span><span class="o">-</span><span class="n">ek</span><span class="p">,</span> <span class="n">Zl</span><span class="p">[</span><span class="n">idxk</span><span class="p">],</span> <span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">ek</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="n">imgr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">):</span>
+                <span class="n">imgr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="n">l</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">K</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">lift</span><span class="p">()</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">imgr</span><span class="p">)</span>
+
+        <span class="n">fA</span> <span class="o">=</span> <span class="n">constructor</span><span class="o">.</span><span class="n">AbelianVariety</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">(),</span> <span class="n">g</span><span class="p">,</span> <span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">fR</span> <span class="o">=</span> <span class="p">[</span><span class="n">fA</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="n">check</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">img</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+        <span class="k">return</span> <span class="n">fA</span><span class="p">,</span> <span class="n">fR</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AbelianVariety_ThetaStructure">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVariety_ThetaStructure">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">AbelianVariety_ThetaStructure</span><span class="p">(</span><span class="n">Variety_ThetaStructure</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for Abelian Varieties with theta structure. See also</span>
+<span class="sd">    :func:`~thetAV.constructor.AbelianVariety`.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``R`` -- a field of definition</span>
+<span class="sd">    - ``n`` -- an even integer &gt;= 4; the level of the theta structure.</span>
+<span class="sd">    - ``g`` -- an integer; the dimension of the abelian variety.</span>
+<span class="sd">    - ``T`` - a list of length n\ :sup:`g` elements of R - the theta</span>
+<span class="sd">      null point determining the abelian variety.</span>
+<span class="sd">    - ``check`` (default: *False*) -- A boolean; if *True*, checks that</span>
+<span class="sd">      the riemann relations are satisfied by the input.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV import AbelianVariety</span>
+<span class="sd">        sage: FF2 = GF(10753)</span>
+<span class="sd">        sage: A2 = AbelianVariety(FF2, 4, 1, [732,45,98,7]); A2</span>
+<span class="sd">        Abelian variety of dimension 1 with theta null point (732 : 45 : 98 : 7) defined over Finite Field of size 10753</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_point</span> <span class="o">=</span> <span class="n">AbelianVarietyPoint</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> has to be an even number &gt;= 4.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_Vector</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">SchemeMorphism_point</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">) must be a list, a tuple, a vector or a point.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">integer_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">Integer</span><span class="p">,)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">) must be an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">integer_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">Integer</span><span class="p">,)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (g=</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">) must be an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2"> must have length n^g=</span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">g</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">R</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">T</span><span class="p">)</span>
+
+        <span class="n">D</span><span class="p">,</span> <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">create_indexing</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">idx</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+            <span class="n">dual</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">DD</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)]</span> <span class="o">!=</span> <span class="n">val</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">T</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The given list does not define a valid thetanullpoint&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                    <span class="n">el</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">jj</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">el</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dual</span><span class="p">:</span>
+                        <span class="n">dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="n">t</span><span class="p">)]</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">jj</span> <span class="o">+</span> <span class="n">t</span><span class="p">)]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">dual</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)]</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">tt</span><span class="p">)</span> <span class="o">*</span> <span class="n">dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">combinations_with_replacement</span><span class="p">(</span><span class="n">combinations_with_replacement</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="p">((</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">)),</span> <span class="p">((</span><span class="n">idxk</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="p">(</span><span class="n">idxl</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span> <span class="o">=</span> <span class="n">elem</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">DD</span><span class="p">:</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">D</span><span class="p">([</span><span class="n">ZZ</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">idxchi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)):</span>
+                        <span class="n">el1</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)</span>
+                        <span class="n">el2</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxk</span><span class="p">,</span> <span class="n">idxl</span><span class="p">)</span>
+                        <span class="n">el3</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">j</span><span class="p">))</span>
+                        <span class="n">el4</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">k</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
+                        <span class="k">if</span> <span class="n">dual</span><span class="p">[</span><span class="n">el1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dual</span><span class="p">[</span><span class="n">el2</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dual</span><span class="p">[</span><span class="n">el3</span><span class="p">]</span> <span class="o">*</span> <span class="n">dual</span><span class="p">[</span><span class="n">el4</span><span class="p">]:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The given list does not define a valid thetanullpoint&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span> <span class="o">=</span> <span class="n">dual</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dual</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span> <span class="o">=</span> <span class="n">twotorsion</span>
+        <span class="n">Variety_ThetaStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="AbelianVariety_ThetaStructure._repr_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVariety_ThetaStructure._repr_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_repr_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of this abelian variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Abelian variety of dimension </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span><span class="si">}</span><span class="s2"> with theta null point </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span><span class="si">}</span><span class="s2"> defined over </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="AbelianVariety_ThetaStructure.change_ring">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVariety_ThetaStructure.change_ring">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_ring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the abelian variety with field of definition R.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AbelianVariety_ThetaStructure</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="AbelianVariety_ThetaStructure.equations">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVariety_ThetaStructure.equations">[docs]</a>
+    <span class="k">def</span> <span class="nf">equations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of defining equations for the abelian variety.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: #TODO examples</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ng</span><span class="p">)</span>
+        <span class="n">FF</span> <span class="o">=</span> <span class="n">FractionField</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">gens</span><span class="p">()</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">FF</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">change_ring</span><span class="p">(</span><span class="n">FF</span><span class="p">)</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">DD</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="n">O</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+
+        <span class="n">eqns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="p">(</span><span class="n">idxk</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="p">(</span><span class="n">idxl</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="o">=</span> <span class="n">elem</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">DD</span><span class="p">:</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">D</span><span class="p">([</span><span class="n">ZZ</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                    <span class="n">Pel1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">Pel4</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">Oel2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">Oel3</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">j</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">eq</span> <span class="o">=</span> <span class="n">Pel1</span> <span class="o">*</span> <span class="n">Oel2</span> <span class="o">-</span> <span class="n">Oel3</span> <span class="o">*</span> <span class="n">Pel4</span>
+                    <span class="k">if</span> <span class="n">eq</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">eq</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">eqns</span><span class="p">:</span>
+                        <span class="n">eqns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eq</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eqns</span><span class="p">)</span> <span class="o">==</span> <span class="n">stop</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="n">eqns</span>
+        <span class="k">if</span> <span class="n">eqns</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">eqns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="o">=</span> <span class="n">eqns</span>
+        <span class="k">return</span> <span class="n">eqns</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="KummerVariety">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVariety">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">KummerVariety</span><span class="p">(</span><span class="n">Variety_ThetaStructure</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for Kummer Varieties with theta structure.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``R`` -- a field of definition</span>
+<span class="sd">    - ``n`` -- an integer; the level of the theta structure.</span>
+<span class="sd">    - ``g`` -- an integer; the dimension of the kummer variety.</span>
+<span class="sd">    - ``T`` - a list of length n\ :sup:`g` elements of R - the theta</span>
+<span class="sd">      null point determining the kummer variety.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV import KummerVariety</span>
+<span class="sd">        sage: FF1 = GF(331)</span>
+<span class="sd">        sage: K1 = KummerVariety(FF1, 2, [328,213,75,1]); K1</span>
+<span class="sd">        Kummer variety of dimension 2 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_point</span> <span class="o">=</span> <span class="n">KummerVarietyPoint</span>
+    <span class="n">_level</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="n">is_Vector</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">SchemeMorphism_point</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">) must be a list, a tuple, a vector or a point.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">integer_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">Integer</span><span class="p">,)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">) must be an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">integer_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">Integer</span><span class="p">,)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Argument (g=</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">) must be an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;T=</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2"> must have length 2^g=</span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">g</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">R</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">T</span><span class="p">)</span>
+
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">create_indexing</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">Variety_ThetaStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_D</span> <span class="o">=</span> <span class="n">twotorsion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_twotorsion</span> <span class="o">=</span> <span class="n">twotorsion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="KummerVariety._repr_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVariety._repr_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_repr_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of this abelian variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Kummer variety of dimension </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span><span class="si">}</span><span class="s2"> with theta null point </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span><span class="si">}</span><span class="s2"> defined over </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="KummerVariety.change_ring">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVariety.change_ring">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_ring</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the kummer variety with field of definition R.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">KummerVariety</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="KummerVariety.equations">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVariety.equations">[docs]</a>
+    <span class="k">def</span> <span class="nf">equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of defining equations for the abelian variety.</span>
+
+<span class="sd">        If the theta null point has dimension 2 and level 2, these are</span>
+<span class="sd">        the equations as given by Gaudry in [Gaud]_. In that case, it assumes that the</span>
+<span class="sd">        genericity conditions are satisfied (see [Gaud]_ for details).</span>
+
+<span class="sd">        Otherwise, these are computed using the Riemann relations.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: #TODO examples</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dimension</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="n">O</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])]</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">A2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">c2</span> <span class="o">+</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">B2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">-</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">C2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">c2</span> <span class="o">-</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">D2</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">+</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">abcd</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">a2</span><span class="o">*</span><span class="n">b2</span><span class="o">*</span><span class="n">c2</span><span class="o">*</span><span class="n">d2</span><span class="p">)</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="n">abcd</span> <span class="o">*</span> <span class="n">A2</span> <span class="o">*</span> <span class="n">B2</span> <span class="o">*</span> <span class="n">C2</span> <span class="o">*</span> <span class="n">D2</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">d2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">c2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">*</span> <span class="n">d2</span><span class="p">))</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">d2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">d2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">c2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">d2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">c2</span> <span class="o">-</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="p">(</span><span class="n">a2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">d2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
+
+        <span class="n">FF</span> <span class="o">=</span> <span class="n">abcd</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">gens</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">x</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="n">F</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">G</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">H</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eqns</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Anna Somoza
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=360bc84d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

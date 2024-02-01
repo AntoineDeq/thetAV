@@ -1,0 +1,1481 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>thetAV.theta_point - thetAV 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://doc.sagemath.org/html/en/reference/_static/custom-furo.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #0f0fff;
+  --color-brand-content: #0f0fff;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../source/index.html"><div class="brand">thetAV 0.1.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../source/index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo.svg" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">thetAV 0.1.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/install.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/doc/index.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/Fn.html">The <span class="math notranslate nohighlight">\(F_n\)</span> representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/classical.html">The classical representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/morphisms.html">Other functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/tools.html">Auxiliary tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/tutorials/example.html">A tutorial on how to use thetAV in SageMath</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/math/introduction.html">Mathematical background</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Mathematical background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/arithmetic.html">Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/references.html">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/todo.html">Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/develop.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for thetAV.theta_point</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module defines the base class of Theta points as elements of</span>
+<span class="sd">:class:`~thetAV.abelian_variety.AbelianVariety_ThetaStructure`.</span>
+
+<span class="sd">AUTHORS:</span>
+
+<span class="sd">- Anna Somoza (2020-22): initial implementation</span>
+<span class="sd">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># ****************************************************************************</span>
+<span class="c1">#       Copyright (C) 2022 Anna Somoza &lt;anna.somoza.henares@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  Distributed under the terms of the GNU General Public License (GPL)</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 3 of</span>
+<span class="c1">#  the License, or (at your option) any later version.</span>
+<span class="c1">#                  https://www.gnu.org/licenses/</span>
+<span class="c1"># ****************************************************************************</span>
+
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span><span class="p">,</span> <span class="n">combinations_with_replacement</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">sage.matrix.all</span> <span class="kn">import</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">sage.misc.all</span> <span class="kn">import</span> <span class="n">ConstantFunction</span>
+<span class="kn">from</span> <span class="nn">sage.modules.free_module_element</span> <span class="kn">import</span> <span class="n">vector</span><span class="p">,</span> <span class="n">FreeModuleElement</span>
+<span class="kn">from</span> <span class="nn">sage.rings.all</span> <span class="kn">import</span> <span class="n">PolynomialRing</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">ZZ</span>
+<span class="kn">from</span> <span class="nn">sage.schemes.generic.morphism</span> <span class="kn">import</span> <span class="n">SchemeMorphism_point</span>
+<span class="kn">from</span> <span class="nn">sage.structure.all</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">sage.structure.element</span> <span class="kn">import</span> <span class="n">AdditiveGroupElement</span>
+<span class="kn">from</span> <span class="nn">sage.structure.richcmp</span> <span class="kn">import</span> <span class="n">richcmp_method</span><span class="p">,</span> <span class="n">richcmp</span><span class="p">,</span> <span class="n">op_EQ</span><span class="p">,</span> <span class="n">op_NE</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>
+
+<span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Integer</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">VarietyThetaStructurePoint</span><span class="p">(</span><span class="n">SchemeMorphism_point</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructor for a point on a variety with theta structure.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``X`` -- a variety with theta structure</span>
+<span class="sd">    - ``v`` -- data determining a point (another point or a tuple of coordinates)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._acted_upon_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._acted_upon_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_acted_upon_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">on_left</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mult</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point_homset</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">point_homset</span><span class="p">()</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">point_homset</span><span class="o">.</span><span class="n">value_ring</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ig</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">_itemgetter</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">general_point</span><span class="p">()</span>
+                <span class="n">ig</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">_itemgetter</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">ig</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">v</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;v (=</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">) must have length n^g (=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The given list does not define a valid thetapoint because all entries are zero&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">ConstantFunction</span><span class="p">(</span><span class="n">point_homset</span><span class="o">.</span><span class="n">domain</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_codomain</span> <span class="o">=</span> <span class="n">point_homset</span><span class="o">.</span><span class="n">codomain</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span> <span class="o">=</span> <span class="n">ConstantFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_codomain</span><span class="p">)</span>
+        <span class="n">AdditiveGroupElement</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_homset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_R</span> <span class="o">=</span> <span class="n">R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._repr_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._repr_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_repr_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representation of this point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span><span class="p">()</span><span class="o">.</span><span class="n">ambient_space</span><span class="p">()</span><span class="o">.</span><span class="n">_repr_generic_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._latex_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._latex_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_latex_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a LaTeX representation of this point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span><span class="p">()</span><span class="o">.</span><span class="n">ambient_space</span><span class="p">()</span><span class="o">.</span><span class="n">_latex_generic_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the n-th coordinate of this point.</span>
+
+<span class="sd">        TEST::</span>
+
+<span class="sd">            sage: #TODO tests</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">[</span><span class="n">ZZ</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">FreeModuleElement</span><span class="p">):</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="o">.</span><span class="n">order</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">[</span><span class="n">ZZ</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">list</span><span class="p">(),</span> <span class="n">level</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the coordinates of this point as a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__tuple__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the coordinates of this point as a tuple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.scheme">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.scheme">[docs]</a>
+    <span class="k">def</span> <span class="nf">scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the scheme of this point, i.e., the abelian variety it is on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.is_equal">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.is_equal">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check whether two points are equal or not.</span>
+<span class="sd">        If proj = true we compare them as projective points,</span>
+<span class="sd">        and if factor = True, return as a second argument</span>
+<span class="sd">        the rapport Q/P.</span>
+
+<span class="sd">        INPUT:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``Q`` - a point.</span>
+<span class="sd">    </span>
+<span class="sd">        - ``proj`` - a boolean (default: `True`). Weather the comparison</span>
+<span class="sd">          is done as projective points.</span>
+<span class="sd">    </span>
+<span class="sd">        - ``factor`` - a boolean (default: `False`). If True, as a second</span>
+<span class="sd">          argument is returned, the rapport right/self.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1]) #A 1889-torsion point</span>
+<span class="sd">            sage: 1889*P</span>
+<span class="sd">            (12 : 141 : 31 : 327)</span>
+<span class="sd">            sage: A(0).is_equal(1889*P)</span>
+<span class="sd">            True</span>
+
+<span class="sd">        If the points are equal as projective points but not as affine points,</span>
+<span class="sd">        one can obtain the factor::</span>
+
+<span class="sd">            sage: (1889*P).is_equal(A(0), proj=False)</span>
+<span class="sd">            False</span>
+<span class="sd">            sage: _, k = A(0).is_equal(1889*P, factor=True); k</span>
+<span class="sd">            327</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">!=</span> <span class="n">Q</span><span class="o">.</span><span class="n">scheme</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">proj</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">richcmp</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">Q</span><span class="p">),</span> <span class="n">op_EQ</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">factor</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">q</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="n">s</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">c</span> <span class="o">=</span> <span class="n">q</span> <span class="o">/</span> <span class="n">s</span>
+                    <span class="k">elif</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">q</span> <span class="o">/</span> <span class="n">s</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__richcmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Comparison function for points to allow sorting and equality</span>
+<span class="sd">        testing (as projective points).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">VarietyThetaStructurePoint</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span><span class="p">()(</span><span class="n">right</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">codomain</span><span class="p">()</span> <span class="o">!=</span> <span class="n">right</span><span class="o">.</span><span class="n">codomain</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">op</span> <span class="o">==</span> <span class="n">op_NE</span>
+
+        <span class="k">if</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">[</span><span class="n">op_EQ</span><span class="p">,</span> <span class="n">op_NE</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="n">op_EQ</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">richcmp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coords</span><span class="p">,</span> <span class="n">right</span><span class="o">.</span><span class="n">_coords</span><span class="p">,</span> <span class="n">op</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return ``True`` if this is not the zero point on the abelian variety.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1]) #A 1889-torsion point</span>
+<span class="sd">            sage: (1889*P).is_zero()</span>
+<span class="sd">            True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._get_nonzero_coord">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._get_nonzero_coord">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_nonzero_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">i</span> <span class="k">if</span> <span class="n">idx</span> <span class="k">else</span> <span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">())</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;All entries are zero.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.diff_add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.diff_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not implemented for a general point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._diff_add_PQfactor">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._diff_add_PQfactor">[docs]</a>
+    <span class="k">def</span> <span class="nf">_diff_add_PQfactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a representative of (P+Q), computes the raport with respect to</span>
+<span class="sd">        the representative obtained as P.diff_add(Q, PmQ).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="k">for</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+            <span class="n">lambda2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lambda2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">elt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="p">[</span><span class="n">elt</span><span class="p">])</span>
+            <span class="n">lambda1</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="n">elt</span><span class="p">]</span>  <span class="c1"># lambda1 = \sum PQ[i+t]PmQ[i+t]/2^g</span>
+            <span class="k">return</span> <span class="n">lambda1</span> <span class="o">/</span> <span class="n">lambda2</span>
+        <span class="n">PQ2</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">)</span>
+        <span class="n">i0</span> <span class="o">=</span> <span class="n">PQ2</span><span class="o">.</span><span class="n">_get_nonzero_coord</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">PQ2</span><span class="p">[</span><span class="n">i0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="p">[</span><span class="n">i0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._diff_add_PQ">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._diff_add_PQ">[docs]</a>
+    <span class="k">def</span> <span class="nf">_diff_add_PQ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a representative of (P+Q), computes the affine representative</span>
+<span class="sd">        obtained with P.diff_add(Q, PmQ).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="n">PQn</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">point0</span><span class="p">)</span>
+        <span class="n">lambda1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diff_add_PQfactor</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">PQn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda1</span> <span class="o">*</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQn</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._add_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._add_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_add_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add self to other.</span>
+
+<span class="sd">        If we are in level two, this returns P+Q and P-Q.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: P.schematic_add(Q)</span>
+<span class="sd">            ((221*t^3 + 178*t^2 + 126*t + 27 : 32*t^3 + 17*t^2 + 175*t + 171 : 180*t^3 + 188*t^2 + 161*t + 119 : 261*t^3 + 107*t^2 + 37*t + 135),</span>
+<span class="sd">            (1 : 56*t^3 + 312*t^2 + 147*t + 287 : 277*t^3 + 295*t^2 + 7*t + 287 : 290*t^3 + 203*t^2 + 274*t + 10))</span>
+
+
+<span class="sd">        TESTS ::</span>
+
+<span class="sd">            sage: #TODO level 4 tests</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._add">[docs]</a>
+    <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">i0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not implemented for a general point.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._neg_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._neg_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_neg_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the addition opposite of self.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1]); - P</span>
+<span class="sd">            (255 : 89 : 30 : 1)</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">mPcoord</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">point0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+            <span class="n">mPcoord</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">mPcoord</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._rmul_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._rmul_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_rmul_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute scalar multiplication by `k` with a Montgomery ladder type algorithm.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: 42*P</span>
+<span class="sd">            (311 : 326 : 136 : 305)</span>
+
+<span class="sd">        TESTS ::</span>
+
+<span class="sd">            sage: #TODO level 4 tests</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mult</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint._mult">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint._mult">[docs]</a>
+    <span class="k">def</span> <span class="nf">_mult</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;Montgomery&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute scalar multiplication by `k` with a Montgomery ladder type algorithm.</span>
+<span class="sd">        </span>
+<span class="sd">        INPUT:</span>
+<span class="sd">        </span>
+<span class="sd">        - ``algorithm`` (default: &#39;Montgomery&#39;): The chosen algorithm for the computation.</span>
+<span class="sd">          It can either be &#39;Montgomery&#39; for a Montgomery ladder type algorithm, or </span>
+<span class="sd">          &#39;SquareAndMultiply&#39; for the usual square and multiply algorithm (only for level &gt; 2).</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: P._mult(42)</span>
+<span class="sd">            (311 : 326 : 136 : 305)</span>
+<span class="sd">            </span>
+<span class="sd">        .. SEEALSO::</span>
+<span class="sd">        </span>
+<span class="sd">            :meth:`~._rmul_`</span>
+<span class="sd">            </span>
+<span class="sd">        TESTS ::</span>
+
+<span class="sd">            sage: #TODO level 4 tests</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">integer_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">Integer</span><span class="p">,)):</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">point0</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">nP</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">algorithm</span> <span class="o">==</span> <span class="s1">&#39;Montgomery&#39;</span><span class="p">:</span>
+            <span class="n">mP</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span>
+            <span class="n">n1P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">binary</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">nn11P</span> <span class="o">=</span> <span class="n">n1P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">n1P</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+                    <span class="n">nP</span> <span class="o">=</span> <span class="n">nP</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">n1P</span><span class="p">,</span> <span class="n">mP</span><span class="p">)</span>
+                    <span class="n">n1P</span> <span class="o">=</span> <span class="n">nn11P</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">nn1P</span> <span class="o">=</span> <span class="n">n1P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                    <span class="n">nP</span> <span class="o">=</span> <span class="n">nP</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+                    <span class="n">n1P</span> <span class="o">=</span> <span class="n">nn1P</span>
+            <span class="k">return</span> <span class="n">n1P</span>
+        <span class="k">if</span> <span class="n">algorithm</span> <span class="o">==</span> <span class="s1">&#39;SquareAndMultiply&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Square and Multiply algorithm is only for level &gt; 2.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">binary</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">nP</span> <span class="o">=</span> <span class="n">nP</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">nP</span> <span class="o">=</span> <span class="n">nP</span> <span class="o">+</span> <span class="bp">self</span>
+            <span class="k">return</span> <span class="n">nP</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Unknown algorithm </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">algorithm</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.diff_multadd">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.diff_multadd">[docs]</a>
+    <span class="k">def</span> <span class="nf">diff_multadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes k*self + Q, k*self.</span>
+<span class="sd">        </span>
+<span class="sd">        EXAMPLES::</span>
+<span class="sd">        </span>
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129 , 172*t^3 + 157*t^2 + 43*t + 222 ,</span>
+<span class="sd">            ....: 258*t^3 + 39*t^2 + 313*t + 150 , 1])</span>
+<span class="sd">            sage: PQ = P.diff_add(Q, PmQ)</span>
+<span class="sd">            sage: P.diff_multadd(42, PQ, Q)</span>
+<span class="sd">            ((41*t^3 + 291*t^2 + 122*t + 305 : 119*t^3 + 95*t^2 + 120*t + 68 : 81*t^3 + 168*t^2 + 326*t + 24 : 202*t^3 + 251*t^2 + 246*t + 169),</span>
+<span class="sd">            (311 : 326 : 136 : 305))</span>
+<span class="sd">        </span>
+<span class="sd">        .. todo::</span>
+
+<span class="sd">            If we don&#39;t need kP, then we don&#39;t need to compute kP, only (k/2)P, so</span>
+<span class="sd">            we lose 2 differential additions. Could be optimized here.</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">point0</span>  <span class="c1"># In Magma implementation it only returns Q, but I think it should be Q, P0</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">mP</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span>
+            <span class="k">return</span> <span class="n">mP</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="n">Q</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">mP</span><span class="p">,</span> <span class="n">PQ</span><span class="p">),</span> <span class="n">Q</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">PQ</span><span class="p">,</span> <span class="bp">self</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">nPQ</span> <span class="o">=</span> <span class="n">PQ</span>
+        <span class="n">n1PQ</span> <span class="o">=</span> <span class="n">PQ</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+        <span class="n">nP</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">n1P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+        <span class="n">kb</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">digits</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kb</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">kb</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">nn11PQ</span> <span class="o">=</span> <span class="n">n1PQ</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">n1P</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+                <span class="n">nPQ</span> <span class="o">=</span> <span class="n">n1PQ</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">PQ</span><span class="p">)</span>
+                <span class="n">n1PQ</span> <span class="o">=</span> <span class="n">nn11PQ</span>
+
+                <span class="n">nn11P</span> <span class="o">=</span> <span class="n">n1P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">n1P</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+                <span class="n">nP</span> <span class="o">=</span> <span class="n">n1P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="n">n1P</span> <span class="o">=</span> <span class="n">nn11P</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">nn1PQ</span> <span class="o">=</span> <span class="n">n1PQ</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">PQ</span><span class="p">)</span>
+                <span class="n">nPQ</span> <span class="o">=</span> <span class="n">nPQ</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+                <span class="n">n1PQ</span> <span class="o">=</span> <span class="n">nn1PQ</span>
+
+                <span class="n">nn1P</span> <span class="o">=</span> <span class="n">n1P</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+                <span class="n">nP</span> <span class="o">=</span> <span class="n">nP</span><span class="o">.</span><span class="n">diff_add</span><span class="p">(</span><span class="n">nP</span><span class="p">,</span> <span class="n">point0</span><span class="p">)</span>
+                <span class="n">n1P</span> <span class="o">=</span> <span class="n">nn1P</span>
+        <span class="k">return</span> <span class="n">n1PQ</span><span class="p">,</span> <span class="n">n1P</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.weil_pairing">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.weil_pairing">[docs]</a>
+    <span class="k">def</span> <span class="nf">weil_pairing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PQ</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the Weil pairing of P=self and Q.  See also</span>
+<span class="sd">        :meth:`~._weil_pairing_from_points` to use precomputed points.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        - ``l`` -- An integer</span>
+<span class="sd">        - ``P=self`` -- An point of torsion `level`</span>
+<span class="sd">        - ``Q`` -- Another point of torsion `level`</span>
+<span class="sd">        - ``PQ`` (default: None) -- The addition of ``P`` and ``Q``.</span>
+
+<span class="sd">        OUTPUT:</span>
+
+<span class="sd">        The nth power of the weil pairing of P and Q, where n is the level</span>
+<span class="sd">        of the theta structure.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: #TODO examples</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">!=</span> <span class="n">Q</span><span class="o">.</span><span class="n">scheme</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The points must belong to the same Abelian Variety.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">PQ</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="n">PQ</span> <span class="o">=</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">Q</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">!=</span> <span class="n">PQ</span><span class="o">.</span><span class="n">scheme</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The points must belong to the same Abelian Variety.&#39;</span><span class="p">)</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">lPQ</span><span class="p">,</span> <span class="n">lP</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>  <span class="c1"># lP + Q, lP</span>
+        <span class="n">PlQ</span><span class="p">,</span> <span class="n">lQ</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>  <span class="c1"># P + lQ, lQ</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k0P</span> <span class="o">=</span> <span class="n">lP</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">point0</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># P is l-torsion, k0P is the factor</span>
+        <span class="k">assert</span> <span class="n">r</span><span class="p">,</span> <span class="s2">&quot;Bad pairing!&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k0Q</span> <span class="o">=</span> <span class="n">lQ</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">point0</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Q is l-torsion, k0Q is the factor</span>
+        <span class="k">assert</span> <span class="n">r</span><span class="p">,</span> <span class="s2">&quot;Bad pairing!&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k1P</span> <span class="o">=</span> <span class="n">PlQ</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># P + lQ == P, k1P is the factor</span>
+        <span class="k">assert</span> <span class="n">r</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k1Q</span> <span class="o">=</span> <span class="n">lPQ</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># lP+ Q == Q, k1Q is the factor</span>
+        <span class="k">assert</span> <span class="n">r</span>
+        <span class="k">return</span> <span class="n">k1P</span> <span class="o">*</span> <span class="n">k0P</span> <span class="o">/</span> <span class="p">(</span><span class="n">k1Q</span> <span class="o">*</span> <span class="n">k0Q</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.tate_pairing">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.tate_pairing">[docs]</a>
+    <span class="k">def</span> <span class="nf">tate_pairing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PQ</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the Weil pairing of P=self and Q.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        - ``P=self`` -- A point</span>
+<span class="sd">        - ``l`` -- An integer</span>
+<span class="sd">        - ``Q`` -- A point of torsion `l` in the same Abelian Variety as `P`.</span>
+<span class="sd">        - ``PQ`` (default: None) -- The addition of P and Q.</span>
+
+<span class="sd">        OUTPUT:</span>
+
+<span class="sd">        The r-th power of the tate pairing of P and Q, where `r = (p^k - 1)/l`.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129 , 172*t^3 + 157*t^2 + 43*t + 222 ,</span>
+<span class="sd">            ....: 258*t^3 + 39*t^2 + 313*t + 150 , 1])</span>
+<span class="sd">            sage: PQ = P.diff_add(Q, PmQ)</span>
+<span class="sd">            sage: P.tate_pairing(1889, Q, PQ)</span>
+<span class="sd">            313*t^3 + 144*t^2 + 38*t + 71</span>
+<span class="sd">            sage: Q.tate_pairing(1889, P, PQ)</span>
+<span class="sd">            130*t^3 + 124*t^2 + 49*t + 153</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">!=</span> <span class="n">Q</span><span class="o">.</span><span class="n">scheme</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The points must belong to the same Abelian Variety.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">PQ</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="n">PQ</span> <span class="o">=</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">Q</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span> <span class="o">!=</span> <span class="n">PQ</span><span class="o">.</span><span class="n">scheme</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The points must belong to the same Abelian Variety.&#39;</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">PlQ</span><span class="p">,</span> <span class="n">lQ</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>  <span class="c1"># P + lQ, lQ</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k0Q</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">lQ</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Q is l-torsion, k0Q is the factor lQ/point0</span>
+        <span class="k">assert</span> <span class="n">r</span><span class="p">,</span> <span class="s2">&quot;Bad pairing!&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k1P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">PlQ</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># P + lQ == P, k1P is the factor PlQ/P</span>
+        <span class="k">assert</span> <span class="n">r</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span><span class="o">.</span><span class="n">cardinality</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">l</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">k1P</span> <span class="o">/</span> <span class="n">k0Q</span><span class="p">)</span> <span class="o">**</span> <span class="n">r</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.three_way_add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.three_way_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">three_way_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">QR</span><span class="p">,</span> <span class="n">PR</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        EXAMPLES::</span>
+<span class="sd">        </span>
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129 , 172*t^3 + 157*t^2 + 43*t + 222 ,</span>
+<span class="sd">            ....: 258*t^3 + 39*t^2 + 313*t + 150 , 1])</span>
+<span class="sd">            sage: PQ = P.diff_add(Q, PmQ)</span>
+<span class="sd">            sage: P.diff_multadd(2, PQ, Q)[0] == P.three_way_add(P,Q,2*P, PQ, PQ)</span>
+<span class="sd">            True</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">            - Document</span>
+<span class="sd">            - Add hidden tests using hyperelliptic curve.</span>
+<span class="sd">            - Maybe change example to be level 4 so that we can just compare it with 2*P + Q.</span>
+<span class="sd">            - Maybe add time comparison with diff_add</span>
+<span class="sd">            - This function could be optimized, following the notes in [REF MISSING, page]_.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">eval_car</span><span class="p">,</span> <span class="n">reduce_twotorsion_couple</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="n">O</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">PQR</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+        <span class="n">idxi0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nonzero_coord</span><span class="p">()</span>
+        <span class="n">i0</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="n">idxi0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idxI</span><span class="p">,</span> <span class="n">I</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">idxI</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">idxJ</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="n">idxi0</span><span class="p">,</span> <span class="n">i0</span>
+                <span class="n">i1</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">J</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">:</span>
+                    <span class="n">l2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">i1</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="n">j1</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">l3</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">i2</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">QR</span><span class="p">[</span><span class="n">j2</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">l4</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">PR</span><span class="p">[</span><span class="n">i1</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">PQ</span><span class="p">[</span><span class="n">j1</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">val</span> <span class="o">+=</span> <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">*</span> <span class="n">l3</span> <span class="o">*</span> <span class="n">l4</span> <span class="o">/</span> <span class="n">l2</span>
+                <span class="n">PQR</span><span class="p">[</span><span class="n">idxI</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">g</span> <span class="o">*</span> <span class="bp">self</span><span class="p">[</span><span class="n">idxJ</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">idxJ</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="n">idxI</span><span class="p">,</span> <span class="n">I</span>
+                <span class="n">i2</span><span class="p">,</span> <span class="n">j2</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">:</span>
+                    <span class="n">l2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">idxt</span><span class="p">]</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="n">idxt</span><span class="p">]</span> <span class="k">for</span> <span class="n">idxt</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">))</span>
+                    <span class="n">l3</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">i2</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">QR</span><span class="p">[</span><span class="n">j2</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">l4</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">PR</span><span class="p">[</span><span class="n">idxt</span><span class="p">]</span> <span class="o">*</span> <span class="n">PQ</span><span class="p">[</span><span class="n">idxt</span><span class="p">]</span> <span class="k">for</span> <span class="n">idxt</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">))</span>
+                    <span class="n">val</span> <span class="o">+=</span> <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span> <span class="o">*</span> <span class="n">l3</span> <span class="o">*</span> <span class="n">l4</span> <span class="o">/</span> <span class="n">l2</span>
+                <span class="n">PQR</span><span class="p">[</span><span class="n">idxI</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">g</span> <span class="o">*</span> <span class="bp">self</span><span class="p">[</span><span class="n">idxJ</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQR</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.scale">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.scale">[docs]</a>
+    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given an affine lift point &#39;P&#39; and a factor &#39;k&#39; in the field of definition, returns the</span>
+<span class="sd">        affine lift given by kx.</span>
+<span class="sd">        </span>
+<span class="sd">        EXAMPLE ::</span>
+<span class="sd">        </span>
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: F = GF(331)</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: P.scale(5)</span>
+<span class="sd">            (282 : 114 : 150 : 5)</span>
+
+<span class="sd">        TEST :</span>
+<span class="sd">            </span>
+<span class="sd">        If the factor to scale by is not in the field of definition, it should raise an error ::</span>
+<span class="sd">            </span>
+<span class="sd">            sage: FF.&lt;z&gt; = GF(331^2)</span>
+<span class="sd">            sage: P.scale(z)</span>
+<span class="sd">            Traceback (most recent call last):</span>
+<span class="sd">            ...</span>
+<span class="sd">            ValueError: The scalar factor k=z should be in the base ring R=Finite Field of size 331</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_R</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The scalar factor k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> should be in the base ring R=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_R</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coords</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">point</span><span class="p">((</span><span class="n">k</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.compatible_lift">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.compatible_lift">[docs]</a>
+    <span class="k">def</span> <span class="nf">compatible_lift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">other</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute a lift of an l-torsion point that is compatible with the chosen affine lift of the</span>
+<span class="sd">        theta null point.</span>
+
+<span class="sd">        INPUT :</span>
+<span class="sd">        </span>
+<span class="sd">        - ``self`` -- an l-torsion point of the abelian variety</span>
+<span class="sd">        </span>
+<span class="sd">        - ``other`` -- a list of points of the abelian variety, or None if only the lift of an l-torsion</span>
+<span class="sd">          point is needed.</span>
+<span class="sd">        </span>
+<span class="sd">        - ``add`` -- the list of sums self + P for all the points in P, or None if only the lift of an l-torsion</span>
+<span class="sd">          point is needed.</span>
+<span class="sd">        </span>
+<span class="sd">        - ``l`` -- the torsion</span>
+
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: #TODO examples</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">add</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">other</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;For the lift of a pair of points, you need to indicate the value of their sum too.&#39;</span><span class="p">)</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">ZZ</span><span class="p">((</span><span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">Qm</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="bp">self</span>
+            <span class="n">Qm1</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span>
+
+            <span class="c1"># the lift</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">el</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">_D</span><span class="p">):</span>
+                <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Qm</span><span class="p">[</span><span class="o">-</span><span class="n">el</span><span class="p">]</span> <span class="o">/</span> <span class="n">Qm1</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">M</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># lift found</span>
+            <span class="k">return</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">lam</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compatible_lift</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">deltas</span> <span class="o">=</span> <span class="p">[</span><span class="n">lam</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">P</span><span class="p">,</span> <span class="n">PQ</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">add</span><span class="p">):</span>
+            <span class="n">PlQ</span><span class="p">,</span> <span class="n">lQ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diff_multadd</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">PQ</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+
+            <span class="c1"># the lift</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">PlQ</span><span class="p">):</span>
+                <span class="n">M</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span> <span class="o">/</span> <span class="n">x2</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">M</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># lift found</span>
+            <span class="n">deltas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">lam</span> <span class="o">**</span> <span class="p">(</span><span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">deltas</span></div>
+
+
+<div class="viewcode-block" id="VarietyThetaStructurePoint.with_theta_basis">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.VarietyThetaStructurePoint.with_theta_basis">[docs]</a>
+    <span class="k">def</span> <span class="nf">with_theta_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Let thc be a theta null point given by algebraic coordinates (i.e. :class:`AbelianVariety_ThetaStructure`, :class:`KummerVariety`). Compute the</span>
+<span class="sd">        corresponding theta null point (i.e. :class:`AnalyticThetaNullPoint`) in analytic coordinates.</span>
+
+<span class="sd">        .. todo:: check that label matches level. Use python3 match to study the cases, maybe!</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;Fn&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;F(2,2)&#39;</span><span class="p">,</span> <span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">,</span> <span class="s1">&#39;classical&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The basis </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s1"> is either not implemented or unknown.&#39;</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">_point</span><span class="o">.</span><span class="n">from_algebraic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thc</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span><span class="p">[</span><span class="n">label</span><span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="AbelianVarietyPoint">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVarietyPoint">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">AbelianVarietyPoint</span><span class="p">(</span><span class="n">VarietyThetaStructurePoint</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructor for a point on an abelian variety with theta structure.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``X`` -- an abelian variety</span>
+<span class="sd">    - ``v`` -- data determining a point (another point or a tuple of coordinates)</span>
+<span class="sd">    - ``good_lift`` -- a boolean (default: `False`); indicates if the given affine lift</span>
+<span class="sd">      is a good lift, i.e. a lift compatible with the lift of the theta null point.</span>
+<span class="sd">    - ``check`` -- a boolean (default: `False`); indicates if computations to check</span>
+<span class="sd">      the correctness of the input data should be performed, using the Riemann Relations.</span>
+
+<span class="sd">    EXAMPLES ::</span>
+
+<span class="sd">        sage: from thetAV import KummerVariety</span>
+<span class="sd">        sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">        sage: P = A([255 , 89 , 30 , 1]); P</span>
+<span class="sd">        (255 : 89 : 30 : 1)</span>
+<span class="sd">        sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">        sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">        sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">        sage: B = A.change_ring(F)</span>
+<span class="sd">        sage: Q = B([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">        ....: 155*t^3 + 84*t^2 + 15*t + 170, 1]); Q</span>
+<span class="sd">        (158*t^3 + 67*t^2 + 9*t + 293 : 290*t^3 + 25*t^2 + 235*t + 280 : 155*t^3 + 84*t^2 + 15*t + 170 : 1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">VarietyThetaStructurePoint</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+            <span class="n">O</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">theta_null_point</span><span class="p">()</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">level</span><span class="p">())</span>
+            <span class="n">dual</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">_dual</span>
+            <span class="n">D</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">_D</span>
+            <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">_twotorsion</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dual</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">)):</span>
+                    <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                        <span class="n">el</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">jj</span><span class="p">))</span>
+                        <span class="k">if</span> <span class="n">el</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dual</span><span class="p">:</span>
+                            <span class="n">dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">ii</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">O</span><span class="p">[</span><span class="n">jj</span> <span class="o">+</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                        <span class="n">el2</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)</span>
+                        <span class="n">dual</span><span class="p">[</span><span class="n">el2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">tt</span><span class="p">)</span> <span class="o">*</span> <span class="n">dual</span><span class="p">[</span><span class="n">el</span><span class="p">]</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">_dual</span> <span class="o">=</span> <span class="n">dual</span>
+
+            <span class="n">dualself</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">DD</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">)):</span>
+                <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">,</span> <span class="n">tt</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">reduce_twotorsion_couple</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                    <span class="n">el</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">jj</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">el</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dualself</span><span class="p">:</span>
+                        <span class="n">dualself</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="n">t</span><span class="p">)]</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">jj</span> <span class="o">+</span> <span class="n">t</span><span class="p">)]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">twotorsion</span><span class="p">)</span>
+                    <span class="n">el2</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+                    <span class="n">dualself</span><span class="p">[</span><span class="n">el2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">tt</span><span class="p">)</span> <span class="o">*</span> <span class="n">dualself</span><span class="p">[</span><span class="n">el</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">combinations_with_replacement</span><span class="p">(</span><span class="n">combinations_with_replacement</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="p">((</span><span class="n">idxi</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">idxj</span><span class="p">,</span> <span class="n">j</span><span class="p">)),</span> <span class="p">((</span><span class="n">idxk</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="p">(</span><span class="n">idxl</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span> <span class="o">=</span> <span class="n">elem</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">DD</span><span class="p">:</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">D</span><span class="p">([</span><span class="n">ZZ</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">l</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                        <span class="n">el1</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxj</span><span class="p">)</span>
+                        <span class="n">el2</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxk</span><span class="p">,</span> <span class="n">idxl</span><span class="p">)</span>
+                        <span class="n">el3</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">j</span><span class="p">))</span>
+                        <span class="n">el4</span> <span class="o">=</span> <span class="p">(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">k</span><span class="p">),</span> <span class="n">idx</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
+                        <span class="k">if</span> <span class="n">dual</span><span class="p">[</span><span class="n">el1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dualself</span><span class="p">[</span><span class="n">el2</span><span class="p">]</span> <span class="o">!=</span> <span class="n">dual</span><span class="p">[</span><span class="n">el3</span><span class="p">]</span> <span class="o">*</span> <span class="n">dualself</span><span class="p">[</span><span class="n">el4</span><span class="p">]:</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The given list does not define a valid thetapoint&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AbelianVarietyPoint.abelian_variety">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVarietyPoint.abelian_variety">[docs]</a>
+    <span class="k">def</span> <span class="nf">abelian_variety</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the abelian variety that this point is on.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: from thetAV import AbelianVariety</span>
+<span class="sd">            sage: A = AbelianVariety(GF(331), 4, 1, [328 , 213 , 75 , 1]); A</span>
+<span class="sd">            Abelian variety of dimension 1 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: P.abelian_variety()</span>
+<span class="sd">            Abelian variety of dimension 1 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AbelianVarietyPoint.diff_add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVarietyPoint.diff_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the differential addition of self with given point Q.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        -  ``Q`` - a theta point</span>
+
+<span class="sd">        -  ``PmQ`` - The theta point `self - Q`.</span>
+
+<span class="sd">        -  ``check`` - (default: False) check with the riemann relations that the</span>
+<span class="sd">           resulting point is indeed a point of the abelian variety.</span>
+
+<span class="sd">        OUTPUT: The theta point `self + Q`. If `self`, `Q` and `PmQ` are good lifts,</span>
+<span class="sd">        then the output is also a good lift.</span>
+<span class="sd">        </span>
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import AbelianVariety</span>
+<span class="sd">            sage: A = AbelianVariety(GF(331), 4, 1, [328 , 213 , 75 , 1]); A</span>
+<span class="sd">            Abelian variety of dimension 1 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+<span class="sd">            sage: #TODO finish example</span>
+<span class="sd">            sage: #P = A([255 , 89 , 30 , 1]); Q = A([123, 345, 23, 13]); PQ = A([23,12,45,5])</span>
+<span class="sd">            sage: #P.diff_add(Q, PQ)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abelian_variety</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_D</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">twog</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">PQ</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+        <span class="n">i0</span> <span class="o">=</span> <span class="n">PmQ</span><span class="o">.</span><span class="n">_get_nonzero_coord</span><span class="p">()</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i0</span> <span class="k">if</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+            <span class="n">L</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">twog</span><span class="p">)]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chari</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i0</span> <span class="k">if</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+            <span class="n">PQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)]</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">twog</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">twog</span> <span class="o">*</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQ</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="n">check</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbelianVarietyPoint.schematic_addition">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.AbelianVarietyPoint.schematic_addition">[docs]</a>
+    <span class="k">def</span> <span class="nf">schematic_addition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">i0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normal addition between self and other on the affine plane with respect to i0.</span>
+
+<span class="sd">        If (self - other)[i] == 0, then it tries with another affine plane.</span>
+
+<span class="sd">        .. SEEALSO::</span>
+
+<span class="sd">            :meth:`~._add_`</span>
+
+<span class="sd">        TESTS::</span>
+
+<span class="sd">            sage: #TODO  Find tests where P and Q are not rational in the av but rational in the kummer variety, so P+Q won&#39;t be rational</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">:=</span> <span class="bp">self</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">other</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">other</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="bp">self</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abelian_variety</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">twog</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i0</span><span class="p">)</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">twog</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">)]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+        <span class="n">PQ</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i0</span><span class="p">)]</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">twog</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">PQ</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">i0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQ</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="KummerVarietyPoint">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint">[docs]</a>
+<span class="nd">@richcmp_method</span>
+<span class="k">class</span> <span class="nc">KummerVarietyPoint</span><span class="p">(</span><span class="n">VarietyThetaStructurePoint</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructor for a point on an kummer variety with theta structure.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``X`` -- a kummer variety</span>
+<span class="sd">    - ``v`` -- data determining a point (another point or a tuple of coordinates)</span>
+
+<span class="sd">    EXAMPLES ::</span>
+
+<span class="sd">        sage: from thetAV import KummerVariety</span>
+<span class="sd">        sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">        sage: P = A([255 , 89 , 30 , 1]); P</span>
+<span class="sd">        (255 : 89 : 30 : 1)</span>
+<span class="sd">        sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">        sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">        sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">        sage: B = A.change_ring(F)</span>
+<span class="sd">        sage: Q = B([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">        ....: 155*t^3 + 84*t^2 + 15*t + 170, 1]); Q</span>
+<span class="sd">        (158*t^3 + 67*t^2 + 9*t + 293 : 290*t^3 + 25*t^2 + 235*t + 280 : 155*t^3 + 84*t^2 + 15*t + 170 : 1)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize.</span>
+
+<span class="sd">        TESTS::</span>
+
+<span class="sd">            sage: from thetAV import *</span>
+<span class="sd">            sage: p = 2 ^ 3 * 3 ^ 10 - 1</span>
+<span class="sd">            sage: Fp2 = GF(p^2)</span>
+<span class="sd">            sage: R.&lt;x&gt; = Fp2[]</span>
+<span class="sd">            sage: f = x ^ 6 - 1</span>
+<span class="sd">            sage: C = HyperellipticCurve(f)</span>
+<span class="sd">            sage: A = AbelianVariety.from_curve(C, 2)</span>
+<span class="sd">            sage: O = list(range(16))</span>
+<span class="sd">            sage: P = A(O, basis=&#39;F(2,2)^2&#39;, check=True)</span>
+<span class="sd">            Traceback (most recent call last):</span>
+<span class="sd">             ...</span>
+<span class="sd">            ValueError: The point is not in the Kummer Variety.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">VarietyThetaStructurePoint</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="n">bases</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;with_theta_basis&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bases</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_with_theta_basis</span> <span class="o">=</span> <span class="n">bases</span>
+
+        <span class="k">if</span> <span class="n">check</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The point is not in the Kummer Variety.&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KummerVarietyPoint.kummer_variety">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint.kummer_variety">[docs]</a>
+    <span class="k">def</span> <span class="nf">kummer_variety</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the abelian variety that this point is on.</span>
+
+<span class="sd">        EXAMPLES::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1]); A</span>
+<span class="sd">            Kummer variety of dimension 2 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: P.kummer_variety()</span>
+<span class="sd">            Kummer variety of dimension 2 with theta null point (328 : 213 : 75 : 1) defined over Finite Field of size 331</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="KummerVarietyPoint._check">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint._check">[docs]</a>
+    <span class="k">def</span> <span class="nf">_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">eq</span><span class="p">,</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kummer_variety</span><span class="p">()</span><span class="o">.</span><span class="n">equations</span><span class="p">()</span>
+
+        <span class="n">O</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_theta_basis</span><span class="p">(</span><span class="s1">&#39;F(2,2)^2&#39;</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">tools</span><span class="o">.</span><span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])]</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])]</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="n">O</span><span class="p">[</span><span class="n">idx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])]</span>
+        <span class="n">L_bcd</span> <span class="o">=</span> <span class="p">[</span><span class="n">el</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="p">[</span><span class="n">b2</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">d2</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">a2</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">+</span> <span class="n">L_bcd</span>
+            <span class="k">if</span> <span class="n">eq</span><span class="p">(</span><span class="o">*</span><span class="n">coord</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="KummerVarietyPoint.diff_add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint.diff_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">diff_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">PmQ</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the differential addition of self with given point Q.</span>
+
+<span class="sd">        INPUT:</span>
+
+<span class="sd">        -  ``Q`` - a theta point</span>
+
+<span class="sd">        -  ``PmQ`` - The theta point `self - Q`.</span>
+
+<span class="sd">        OUTPUT: The theta point `self + Q`. If `self`, `Q` and `PmQ` are good lifts,</span>
+<span class="sd">        then the output is also a good lift.</span>
+<span class="sd">        </span>
+<span class="sd">        EXAMPLES ::</span>
+<span class="sd">        </span>
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129 , 172*t^3 + 157*t^2 + 43*t + 222 ,</span>
+<span class="sd">            ....: 258*t^3 + 39*t^2 + 313*t + 150 , 1])</span>
+<span class="sd">            sage: PQ = P.diff_add(Q, PmQ); PQ</span>
+<span class="sd">            (261*t^3 + 107*t^2 + 37*t + 135 : 205*t^3 + 88*t^2 + 195*t + 125 : 88*t^3 + 99*t^2 + 164*t + 98 : 159*t^3 + 279*t^2 + 254*t + 276)</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kummer_variety</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">dimension</span><span class="p">()</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">PQ</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+        <span class="n">i0</span> <span class="o">=</span> <span class="n">PmQ</span><span class="o">.</span><span class="n">_get_nonzero_coord</span><span class="p">()</span>
+        <span class="n">chari0</span> <span class="o">=</span> <span class="n">twotorsion</span><span class="p">(</span><span class="n">i0</span><span class="p">)</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chari</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">L</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i0</span><span class="p">)</span> <span class="k">for</span> <span class="n">chi</span><span class="p">,</span> <span class="n">charchi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span>
+                      <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">charchi</span><span class="p">,</span> <span class="n">chari</span> <span class="o">+</span> <span class="n">chari0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">L</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">)]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chari</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">cartosum</span> <span class="o">=</span> <span class="p">[</span><span class="n">chi</span> <span class="k">for</span> <span class="n">chi</span><span class="p">,</span> <span class="n">charchi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span> <span class="n">tools</span><span class="o">.</span><span class="n">eval_car</span><span class="p">(</span><span class="n">charchi</span><span class="p">,</span> <span class="n">chari</span> <span class="o">+</span> <span class="n">chari0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">PQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i0</span><span class="p">)]</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="n">cartosum</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">PmQ</span><span class="p">[</span><span class="n">i0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">cartosum</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">PQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">ng</span> <span class="o">*</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQ</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KummerVarietyPoint.schematic_add">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint.schematic_add">[docs]</a>
+    <span class="k">def</span> <span class="nf">schematic_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">idxi0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normal addition between self and other on the affine plane with respect to i0.</span>
+<span class="sd">        If (self - other)[i] == 0, then it tries with another affine plane.</span>
+
+<span class="sd">        .. SEEALSO::</span>
+
+<span class="sd">            :meth:`~._add_`</span>
+
+<span class="sd">        TESTS::</span>
+
+<span class="sd">            sage: #TODO Find tests where P and Q are not rational in the av but rational in the kummer variety, so P+Q won&#39;t be rational</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">:=</span> <span class="bp">self</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">other</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">other</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="bp">self</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">eval_car</span>
+        <span class="n">point0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kummer_variety</span><span class="p">()</span>
+        <span class="n">twotorsion</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_twotorsion</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_dimension</span>
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">n</span> <span class="o">**</span> <span class="n">g</span>
+        <span class="n">PQ</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+        <span class="n">PmQ</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+        <span class="n">i0</span> <span class="o">=</span> <span class="n">twotorsion</span><span class="p">(</span><span class="n">idxi0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idxi1</span><span class="p">,</span> <span class="n">i1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">idxi0</span> <span class="o">==</span> <span class="n">idxi1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxi0</span><span class="p">)</span> <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">for</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span>
+                 <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">i0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> \
+                <span class="o">+</span> <span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxi1</span><span class="p">)</span> <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">for</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span>
+                   <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">i1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">point0</span><span class="o">.</span><span class="n">_addition_formula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+            <span class="n">kappa0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+            <span class="n">kappa1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">ng</span>
+            <span class="k">for</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">):</span>
+                <span class="n">cartosum</span> <span class="o">=</span> <span class="p">[</span><span class="n">idxchi</span> <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span> <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">i0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">kappa0</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxi0</span><span class="p">)]</span> <span class="k">for</span> <span class="n">idxchi</span> <span class="ow">in</span> <span class="n">cartosum</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">cartosum</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">idxi</span> <span class="o">==</span> <span class="n">idxi0</span> <span class="ow">and</span> <span class="n">kappa0</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">idxi0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">cartosum</span> <span class="o">=</span> <span class="p">[</span><span class="n">idxchi</span> <span class="k">for</span> <span class="n">idxchi</span><span class="p">,</span> <span class="n">chi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">twotorsion</span><span class="p">)</span> <span class="k">if</span> <span class="n">eval_car</span><span class="p">(</span><span class="n">chi</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">i1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">kappa1</span><span class="p">[</span><span class="n">idxi</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[(</span><span class="n">idxchi</span><span class="p">,</span> <span class="n">idxi</span><span class="p">,</span> <span class="n">idxi1</span><span class="p">)]</span> <span class="k">for</span> <span class="n">idxchi</span> <span class="ow">in</span> <span class="n">cartosum</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">cartosum</span><span class="p">)</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="n">kappa1</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+            <span class="n">PmQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">PQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span> <span class="o">=</span> <span class="n">kappa0</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span>
+            <span class="n">poly</span> <span class="o">=</span> <span class="n">R</span><span class="p">([</span><span class="n">kappa1</span><span class="p">[</span><span class="n">idxi1</span><span class="p">],</span> <span class="o">-</span> <span class="n">kappa0</span><span class="p">[</span><span class="n">idxi1</span><span class="p">],</span> <span class="n">kappa0</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]])</span>
+            <span class="n">roots</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">multiplicities</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="c1"># it can happen that P and Q are not rational in the av but</span>
+            <span class="c1"># rational in the kummer variety, so P+Q won&#39;t be rational</span>
+            <span class="c1"># in that case we give a generic point</span>
+            <span class="c1">## TODO: Find tests where this happens</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># We compute the generic sum</span>
+                <span class="n">S</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+                <span class="n">roots</span> <span class="o">=</span> <span class="p">[</span><span class="n">poly</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">]</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;The normal addition is defined in an extension. Computing generic point.&#39;</span><span class="p">)</span>
+            <span class="n">PmQ</span><span class="p">[</span><span class="n">idxi1</span><span class="p">]</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span>
+            <span class="n">PQ</span><span class="p">[</span><span class="n">idxi1</span><span class="p">]</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">PQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">]</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">PmQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">],</span> <span class="n">PmQ</span><span class="p">[</span><span class="n">idxi1</span><span class="p">]],</span> <span class="p">[</span><span class="n">PQ</span><span class="p">[</span><span class="n">idxi0</span><span class="p">],</span> <span class="n">PQ</span><span class="p">[</span><span class="n">idxi1</span><span class="p">]]])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ng</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">idxi0</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">idxi1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="n">kappa0</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">kappa1</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">solve_left</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">PmQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">PQ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PQ</span><span class="p">),</span> <span class="n">point0</span><span class="o">.</span><span class="n">point</span><span class="p">(</span><span class="n">PmQ</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Failed to compute normal addition.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KummerVarietyPoint._neg_">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint._neg_">[docs]</a>
+    <span class="k">def</span> <span class="nf">_neg_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the addition opposite of self.</span>
+
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1]); - P</span>
+<span class="sd">            (255 : 89 : 30 : 1)</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="KummerVarietyPoint.weil_pairing">
+<a class="viewcode-back" href="../../source/doc/Fn.html#thetAV.theta_null_point.KummerVarietyPoint.weil_pairing">[docs]</a>
+    <span class="k">def</span> <span class="nf">weil_pairing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        EXAMPLES ::</span>
+
+<span class="sd">            sage: from thetAV import KummerVariety</span>
+<span class="sd">            sage: R.&lt;X&gt; = PolynomialRing(GF(331))</span>
+<span class="sd">            sage: poly = X^4 + 3*X^2 + 290*X + 3</span>
+<span class="sd">            sage: F.&lt;t&gt; = poly.splitting_field()</span>
+<span class="sd">            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">            sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,</span>
+<span class="sd">            ....: 155*t^3 + 84*t^2 + 15*t + 170, 1])</span>
+<span class="sd">            sage: wp = P.weil_pairing(1889, Q)</span>
+<span class="sd">            sage: [w**1889 for w in wp]</span>
+<span class="sd">            [1, 1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">VarietyThetaStructurePoint</span><span class="o">.</span><span class="n">weil_pairing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">schematic_add</span><span class="p">(</span><span class="n">Q</span><span class="p">)]</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Anna Somoza
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=360bc84d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

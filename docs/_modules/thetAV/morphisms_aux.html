@@ -1,0 +1,1041 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>thetAV.morphisms_aux - thetAV 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://doc.sagemath.org/html/en/reference/_static/custom-furo.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  --color-brand-primary: #0f0fff;
+  --color-brand-content: #0f0fff;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../source/index.html"><div class="brand">thetAV 0.1.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../source/index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../../_static/logo.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../../_static/logo.svg" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">thetAV 0.1.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/install.html">Quickstart</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/doc/index.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/Fn.html">The <span class="math notranslate nohighlight">\(F_n\)</span> representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/classical.html">The classical representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/morphisms.html">Other functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/doc/tools.html">Auxiliary tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/tutorials/example.html">A tutorial on how to use thetAV in SageMath</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/math/introduction.html">Mathematical background</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Mathematical background</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/arithmetic.html">Setting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../source/math/references.html">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/todo.html">Todo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/develop.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/license.html">License</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for thetAV.morphisms_aux</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Morphism functionalities.</span>
+
+
+<span class="sd">AUTHORS:</span>
+
+<span class="sd">- Anna Somoza (2021-22): initial implementation</span>
+
+<span class="sd">.. todo: Function names are horrible!</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="c1"># ****************************************************************************</span>
+<span class="c1">#             Copyright (C) 2022 Anna Somoza &lt;anna.somoza.henares@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#    Distributed under the terms of the GNU General Public License (GPL)</span>
+<span class="c1">#    as published by the Free Software Foundation; either version 3 of</span>
+<span class="c1">#    the License, or (at your option) any later version.</span>
+<span class="c1">#                                    https://www.gnu.org/licenses/</span>
+<span class="c1"># ****************************************************************************</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains functions to compute morphisms between hyperelliptic curves and the</span>
+<span class="sd">corresponding abelian varieties (their jacobians) with theta functions of level 2 and 4.</span>
+
+<span class="sd">The first half is from [VanW]_ and the last sections are algorithms from [Coss]_.</span>
+<span class="sd">Based on the Magma implementation by Romain Cosset.</span>
+
+<span class="sd">LAYOUT:</span>
+<span class="sd">   </span>
+<span class="sd">    3 - Manipulations of elements of Ep</span>
+<span class="sd">    </span>
+<span class="sd">    4 - twisted theta</span>
+<span class="sd">    </span>
+<span class="sd">    3 - Auxiliary functions</span>
+<span class="sd">    </span>
+<span class="sd">    4 - Expression of Ep</span>
+<span class="sd">    </span>
+<span class="sd">    6 - Mumford to Theta</span>
+<span class="sd">    </span>
+<span class="sd">    7 - Theta to Mumford</span>
+
+<span class="sd">.. todo::</span>
+
+<span class="sd">    - Reformat info above.</span>
+<span class="sd">    - Sort documentation by source (to maintain layout)</span>
+<span class="sd">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span><span class="p">,</span> <span class="n">combinations</span><span class="p">,</span> <span class="n">chain</span>
+
+<span class="kn">from</span> <span class="nn">sage.functions.other</span> <span class="kn">import</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span>
+<span class="kn">from</span> <span class="nn">sage.misc.all</span> <span class="kn">import</span> <span class="n">prod</span><span class="p">,</span> <span class="n">is_odd</span>
+<span class="kn">from</span> <span class="nn">sage.rings.all</span> <span class="kn">import</span> <span class="n">PolynomialRing</span><span class="p">,</span> <span class="n">ZZ</span><span class="p">,</span> <span class="n">Integer</span>
+
+<span class="n">integer_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Integer</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">rangeS</span>
+<span class="kn">from</span> <span class="nn">.eta_maps</span> <span class="kn">import</span> <span class="n">eta</span><span class="p">,</span> <span class="n">eta_prime</span><span class="p">,</span> <span class="n">eta_second</span><span class="p">,</span> <span class="n">normalize_eta</span><span class="p">,</span> <span class="n">sign_theta_normalized</span>
+<span class="kn">from</span> <span class="nn">.ep_elements</span> <span class="kn">import</span> <span class="n">EpElement</span>
+
+
+
+<div class="viewcode-block" id="compatible_sqrt">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.compatible_sqrt">[docs]</a>
+<span class="k">def</span> <span class="nf">compatible_sqrt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the numerator and the denominator of sqrt(a_i - a_j) given by Definition 2</span>
+<span class="sd">    in [VanW, page 3093] as an element of Ep.</span>
+<span class="sd">    </span>
+<span class="sd">    .. math ::</span>
+<span class="sd">    </span>
+<span class="sd">        \sqrt{\langle a_0 - a_j\rangle} = \sqrt{\langle a_0 - a_1\rangle} \frac{\theta[\eta_{U \circ V \circ \{j, \infty\}}]\theta[\eta_{U \circ V \circ \{0, 1\}}]}{\theta[\eta_{U \circ V \circ \{1, \infty\}}]\theta[\eta_{U \circ V \circ \{0, j\}}]}</span>
+<span class="sd">        </span>
+<span class="sd">    .. math ::</span>
+<span class="sd">    </span>
+<span class="sd">        \sqrt{\langle a_j - a_i\rangle} = \sqrt{\langle a_j - a_0\rangle} \frac{\theta[\eta_{U \circ V \circ \{i, \infty\}}]\theta[\eta_{U \circ V \circ \{0, j\}}]}{\theta[\eta_{U \circ V \circ \{0, \infty\}}]\theta[\eta_{U \circ V \circ \{i, j\}}]}</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import compatible_sqrt</span>
+<span class="sd">        sage: compatible_sqrt(5, 6, 3)</span>
+<span class="sd">        EpElement(sign=-1, power=1, numer=Counter({662: 1, 694: 1, 573: 1}), denom=Counter({663: 1, 607: 1, 725: 1}))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The difference of indices must be nonzero.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">EpElement</span><span class="p">(</span><span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">numer</span><span class="o">=</span><span class="n">Counter</span><span class="p">(),</span> <span class="n">denom</span><span class="o">=</span><span class="n">Counter</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">EpElement</span><span class="p">(</span><span class="n">sign</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">numer</span><span class="o">=</span><span class="n">Counter</span><span class="p">(),</span> <span class="n">denom</span><span class="o">=</span><span class="n">Counter</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">V</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">V</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">V</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+        <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">ZZ</span><span class="p">([</span><span class="n">c</span><span class="o">%</span><span class="mi">2</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ej</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">})</span>
+        <span class="n">e01</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">})</span>
+        <span class="n">e1</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="n">e0j</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="n">j</span><span class="p">})</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ej</span><span class="p">,</span> <span class="n">e01</span><span class="p">]])</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e1</span><span class="p">,</span> <span class="n">e0j</span><span class="p">]])</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">sign_theta_normalized</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ej</span><span class="p">,</span> <span class="n">e01</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e0j</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">EpElement</span><span class="p">(</span><span class="n">sign</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">numer</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">denom</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">compatible_sqrt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">ZZ</span><span class="p">([</span><span class="n">c</span><span class="o">%</span><span class="mi">2</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">e0i</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">})</span>
+    <span class="n">ej</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">})</span>
+    <span class="n">e0</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">})</span>
+    <span class="n">eij</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">W</span> <span class="o">^</span> <span class="p">{</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">})</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">sign</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">sign_theta_normalized</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e0i</span><span class="p">,</span> <span class="n">ej</span><span class="p">,</span> <span class="n">e0</span><span class="p">,</span> <span class="n">eij</span><span class="p">])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">numer</span> <span class="o">+</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e0i</span><span class="p">,</span> <span class="n">ej</span><span class="p">]])</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">denom</span> <span class="o">+</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">e0</span><span class="p">,</span> <span class="n">eij</span><span class="p">]])</span>
+
+    <span class="n">elem</span> <span class="o">=</span> <span class="n">EpElement</span><span class="p">(</span><span class="n">sign</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">power</span><span class="p">,</span> <span class="n">numer</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">denom</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">clean_common</span><span class="p">()</span></div>
+
+
+
+<span class="c1">##***** (4) twisted theta *****//</span>
+
+<div class="viewcode-block" id="constant_f">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.constant_f">[docs]</a>
+<span class="k">def</span> <span class="nf">constant_f</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the expression of f_A as an element of Ep, as defined by Definition 3 in [VanW, page 3095].</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``g`` - an Integer, the dimension.</span>
+<span class="sd">    - ``A`` - a set.</span>
+<span class="sd">    - ``C`` - a choice of C as in [Coss]_ (see :func:`choice_of_C_Cosset` and :func:`choice_of_all_C_Cosset`).</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import constant_f</span>
+<span class="sd">        sage: g = 5; A = set([1, 2, 3]); C = set([5, 6, 7])</span>
+<span class="sd">        sage: fA = constant_f(g, A, C); fA</span>
+<span class="sd">        EpElement(sign=1, power=-4, numer=Counter({607: 4, 694: 2, 911: 2, 843: 2, 415: 2, 347: 2, 723: 2, 850: 2, 484: 1, 637: 1, 626: 1, 561: 1, 950: 1, 638: 1, 724: 1, 573: 1, 595: 1, 978: 1, 330: 1}), denom=Counter({699: 5, 606: 4, 725: 2, 910: 2, 414: 2, 826: 1, 661: 1, 980: 1, 594: 1, 662: 1, 942: 1, 446: 1, 567: 1, 918: 1, 674: 1, 178: 1, 722: 1, 571: 1, 418: 1}))</span>
+<span class="sd">        sage: print(fA)</span>
+<span class="sd">        sign=1,</span>
+<span class="sd">        power=-4,</span>
+<span class="sd">        numer={</span>
+<span class="sd">            [0, 0, 1, 0, 0, 1, 1, 1, 1]: 1,</span>
+<span class="sd">            [0, 0, 1, 0, 1, 0, 1, 1, 0, 1]: 1,</span>
+<span class="sd">            [0, 1, 0, 0, 1, 0, 1, 0, 1, 1]: 2,</span>
+<span class="sd">            [0, 1, 0, 0, 1, 0, 1, 1, 1, 1]: 1,</span>
+<span class="sd">        ...</span>
+<span class="sd">            [1, 0, 1, 0, 1, 0, 1, 1, 0, 1]: 2,</span>
+<span class="sd">            [1, 1, 0, 1, 1, 1, 0, 0, 0, 1]: 1,</span>
+<span class="sd">            [1, 1, 0, 1, 1, 1, 0, 1, 0, 1]: 5,</span>
+<span class="sd">            [1, 1, 1, 0, 1, 1, 0, 0, 0, 1]: 1</span>
+<span class="sd">        }</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;power&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+
+    <span class="c1"># The two theta constants which appear in the definition</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">ZZ</span><span class="p">([</span><span class="n">s</span><span class="o">%</span><span class="mi">2</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">eC</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">eUAC</span> <span class="o">=</span> <span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">A</span><span class="p">)</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">f</span><span class="p">[</span><span class="s1">&#39;numer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">eC</span><span class="p">)])</span>
+    <span class="n">f</span><span class="p">[</span><span class="s1">&#39;denom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">idx</span><span class="p">(</span><span class="n">eUAC</span><span class="p">)])</span>
+    <span class="n">f</span><span class="p">[</span><span class="s1">&#39;sign&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">sign_theta_normalized</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">eC</span><span class="p">,</span> <span class="n">eUAC</span><span class="p">])</span>
+    <span class="n">ff</span> <span class="o">=</span> <span class="n">EpElement</span><span class="p">(</span><span class="o">**</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1">#the four products of the definition</span>
+    <span class="c1"># ff *= prod((compatible_sqrt(g, k, i) for i, k in product(A &amp; U, U - A)), EpElement())</span>
+    <span class="c1"># ff *= prod((compatible_sqrt(g, k, i) for i, k in product((B - A) &amp; (B - U), A - U)), EpElement())</span>
+    <span class="c1"># ff /= prod((compatible_sqrt(g, k, i) for i, k in product((A ^ C) &amp; (U ^ C), (U ^ C) - (A ^ C))), EpElement())</span>
+    <span class="c1"># ff /= prod((compatible_sqrt(g, k, i) for i, k in product((B - (A ^ C)) &amp; (B - (U ^ C)), (A ^ C) - (U ^ C))), EpElement())</span>
+
+    <span class="c1"># We compute a simplified version for speed</span>
+    <span class="n">prod_list</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">A</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">((</span><span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="n">U</span><span class="p">),</span> <span class="n">A</span> <span class="o">-</span> <span class="n">U</span><span class="p">)))</span>
+    <span class="n">div_list</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">((</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">),</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">((</span><span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">)),</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">))))</span>
+    <span class="n">ff</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">((</span><span class="n">compatible_sqrt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span><span class="o">**</span><span class="n">m</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">),</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">prod_list</span> <span class="o">-</span> <span class="n">div_list</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">EpElement</span><span class="p">())</span>
+    <span class="n">ff</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">((</span><span class="n">compatible_sqrt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span><span class="o">**</span><span class="n">m</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">),</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="n">div_list</span> <span class="o">-</span> <span class="n">prod_list</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">EpElement</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">ff</span><span class="o">.</span><span class="n">clean_common</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="choice_of_C_Cosset">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.choice_of_C_Cosset">[docs]</a>
+<span class="k">def</span> <span class="nf">choice_of_C_Cosset</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a choice for the constant C as in Definition 5.1.5 of [Coss]_.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``g`` - an Integer, the dimension.</span>
+<span class="sd">    - ``A`` - a set.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import choice_of_C_Cosset</span>
+<span class="sd">        sage: choice_of_C_Cosset(5, {0,1,2})</span>
+<span class="sd">        {3, 4}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected set A(=</span><span class="si">{</span><span class="n">A</span><span class="si">}</span><span class="s1">) of cardinality at most </span><span class="si">{</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A should not contain the index for the point at infinity&#39;</span><span class="p">)</span>
+
+    <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="n">g</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># |A|=g+1</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">floor</span><span class="p">((</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">Cp</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c1"># 2*g + 1 in Cp  if 2*g + 1  not in A DIFF shouldn&#39;t it be Cp = {2*g + 1} then?</span>
+    <span class="n">Cpp</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">A</span> <span class="o">|</span> <span class="n">U</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Cp</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">Cp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">U</span> <span class="o">-</span> <span class="n">A</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Cpp</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">Cpp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Cp</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">Cpp</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">Cp</span> <span class="o">|</span> <span class="n">Cpp</span></div>
+
+
+<div class="viewcode-block" id="choice_of_all_C_Cosset">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.choice_of_all_C_Cosset">[docs]</a>
+<span class="k">def</span> <span class="nf">choice_of_all_C_Cosset</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a choice for all the constants C as in Definition 5.1.5 of [Coss]_.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``g`` - an Integer, the dimension.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import choice_of_all_C_Cosset</span>
+<span class="sd">        sage: g = 5; C = choice_of_all_C_Cosset(g)</span>
+<span class="sd">        sage: C[frozenset({1,3,4})]</span>
+<span class="sd">        {0, 5}</span>
+<span class="sd">        sage: B = frozenset(range(2*g + 1))</span>
+<span class="sd">        sage: C[B.difference({1,3,4})]</span>
+<span class="sd">        {0, 5}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+        <span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">choice_of_C_Cosset</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        <span class="n">C</span><span class="p">[</span><span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">C</span></div>
+
+
+<div class="viewcode-block" id="sign_s_A">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.sign_s_A">[docs]</a>
+<span class="k">def</span> <span class="nf">sign_s_A</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the sign of s_A as defined in Section 5.1.4 of [Coss]_.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``g`` - an Integer, the dimension.</span>
+<span class="sd">    - ``A`` - a set.</span>
+<span class="sd">    - ``C`` - a choice of all C as in [Coss]_ (see :func:`choice_of_all_C_Cosset`).</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import choice_of_all_C_Cosset, sign_s_A</span>
+<span class="sd">        sage: g = 5; C = choice_of_all_C_Cosset(g)</span>
+<span class="sd">        sage: sign_s_A(g, [1, 2, 3], C)</span>
+<span class="sd">        1</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="n">zg</span> <span class="o">=</span> <span class="n">eta_second</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span> <span class="c1">#DIFF is this eta_g as defined in [Coss]?</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="p">:</span>
+        <span class="n">sA</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">C</span><span class="p">[</span><span class="nb">frozenset</span><span class="p">()]</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="nb">frozenset</span><span class="p">({</span><span class="n">l</span><span class="p">})]</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sA</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">):</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="n">sA</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="nb">frozenset</span><span class="p">({</span><span class="n">l</span><span class="p">})]</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is_odd</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">floor</span><span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#DIFF why not directly (-1)**floor((s+1)/4)??</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="nb">frozenset</span><span class="p">()]</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">)</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+        <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">floor</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#DIFF why not directly (-1)**floor((s+1)/4)??</span>
+
+    <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">:</span>
+        <span class="n">sA</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="n">A</span><span class="p">])</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span> <span class="c1">#DIFF why?</span>
+
+    <span class="k">return</span> <span class="n">sA</span></div>
+
+
+<span class="c1">##***** (3) Auxiliary functions *****//</span>
+
+<div class="viewcode-block" id="IgusaTheorem">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.IgusaTheorem">[docs]</a>
+<span class="k">def</span> <span class="nf">IgusaTheorem</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">TH</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply Igusa theorems to the theta with characteristic given in the list A</span>
+<span class="sd">    The theta in the summation are taken from TH #FIXME: Add reference</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``A`` - A list with 4 eta vectors.</span>
+<span class="sd">    - ``TH`` - A list of 4 analytic theta points.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV import KummerVariety</span>
+<span class="sd">        sage: from thetAV.morphisms_aux import IgusaTheorem</span>
+<span class="sd">        sage: from thetAV.eta_maps import eta</span>
+<span class="sd">        sage: g = 2; A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">        sage: P = A([255 , 89 , 30 , 1])</span>
+<span class="sd">        sage: thc = A.with_theta_basis(&#39;F(2,2)^2&#39;)</span>
+<span class="sd">        sage: thp = thc(P)</span>
+<span class="sd">        sage: thO = thc(0)</span>
+<span class="sd">        sage: IgusaTheorem([eta(g,{2*x for x in range(g+1)})]*4, [thp,thO,thO,thO])</span>
+<span class="sd">        56</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">!=</span><span class="mi">4</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">TH</span><span class="p">)</span><span class="o">!=</span><span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">TH</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abelian_variety</span><span class="p">()</span><span class="o">.</span><span class="n">_numbering</span> <span class="c1">#Zmod(2)**(2*g)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">TH</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abelian_variety</span><span class="p">()</span><span class="o">.</span><span class="n">_dimension</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">ZZ</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="p">)</span>
+
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span><span class="p">,</span> <span class="n">a4</span> <span class="o">=</span> <span class="n">A</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">a3</span> <span class="o">-</span> <span class="n">a4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span> <span class="o">-</span> <span class="n">a2</span> <span class="o">+</span> <span class="n">a3</span> <span class="o">-</span> <span class="n">a4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span> <span class="o">-</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">a3</span> <span class="o">+</span> <span class="n">a4</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">ZZ</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">D</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">V</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">a1</span><span class="p">[:</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">g</span><span class="p">:])</span>
+        <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">th</span><span class="p">[</span><span class="n">idx</span><span class="p">(</span><span class="n">normalize_eta</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">a</span><span class="p">))]</span> <span class="k">for</span> <span class="n">th</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">TH</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">sign_theta_normalized</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">+=</span> <span class="n">t</span>
+
+    <span class="k">return</span> <span class="n">p</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="n">g</span></div>
+
+    
+<span class="c1">##***** (4) Expression of Ep *****//</span>
+
+<div class="viewcode-block" id="constant_f2_level2">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.constant_f2_level2">[docs]</a>
+<span class="k">def</span> <span class="nf">constant_f2_level2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">thc</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the constant f_S^2 from the theta constant of level 2</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``a`` - list of x-coordinates of the Weierstrass points.</span>
+<span class="sd">    - ``thc`` - the theta null point associated to the jacobian of the curve.</span>
+<span class="sd">    - ``A`` - a set</span>
+<span class="sd">    - ``C`` - a choice of C as in [Coss]_ (see :func:`choice_of_C_Cosset` and :func:`choice_of_all_C_Cosset`).</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV import KummerVariety</span>
+<span class="sd">        sage: from thetAV.morphisms_aux import constant_f2_level2, choice_of_C_Cosset</span>
+<span class="sd">        sage: g = 2; A = KummerVariety(GF(331), 2, [328 , 213 , 75 , 1])</span>
+<span class="sd">        sage: thc = A.with_theta_basis(&#39;F(2,2)^2&#39;)</span>
+<span class="sd">        sage: a = [0,1,4,6,7]</span>
+<span class="sd">        sage: A = {3,4}; constant_f2_level2(a, thc, A, choice_of_C_Cosset(g, A))</span>
+<span class="sd">        170</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">thc</span><span class="o">.</span><span class="n">_dimension</span>
+    <span class="n">thO</span> <span class="o">=</span> <span class="n">thc</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># the two theta constants which appear in the definition</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">thO</span><span class="p">[</span><span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span><span class="o">/</span><span class="n">thO</span><span class="p">[</span><span class="n">eta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">A</span><span class="p">)</span> <span class="o">^</span> <span class="n">C</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+
+    <span class="c1"># the four product of the definitions</span>
+    <span class="n">f2</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="n">U</span> <span class="o">-</span> <span class="n">A</span><span class="p">))</span>
+    <span class="n">f2</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">((</span><span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="n">U</span><span class="p">),</span> <span class="n">A</span> <span class="o">-</span> <span class="n">U</span><span class="p">))</span>
+    <span class="n">f2</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">((</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">),</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)))</span>
+    <span class="n">f2</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">((</span><span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">)),</span> <span class="p">(</span><span class="n">A</span> <span class="o">^</span> <span class="n">C</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">U</span> <span class="o">^</span> <span class="n">C</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">f2</span></div>
+
+
+<span class="c1">##***** (6) Mumford to Theta *****//</span>
+
+<div class="viewcode-block" id="YS_fromMumford_Generic">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.YS_fromMumford_Generic">[docs]</a>
+<span class="k">def</span> <span class="nf">YS_fromMumford_Generic</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute Y_S(P) for P a preimage of a point D in Jac(C)\\Theta as defined in</span>
+<span class="sd">    Equation (5.1) in [Coss]_..</span>
+<span class="sd">    D can be written as D = sum_1^g P_i - g P_infty.</span>
+
+<span class="sd">    INPUT:</span>
+
+<span class="sd">    - ``g`` - an integer. The genus of the curve.</span>
+<span class="sd">    - ``a`` - list of x-coordinates of the Weierstrass points.</span>
+<span class="sd">    - ``S`` - an iterable.</span>
+<span class="sd">    - ``points`` - a list of coordinates (x,y) (as tuples) of the points P_i in D. Assume</span>
+<span class="sd">      that all P_i are distinct.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import YS_fromMumford_Generic</span>
+<span class="sd">        sage: g = 2; a = [0,1,4,6,7]; S = [0,2,3]</span>
+<span class="sd">        sage: points = [(2, 4), (3, 8)]</span>
+<span class="sd">        sage: YS_fromMumford_Generic(g, a, S, points)</span>
+<span class="sd">        92</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected length of S=</span><span class="si">{</span><span class="n">S</span><span class="si">}</span><span class="s1"> between 2 and </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">g</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">))</span> <span class="o">!=</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Expected points=</span><span class="si">{</span><span class="n">points</span><span class="si">}</span><span class="s1"> to be a list of </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1"> distinct elements&#39;</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">YS</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span> <span class="c1">#(x_k-a_l)</span>
+        <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">YS</span> <span class="o">+=</span> <span class="n">t</span>
+    <span class="k">return</span> <span class="n">YS</span></div>
+
+
+<div class="viewcode-block" id="YS_fromMumford_Delta">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.YS_fromMumford_Delta">[docs]</a>
+<span class="k">def</span> <span class="nf">YS_fromMumford_Delta</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span> <span class="c1">#DIFF: Not tested against Magma</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Let D be a point in Jac(C)\\Theta. D can be written as</span>
+<span class="sd">    D = sum_1^g P_i - g P_infty</span>
+<span class="sd">    Assume that there exists i &lt;=&gt; j such that P_i = P_j but the other P_k are distinct</span>
+<span class="sd">    Let points be the list of coordinates (x,y) (as tuples) of P_i</span>
+<span class="sd">    Let a be the x-coordinate of the Weierstrass points of the curve</span>
+
+<span class="sd">    return the function Y_S</span>
+
+<span class="sd">    See page 117 in [Coss]_.</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import YS_fromMumford_Delta</span>
+<span class="sd">        sage: F = GF(331); g = 2; a = [0, 1, 2, 3, 4]; S = [0,2,3]</span>
+<span class="sd">        sage: points = [(F(5), F(38))]*2</span>
+<span class="sd">        sage: YS_fromMumford_Delta(g, [F(el) for el in a], S, points, F)</span>
+<span class="sd">        64</span>
+
+<span class="sd">    .. todo:: Test against Magma (minus the possible mistake)!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected length of S=</span><span class="si">{</span><span class="n">S</span><span class="si">}</span><span class="s1"> between 2 and </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">g</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">points</span><span class="p">))</span> <span class="o">!=</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected points=</span><span class="si">{</span><span class="n">points</span><span class="si">}</span><span class="s1"> to be a list of </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1"> elements of which exactly two are equal&#39;</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">F</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;xy&#39;</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">gens</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elemi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">elemj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="n">elemi</span> <span class="o">==</span> <span class="n">elemj</span><span class="p">:</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elemi</span><span class="p">)</span>
+                <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elemj</span><span class="p">)</span>
+                <span class="c1">#now the repeated elements are the last two</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">break</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1">#Cases where I doesn&#39;t contain the indices of the repeated cases, or it contains both (if possible): normal.</span>
+    <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">I</span> <span class="o">=</span> <span class="n">I</span> <span class="o">+</span> <span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">#DIFF: In Magma implementation, in this case, missing y_{-1}^2 ? See Definition 5.1.26 on pg 116</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">Y</span><span class="o">+=</span><span class="n">t</span>
+
+    <span class="c1">#Cases where I contains exactly one of the two.</span>
+    
+    <span class="c1"># With the formula in [Coss]_, t would be computed as follows</span>
+
+    <span class="c1"># for I in combinations(range(g-2), n-1):</span>
+        <span class="c1"># #First summand of p_I in [Coss, page 118].</span>
+
+        <span class="c1"># P = prod(x - a[l] for l in range(2*g + 1) if l not in S)*prod(y - a[l] for l in S)</span>
+        <span class="c1"># P -= prod(y - a[l] for l in range(2*g + 1) if l not in S)*prod(x - a[l] for l in S)</span>
+        <span class="c1"># try:</span>
+            <span class="c1"># P = K(P/(x-y))</span>
+        <span class="c1"># except TypeError:</span>
+            <span class="c1"># raise ValueError(&#39;P={P} should be divisible by {x - y}&#39;)</span>
+        <span class="c1"># t = P(points[-1][0],points[-1][0])*prod((points[-1][0] - a[l])**2 for l in S)</span>
+
+        <span class="c1"># t /= 2*points[-1][1]*prod(points[-1][0] - a[l] for l in S)</span>
+
+        <span class="c1"># t *= prod(points[i][1] for i in I)</span>
+        <span class="c1"># t /= prod(points[i][0] - points[-2][0] for i in I)</span>
+
+        <span class="c1"># t *= prod(points[k][0] - a[l] for l, k in product(S, range(g-2)) if k not in I)</span>
+        <span class="c1"># t /= prod(points[i][0] - points[k][0] for i, k in product(I + (-1,), range(g-2)) if k not in I)</span>
+
+        <span class="c1"># Y += t</span>
+
+        <span class="c1"># #Second summand of p_I in [Coss, page 118]</span>
+
+        <span class="c1"># t = points[-2][1]</span>
+        <span class="c1"># t *= prod(points[i][1] for i in I)</span>
+        <span class="c1"># t *= prod(points[-1][0] - a[l] for l in S)</span>
+
+        <span class="c1"># t *= prod(points[k][0]-a[l] for l, k in product(S, range(g-2)) if k not in I)</span>
+        <span class="c1"># t /= prod(points[i][0]-points[k][0] for i, k in product(I, range(g-2) if k not in I)</span>
+
+        <span class="c1"># t /= prod((points[i][0]-points[-2][0])**2 for i in I)</span>
+        <span class="c1"># t /= prod((points[-1][0]-points[k][0])**2 for k in range(g-2) if k not in I)</span>
+
+        <span class="c1"># P = prod(points[i][0] - x for i in I)*prod(y - points[k][0] for k in range(g-2) if k not in I)</span>
+        <span class="c1"># P -= prod(points[i][0] - y for i in I)*prod(x - points[k][0] for k in range(g-2) if k not in I)</span>
+        <span class="c1"># try:</span>
+          <span class="c1"># P = K(P/(x-y))</span>
+        <span class="c1"># except TypeError:</span>
+          <span class="c1"># raise ValueError(&#39;P={P} should be divisible by {x - y}&#39;)</span>
+
+        <span class="c1"># t *= P(points[1][0],points[1][0])</span>
+
+        <span class="c1"># Y += t</span>
+
+    <span class="c1">#We reorganize de computation for sake of efficiency</span>
+
+    <span class="n">P</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">-=</span> <span class="n">prod</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">K</span><span class="p">(</span><span class="n">P</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;P=</span><span class="si">{P}</span><span class="s1"> should be divisible by {x - y}&#39;</span><span class="p">)</span>
+
+    <span class="n">t01</span> <span class="o">=</span> <span class="n">P</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">S</span><span class="p">)</span>
+
+    <span class="n">t02</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">prod</span><span class="p">(((</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">)),</span> <span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">t01</span> <span class="o">*</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">I</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,),</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">t02</span> <span class="o">*</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,))</span>
+
+        <span class="n">t2</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">t2</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+
+        <span class="n">P</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">-=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span><span class="o">*</span><span class="n">prod</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">I</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">P</span> <span class="o">=</span> <span class="n">K</span><span class="p">(</span><span class="n">P</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;P=</span><span class="si">{P}</span><span class="s1"> should be divisible by {x - y}&#39;</span><span class="p">)</span>
+        <span class="n">t2</span> <span class="o">*=</span> <span class="n">P</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">Y</span> <span class="o">+=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span>
+
+    <span class="k">return</span> <span class="n">Y</span></div>
+
+
+<div class="viewcode-block" id="prodYp_fromMumford_with2torsion">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.prodYp_fromMumford_with2torsion">[docs]</a>
+<span class="k">def</span> <span class="nf">prodYp_fromMumford_with2torsion</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Let D be a point in Jac(C)\\Theta. D can be written as</span>
+<span class="sd">    D = sum_1^g P_i - g P_infty</span>
+<span class="sd">    Let points be the list of coordinates (x,y) (as tuples) of P_i</span>
+<span class="sd">    Let a be the x-coordinate of th Weierstrass points of the curve</span>
+<span class="sd">    Let S = [S1, S2, S3, S4] with S1 ^ S2 ^ S3 ^ S4 == {}</span>
+<span class="sd">    Let C be the choice of sets in the definition of the f_A</span>
+
+<span class="sd">    Assume that all P_i are distinct.</span>
+
+<span class="sd">    Compute the function</span>
+<span class="sd">    prod Y_Si&#39; / prod a_l</span>
+<span class="sd">    where the second product is over l in V counted twice iff it appears in all Si</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import choice_of_all_C_Cosset, prodYp_fromMumford_with2torsion</span>
+<span class="sd">        sage: F = GF(331); g = 2; a = list(map(F, [0, 1, 2, 3, 4]))</span>
+<span class="sd">        sage: S = [{0,2,3},{0},{2,4}, {3,4}]; V = {1}</span>
+<span class="sd">        sage: points = [(F(1), F(0)), (F(8), F(10))]</span>
+<span class="sd">        sage: C = choice_of_all_C_Cosset(g)</span>
+<span class="sd">        sage: prodYp_fromMumford_with2torsion(g, a, S, points, V, C, F)</span>
+<span class="sd">        187</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected length of V=</span><span class="si">{</span><span class="n">V</span><span class="si">}</span><span class="s1"> between 1 and </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected length of points=</span><span class="si">{</span><span class="n">points</span><span class="si">}</span><span class="s1"> to be </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Error?? FIXME&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^</span> <span class="n">S</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">^</span> <span class="n">S</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Error??? FIXME&#39;</span><span class="p">)</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">F</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">F</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">gen</span><span class="p">()</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">V</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Indices in V should vanish u??&#39;</span><span class="p">)</span> <span class="c1">#FIXME check error message</span>
+
+    <span class="c1"># Let R be a subset {1, ..., g} which correspond to the index i such that P_i is the</span>
+    <span class="c1"># ramification point a_l with l in V</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="p">[</span><span class="n">points</span><span class="o">.</span><span class="n">index</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">],</span><span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">V</span><span class="p">]</span>
+    <span class="n">ind_VmS</span> <span class="o">=</span> <span class="p">[{</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">s</span><span class="p">}</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">]</span>
+    <span class="n">zg</span> <span class="o">=</span> <span class="n">eta_second</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="o">*</span><span class="n">S</span><span class="p">)</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">Ip</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">combinations</span><span class="p">(</span><span class="n">rangeS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">R</span><span class="p">),</span> <span class="n">ni</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span> <span class="o">&amp;</span> <span class="n">si</span><span class="p">))</span> <span class="k">for</span> <span class="n">ni</span><span class="p">,</span> <span class="n">si</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">S</span><span class="p">)]):</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="p">[</span> <span class="n">s</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">ip</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_VmS</span><span class="p">,</span> <span class="n">Ip</span><span class="p">)]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">prod</span><span class="p">((</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="k">for</span> <span class="n">Ij</span> <span class="ow">in</span> <span class="n">I</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Ij</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">R</span><span class="p">)),</span> <span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">I</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;=</span><span class="mi">2</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">rangeS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">i</span><span class="p">)))</span>
+                <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">R</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">R</span><span class="p">)</span>
+
+        <span class="n">Y</span> <span class="o">+=</span> <span class="n">t</span>
+
+    <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">W</span><span class="p">))</span>
+    <span class="n">Y</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">V</span><span class="p">)</span>
+    <span class="n">Y</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">V</span><span class="p">)</span>
+
+    <span class="c1">#The sign</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">g</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="n">sign_s_A</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="n">sign_s_A</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">floor</span><span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">C</span><span class="p">[</span><span class="n">s</span><span class="p">])</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">==</span>  <span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="n">sign_s_A</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">floor</span><span class="p">((</span><span class="n">g</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">Y</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">ZZ</span><span class="p">(</span><span class="n">eta_prime</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">C</span><span class="p">[</span><span class="nb">frozenset</span><span class="p">()])</span><span class="o">*</span><span class="n">zg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Y</span></div>
+
+
+
+<div class="viewcode-block" id="Y_fromMumford_with2torsion">
+<a class="viewcode-back" href="../../source/doc/morphisms.html#thetAV.morphisms_aux.Y_fromMumford_with2torsion">[docs]</a>
+<span class="k">def</span> <span class="nf">Y_fromMumford_with2torsion</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Let D be a point in Jac(C)\\Theta. D can be written as</span>
+<span class="sd">    D = sum_1^g P_i - g P_infty</span>
+<span class="sd">    Let points be the list of coordinates (x,y) (as tuples) of P_i</span>
+<span class="sd">    Let a be the x-coordinate of the Weierstrass points of the curve</span>
+
+<span class="sd">    Assume that all P_i are distinct.</span>
+<span class="sd">    Assume that the first P_i are [a[l],0] with l in V</span>
+<span class="sd">    Assume that V is a subset of S</span>
+
+<span class="sd">    Compute the function Y_S^2 / prod a_l    where the product is over l in V</span>
+
+<span class="sd">    EXAMPLES::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import Y_fromMumford_with2torsion</span>
+<span class="sd">        sage: F = GF(331); g = 2; a = list(map(F, [0, 1, 2, 3, 4]))</span>
+<span class="sd">        sage: S = {0,2,3,4}; V = {0,2}</span>
+<span class="sd">        sage: points = [(F(0), F(0)), (F(2), F(0))]</span>
+<span class="sd">        sage: Y_fromMumford_with2torsion(g,a,S,points,V)</span>
+<span class="sd">        307</span>
+
+<span class="sd">    TESTS::</span>
+
+<span class="sd">        sage: from thetAV.morphisms_aux import Y_fromMumford_with2torsion</span>
+<span class="sd">        sage: F = GF(331); g = 2; a = list(map(F, [0, 1, 2, 3, 4]))</span>
+<span class="sd">        sage: S = {0,2,3,4}; V = {0}</span>
+<span class="sd">        sage: points = [(F(0), F(0)), (F(8), F(10))]</span>
+<span class="sd">        sage: Y_fromMumford_with2torsion(g,a,S,points,V)</span>
+<span class="sd">        300</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">V</span> <span class="o">&lt;</span> <span class="n">S</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;V=</span><span class="si">{</span><span class="n">V</span><span class="si">}</span><span class="s1"> should be a non-empty subset of S=</span><span class="si">{</span><span class="n">S</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected length of points=</span><span class="si">{</span><span class="n">points</span><span class="si">}</span><span class="s1"> to be </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Error?? &#39;</span><span class="p">)</span> <span class="c1">#FIXME when do we get this error?</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">aV</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">V</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">aV</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">F</span><span class="s1">&#39;Expected the first </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1"> points to be in </span><span class="si">{</span><span class="n">aV</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">V</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">)))</span>
+        <span class="n">Y</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">((</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">Y</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">I</span><span class="p">,</span> <span class="n">J</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">g</span><span class="p">),</span> <span class="n">n</span><span class="o">-</span><span class="n">v</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">I</span> <span class="o">+</span> <span class="n">J</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">I</span><span class="p">,</span> <span class="n">J</span><span class="p">]:</span>
+            <span class="n">t</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">)</span>
+            <span class="n">t</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">g</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">)</span>
+        <span class="n">Y</span><span class="o">+=</span><span class="n">t</span>
+
+    <span class="n">Y</span> <span class="o">*=</span> <span class="n">prod</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">g</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">V</span><span class="p">)</span>
+    <span class="n">Y</span> <span class="o">/=</span> <span class="n">prod</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">g</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">Y</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Anna Somoza
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=360bc84d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

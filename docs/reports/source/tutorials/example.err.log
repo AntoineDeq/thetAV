@@ -1,0 +1,74 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 98, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+R.<X> = PolynomialRing(FF)
+poly = X^4 + 3*X^2 + 290*X + 3
+FF2.<t> = poly.splitting_field()
+
+Q_list = [158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,
+ 155*t^3 + 84*t^2 + 15*t + 170, 1]
+A2 = A.change_ring(FF2)
+P = A2(P)
+Q = A2(Q_list)
+
+P + Q #returns P + Q and P - Q
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNotImplementedError[0m                       Traceback (most recent call last)
+Cell [0;32mIn[10], line 11[0m
+[1;32m      8[0m P [38;5;241m=[39m A2(P)
+[1;32m      9[0m Q [38;5;241m=[39m A2(Q_list)
+[0;32m---> 11[0m [43mP[49m[43m [49m[38;5;241;43m+[39;49m[43m [49m[43mQ[49m [38;5;66;03m#returns P + Q and P - Q[39;00m
+
+File [0;32m/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/sage/structure/element.pyx:1227[0m, in [0;36msage.structure.element.Element.__add__ (build/cythonized/sage/structure/element.c:18859)[0;34m()[0m
+[1;32m   1225[0m cdef int cl = classify_elements(left, right)
+[1;32m   1226[0m if HAVE_SAME_PARENT(cl):
+[0;32m-> 1227[0m     return (<Element>left)._add_(right)
+[1;32m   1228[0m # Left and right are Sage elements => use coercion model
+[1;32m   1229[0m if BOTH_ARE_ELEMENT(cl):
+
+File [0;32m/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/sage/structure/element.pyx:1279[0m, in [0;36msage.structure.element.Element._add_ (build/cythonized/sage/structure/element.c:19218)[0;34m()[0m
+[1;32m   1277[0m         raise bin_op_exception('+', self, other)
+[1;32m   1278[0m     else:
+[0;32m-> 1279[0m         return python_op(other)
+[1;32m   1280[0m 
+[1;32m   1281[0m cdef _add_long(self, long n) noexcept:
+
+File [0;32m/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/thetAV/theta_point.py:291[0m, in [0;36mVarietyThetaStructurePoint._add_[0;34m(self, other)[0m
+[1;32m    265[0m [38;5;28;01mdef[39;00m [38;5;21m_add_[39m([38;5;28mself[39m, other):
+[1;32m    266[0m [38;5;250m    [39m[38;5;124;03m"""[39;00m
+[1;32m    267[0m [38;5;124;03m    Add self to other.[39;00m
+[1;32m    268[0m 
+[0;32m   (...)[0m
+[1;32m    289[0m [38;5;124;03m        [39;00m
+[1;32m    290[0m [38;5;124;03m    """[39;00m
+[0;32m--> 291[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_add[49m[43m([49m[43mother[49m[43m)[49m
+
+File [0;32m/usr/share/miniconda3/envs/test/lib/python3.11/site-packages/thetAV/theta_point.py:297[0m, in [0;36mVarietyThetaStructurePoint._add[0;34m(self, other, i0)[0m
+[1;32m    293[0m [38;5;28;01mdef[39;00m [38;5;21m_add[39m([38;5;28mself[39m, other, i0[38;5;241m=[39m[38;5;241m0[39m):
+[1;32m    294[0m [38;5;250m    [39m[38;5;124;03m"""[39;00m
+[1;32m    295[0m [38;5;124;03m    Not implemented for a general point.[39;00m
+[1;32m    296[0m [38;5;124;03m    """[39;00m
+[0;32m--> 297[0m     [38;5;28;01mraise[39;00m [38;5;167;01mNotImplementedError[39;00m
+
+[0;31mNotImplementedError[0m: 
+
