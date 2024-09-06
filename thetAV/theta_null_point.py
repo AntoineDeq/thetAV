@@ -738,23 +738,20 @@ class KummerVariety(Variety_ThetaStructure):
             return self._eqns
         if self._dimension != 2:
             raise NotImplementedError
-        O = self.with_theta_basis('F(2,2)^2')
-        idx = partial(tools.idx, n=2)
-        a2 = O[idx([0,0,0,0])]
-        b2 = O[idx([0,0,1,1])]
-        c2 = O[idx([0,0,1,0])]
-        d2 = O[idx([0,0,0,1])]
-        A2 = (a2 + b2 + c2 + d2)
+        a, b, c, d = tuple(self(0))
+        a2, b2, c2, d2 = a ** 2, b ** 2, c ** 2, d ** 2
+        a4, b4, c4, d4 = a2 ** 2, b2 ** 2, c2 ** 2, d2 ** 2
+        A2 = (a2 + b2 + c2 + d2) #4 A^2 dans Gaudry
         B2 = (a2 + b2 - c2 - d2)
         C2 = (a2 - b2 + c2 - d2)
         D2 = (a2 - b2 - c2 + d2)
-        abcd = sqrt(a2*b2*c2*d2)
+        abcd = a * b * c * d
         E = abcd * A2 * B2 * C2 * D2 / (
                 (a2 * d2 - b2 * c2) * (a2 * c2 - b2 * d2) * (a2 * b2 - c2 * d2))
-        F = (a2 ** 2 - b2 ** 2 - c2 ** 2 + d2 ** 2) / (a2 * d2 - b2 * c2)
-        G = (a2 ** 2 - b2 ** 2 + c2 ** 2 - d2 ** 2) / (a2 * c2 - b2 * d2)
-        H = (a2 ** 2 + b2 ** 2 - c2 ** 2 - d2 ** 2) / (a2 * b2 - c2 * d2)
-
+        F = (a4 - b4 - c4 + d4) / (a2 * d2 - b2 * c2)
+        G = (a4 - b4 + c4 - d4) / (a2 * c2 - b2 * d2)
+        H = (a4 + b4 - c4 - d4) / (a2 * b2 - c2 * d2)
+    
         FF = abcd.parent()
         R = PolynomialRing(FF, 4, 'x')
         x, y, z, t = R.gens()
