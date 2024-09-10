@@ -724,8 +724,8 @@ class KummerVariety(Variety_ThetaStructure):
         Returns a list of defining equations for the abelian variety.
 
         If the theta null point has dimension 2 and level 2, these are
-        the equations as given by Gaudry in [Gau07]_. In that case, it assumes that the
-        genericity conditions are satisfied (see [Gau07]_ for details).
+        the equations as given by Gaudry in [Gaud]_. In that case, it assumes that the
+        genericity conditions are satisfied (see [Gaud]_ for details).
 
         Otherwise, these are computed using the Riemann relations.
 
@@ -741,7 +741,7 @@ class KummerVariety(Variety_ThetaStructure):
         a, b, c, d = tuple(self(0))
         a2, b2, c2, d2 = a ** 2, b ** 2, c ** 2, d ** 2
         a4, b4, c4, d4 = a2 ** 2, b2 ** 2, c2 ** 2, d2 ** 2
-        A2 = (a2 + b2 + c2 + d2) # 4A^2 in [Gau07]
+        A2 = (a2 + b2 + c2 + d2) # 4A^2 in [Gaud]
         B2 = (a2 + b2 - c2 - d2)
         C2 = (a2 - b2 + c2 - d2)
         D2 = (a2 - b2 - c2 + d2)
