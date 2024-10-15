@@ -6,11 +6,11 @@
 </p>
 
 
-![doc](https://github.com/Andreas-Pieper/thetAV/actions/workflows/doc.yml/badge.svg)
+![doc](https://github.com/AntoineDeq/thetAV/actions/workflows/doc.yml/badge.svg)
 
-![test](https://github.com/Andreas-Pieper/thetAV/actions/workflows/test.yml/badge.svg)
+![test](https://github.com/AntoineDeq/thetAV/actions/workflows/test.yml/badge.svg)
 
-![lint](https://github.com/Andreas-Pieper/thetAV/actions/workflows/lint.yml/badge.svg)
+![lint](https://github.com/AntoineDeq/thetAV/actions/workflows/lint.yml/badge.svg)
 
 
 <!-- start elevator-pitch -->
