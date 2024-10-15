@@ -82,7 +82,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         """
         Initialize.
         """
-        if type(self) == Variety_ThetaStructure:
+        if isinstance(self, Variety_ThetaStructure):
             raise Exception("Use either AbelianVariety or KummerVariety.")
         PP = ProjectiveSpace(R, n ** g - 1)
         # Given a characteristic x in (Z/nZ)^g its theta constant is at position ZZ(x, n)
@@ -130,10 +130,10 @@ class Variety_ThetaStructure(AlgebraicScheme):
             return False
         a, b = self.theta_null_point(), X.theta_null_point()
         if op in [op_EQ, op_NE]:
-            for i in range(len(a)):
+            for i, ae in enumerate(a):
                 for j in range(i + 1, len(a)):
-                    if a[i] * b[j] != a[j] * b[i]:
-                        return not (op == op_EQ)
+                    if ae * b[j] != a[j] * b[i]:
+                        return not(op == op_EQ)
             return op == op_EQ
         return richcmp(list(a), list(b), op)
 
@@ -272,7 +272,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             (173 : 327 : 8 : 163 : 49 : 0 : 305 : 0 : 325 : 112 : 0 : 0 : 42 : 0 : 0 : 286)
 
         """
-        if type(self) == str:
+        if isinstance(self, str):
             from .constructor import _with_theta_basis
             return _with_theta_basis(self, *data, **kwargs)
         label = data[0]
@@ -356,7 +356,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             case _:
                 raise TypeError("Input should be a tuple of length 3 or 3 elements.")
         DD = [2 * d for d in D]
-        i, j, tij = tools.reduce_twotorsion_couple(i, j)
+        i, j, _ = tools.reduce_twotorsion_couple(i, j)
         # we try to find k and l to apply the addition formulas such that
         # we can reuse the maximum the computations
         # for a differential addition, i == j (generically) and we take k = l = 0
@@ -467,7 +467,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         support = [range(l)] * g + [range(r)]
         rows = list(accumulate((len(lst) for lst in pts)))
 
-        K = [[None] * lg for i in range(r)]
+        K = [[None] * lg for _ in range(r)]
         # The cantor_product iterator guarantees that when we reach a certain element
         # all the sub-sums are already initialized
         for *lst, j in cantor_product(*support):
@@ -495,14 +495,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 K[j][idxe] = K[0][idx0].three_way_add(K[0][idx1], K[j][idx(e - e0 - e1)], K[0][idx(e0 + e1)],
                                                       K[j][idx(e - e0)], K[j][idx(e - e1)])
                 if K[j][idxe]!= K[0][idx0]+K[0][idx1]+ K[j][idx(e - e0 - e1)]:
-                       print(K[0][idx0]+K[0][idx1]== K[0][idx(e0 + e1)],K[0][idx0]+K[j][idx(e - e0 - e1)] == K[j][idx(e - e1)], K[0][idx1]+K[j][idx(e - e0 - e1)]==  K[j][idx(e - e0)] )
-                       print("problem in threeway add", j, Zl[idxe], Zl[idx0], Zl[idx1], e-e0-e1, e0+e1, e-e0, e-e1)
+                    print(K[0][idx0]+K[0][idx1]== K[0][idx(e0 + e1)],K[0][idx0]+K[j][idx(e - e0 - e1)] == K[j][idx(e - e1)], K[0][idx1]+K[j][idx(e - e0 - e1)]==  K[j][idx(e - e0)] )
+                    print("problem in threeway add", j, Zl[idxe], Zl[idx0], Zl[idx1], e-e0-e1, e0+e1, e-e0, e-e1)
                 continue
             ek = B[k]
             idxk = Bidx[k]
             K[j][idxe] = K[j][idx(e - ek)].diff_add(K[0][idxk], K[j][idx(e - 2 * ek)])
             if K[j][idxe] !=  K[j][idx(e - ek)]+K[0][idxk]:
-                       print("problem in diff add", j, Zl[idxe], e-ek, Zl[idxk], e-2*ek)
+                print("problem in diff add", j, Zl[idxe], e-ek, Zl[idxk], e-2*ek)
         img = []
         for j in range(r):
             imgr = [0] * ng
@@ -634,11 +634,11 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         O = self.theta_null_point()
 
         eqns = []
-        for elem in product(enumerate(D), repeat=4):
-            (idxi, i), (idxj, j), (idxk, k), (idxl, l) = elem
+        for elem in product(D, repeat=4):
+            i, j, k, l = elem
             if i + j + k + l in DD:
                 m = D([ZZ(x) / 2 for x in i + j + k + l])
-                for idxchi, chi in enumerate(twotorsion):
+                for chi in twotorsion:
                     Pel1 = sum(tools.eval_car(chi, t) * P[i + t] * P[j + t] for t in twotorsion)
                     Pel4 = sum(tools.eval_car(chi, t) * P[m - k + t] * P[m - l + t] for t in twotorsion)
                     Oel2 = sum(tools.eval_car(chi, t) * O[k + t] * O[l + t] for t in twotorsion)
