@@ -412,8 +412,6 @@ class Variety_ThetaStructure(AlgebraicScheme):
             k0, l0 = map(idx, IJ[2:4])
             ci20, cj20 = IJ[4:6]
             ck20, cl20 = IJ[6:8]
-            ck0, cl0 = IJ[2:4]
-            cibis, cjbis, ckbis, clbis = tools.get_dual_quadruplet(ci0, cj0, ck0, cl0)
             tt = IJ[8]
             chi = twotorsion(el[0])
 
