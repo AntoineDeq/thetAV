@@ -45,20 +45,12 @@ This library also implements a full range of arithmetic operations over these ab
 <!-- start install -->
 First of all, make sure that you have SageMath 9.5 or later.
 
-**Install from TestPyPI**
-
-thetAV is currently distributed on [TestPyPI]. You can install it with the command:
-
-```console
-$ sage -pip install -i https://test.pypi.org/simple/ thetAV
-```
-
 **Local installation from source**
 
 1. Download the source from the repository:
 
 ```console
-$ git clone https://github.com/anna-somoza/thetAV.git
+$ git clone https://github.com/AntoineDeq/thetAV.git
 ```
 
 2. Go to the package directory and run
