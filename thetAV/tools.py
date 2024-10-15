@@ -49,7 +49,7 @@ def reduce_sym(x):
 
 def reduce_twotorsion(x):
     r"""
-    Returns elements y in Zmod(2n)\ :sup:`g`, t Zmod(2)\ :sup:`g` such that 
+    Returns elements y in Zmod(2n)\ :sup:`g`, t in Zmod(2)\ :sup:`g` such that 
     x = y + t and y is the lexicographic minimum of the elements in the 
     class of x in Zmod(2n)\ :sup:`g` / Zmod(2)\ :sup:`g` with the usual 
     inclusion of Zmod(2) into Zmod(2n).
@@ -197,12 +197,12 @@ def get_dual_quadruplet(x, y, u, v):
     r"""
     .. todo:: add minimal docstring. Twotorsion elements should be returned as elements in the twotorsion.
     """
-    r = x + y + u + v
+    r = -x + y + u + v
     z = r.parent()([ZZ(e) // 2 for e in list(r)])
-    xbis = z - x
-    ybis = z - y
-    ubis = z - u
-    vbis = z - v
+    xbis = x + z
+    ybis = y - z
+    ubis = u - z
+    vbis = v - z
     return xbis, ybis, ubis, vbis
 
 
