@@ -70,6 +70,8 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             raise ValueError(f"v (={v}) must have length n^g (={len(X)}).")
         if not any(v):
             raise ValueError('The given list does not define a valid thetapoint because all entries are zero')
+        if not all(e(tuple(v)) == 0 for e in X.equations()):
+            raise ValueError('The given point does not define a valid thetapoint of {X} (see equations)')
 
         self._coords = v
         self.domain = ConstantFunction(point_homset.domain())

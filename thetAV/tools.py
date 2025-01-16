@@ -219,7 +219,7 @@ def eval_car(chi, t):
         for i in range(n):
             r[i] = ZZ(r[i]) / halflevels[i]
         t = twotorsion(r)
-    return ZZ(-1) ** (chi * t)
+    return ZZ(-1) ** (chi * t) #faux : vaut seulement pour 2-torsion
 
 
 def evaluate_formal_points(w):
