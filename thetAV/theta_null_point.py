@@ -328,10 +328,10 @@ class Variety_ThetaStructure(AlgebraicScheme):
         -  ``chi`` -- a character, given by its dual element in Z(2) as a subset of Z(n).
 
         -  ``i`` -- the index of a coordinate of P. For now we are assuming that they are an
-           element of Zmod(n)^g.
+        element of Zmod(n)^g.
 
         -  ``j`` -- the index of a coordinate of P. For now we are assuming that they are an
-           element of Zmod(n)^g.
+        element of Zmod(n)^g.
 
         Or a triple of 3 integers, the integer representation of ``chi``, ``i`` and ``j``.
 
@@ -347,41 +347,24 @@ class Variety_ThetaStructure(AlgebraicScheme):
         match data:
             case [(idxchi, idxi, idxj)] | [[idxchi, idxi, idxj]]:
                 i = D[idxi]
-                j = D[idxj]
+                i0 = D[idxj]
                 chi = twotorsion[idxchi]
             case chi, i, j:
                 idxchi = tools.idx(chi, n=2)
                 idxi = idx(i)
                 idxj = idx(j)
             case _:
-                raise TypeError("Input should be a tuple of length 3 or 3 elements.")
-        DD = [2 * d for d in D]
-        i, j, _ = tools.reduce_twotorsion_couple(i, j)
-        # we try to find k and l to apply the addition formulas such that
-        # we can reuse the maximum the computations
-        # for a differential addition, i == j (generically) and we take k = l = 0
-        # for a normal addition we have j = 0, so we take k = i, l = j.
-        k0, l0 = (D(0), D(0)) if i == j else (i, j)
-        for u, uv in product(D, DD):
-            v = uv-u
-            k, l, _ = tools.reduce_symtwotorsion_couple(k0 + u, l0 + v)
-            el = (idxchi, idx(k), idx(l))
-            if el not in self._dual:
-                self._dual[el] = sum(tools.eval_car(chi, t) * P0[k + t] * P0[l + t] for t in twotorsion)
-            if self._dual[el] != 0:
-                kk = k
-                ll = l
-                break
-        else:  # If we leave the for loop without encountering a break
-            for t in twotorsion:
-                self._riemann[(idxchi, idx(i + t), idx(j + t))] = []
-            return []
-        i2, j2, k2, l2 = tools.get_dual_quadruplet(i, j, kk, ll)
-        for t in twotorsion:
-            self._riemann[(idxchi, idx(i + t), idx(j + t))] = [i, j, kk, ll, i2, j2, k2, l2, t]
-        return self._riemann[(idxchi, idxi, idxj)]
+                raise TypeError("Input should be a tuple of length 3 or 3 elements :", data)
+        for (i3, i4) in cartesian_product([D, D]):
+            bol1 = sum(tools.eval_car(chi, t) * P0[i3 + t] * P0[i4 + t] for t in twotorsion) != 0
+            bol2 = (i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) + i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) == -i + i0 + i3 + i4) #peut mieux faire : ajouter test directement dans get_dual_quadruplet ?
+            if bol1 and bol2 :
+                el = (idxchi, idx(i3), idx(i4))
+                self._dual[el] = sum(tools.eval_car(chi, t) * P0[i3 + t] * P0[i4 + t] for t in twotorsion)
+                i5, i6, i7, i8 = tools.get_dual_quadruplet(i, i0, i3, i4)
+                return [i, i0, i3, i4, i5, i6, i7, i8]
 
-    def _addition_formula(self, P, Q, L):
+    def _addition_formula2(self, P, Q, L):
         """
         Given two points P and Q and a list L containing integer triplets [idxchi, idxi, idxj]
         compute
@@ -403,23 +386,23 @@ class Variety_ThetaStructure(AlgebraicScheme):
         for el in L:
             if el in r:
                 continue
-            # Are we sure that this pair (i,j) is reduced as in riemann? Or it is not done like that? check.
             IJ = self.riemann_relation(el)
             if not len(IJ):
-                raise ValueError(
-                    "Can't compute the addition! Either we are in level 2 and computing a normal addition, or a differential addition with null even theta null points.")
+                for e in L:
+                    r[e] = 0
+                return r
+                #raise ValueError("Can't compute the addition! Either we are in level 2 and computing a normal addition, or a differential addition with null even theta null points.")
             ci0, cj0 = IJ[:2]
             k0, l0 = map(idx, IJ[2:4])
             ci20, cj20 = IJ[4:6]
             ck20, cl20 = IJ[6:8]
-            tt = IJ[8]
+            
             chi = twotorsion(el[0])
 
             s1 = sum(tools.eval_car(chi, t) * Q[ci20 + t] * Q[cj20 + t] for t in twotorsion)
             s2 = sum(tools.eval_car(chi, t) * P[ck20 + t] * P[cl20 + t] for t in twotorsion)
-            A = self._dual[(el[0], k0, l0)]
-            #There is a problem with the characters here:
-            S = tools.eval_car(chi, tt) * s2 * s1 / A
+            B = self._dual[(el[0], k0, l0)]
+            S = s2 * s1 / B
             for t in twotorsion:
                 r[(el[0], idx(ci0 + t), idx(cj0 + t))] = tools.eval_car(chi, t) * S
         return r

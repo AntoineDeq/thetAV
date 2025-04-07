@@ -194,7 +194,7 @@ def reduce_symtwotorsion_couple(x, y):
 
 
 def get_dual_quadruplet(x, y, u, v):
-    r"""
+    """
     .. todo:: add minimal docstring. Twotorsion elements should be returned as elements in the twotorsion.
     """
     r = -x + y + u + v
