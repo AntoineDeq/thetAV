@@ -181,9 +181,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                         return False, None
             return True, c
 
-        for i in range(len(self)):
+        for i, val in enumerate(self):
             for j in range(i + 1, len(self)):
-                if self[i] * Q[j] != self[j] * Q[i]:
+                if val * Q[j] != self[j] * Q[i]:
                     return False
         return True
 
@@ -226,7 +226,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                 return i if idx else tools.idx(i, self.level())
         raise ValueError('All entries are zero.')
     
-    def get_all_nonzero_coord(self, idx=True):
+    def get_all_nonzero_coord(self, idx=True): #not used
         res = []
         for i, val in enumerate(self):
             if val != 0:
@@ -394,7 +394,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                     P1 = P1.diff_add(P0, self)
                     P0 = P0.diff_add(P0, point0)
             return P0
-        if algorithm == 'SquareAndMultiply': #pas regardé
+        if algorithm == 'SquareAndMultiply': #not checked
             if self.scheme().level() == 2:
                 raise NotImplementedError("Square and Multiply algorithm is only for level > 2.")
             for b in (k-1).binary()[1:]:
@@ -772,23 +772,20 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
             dualself = {}
             DD = [2 * d for d in D]
             for (idxi, i), (idxj, j) in product(enumerate(D), enumerate(D)):
-                ii, jj, tt = tools.reduce_twotorsion_couple(i, j)
                 for idxchi, chi in enumerate(twotorsion):
-                    el = (idxchi, idx(ii), idx(jj))
+                    el = (idxchi, idxi, idxj)
                     if el not in dualself:
-                        dualself[el] = sum(tools.eval_car(chi, t) * v[idx(ii + t)] * v[idx(jj + t)] for t in twotorsion)
-                    el2 = (idxchi, idx(i), idx(j))
-                    dualself[el2] = tools.eval_car(chi, tt) * dualself[el]
+                        dualself[el] = sum(tools.eval_car(chi, t) * v[idx(i + t)] * v[idx(j + t)] for t in twotorsion)
 
             for elem in combinations_with_replacement(combinations_with_replacement(enumerate(D), 2), 2):
                 ((idxi, i), (idxj, j)), ((idxk, k), (idxl, l)) = elem
-                if i + j + k + l in DD:
-                    m = D([ZZ(x) / 2 for x in i + j + k + l])
+                if -i + j + k + l in DD:
+                    m = D([ZZ(x) / 2 for x in -i + j + k + l])
                     for idxchi, chi in enumerate(twotorsion):
                         el1 = (idxchi, idxi, idxj)
                         el2 = (idxchi, idxk, idxl)
-                        el3 = (idxchi, idx(m - i), idx(m - j))
-                        el4 = (idxchi, idx(m - k), idx(m - l))
+                        el3 = (idxchi, idx(i + m), idx(j - m))
+                        el4 = (idxchi, idx(k - m), idx(l - m))
                         if dual[el1] * dualself[el2] != dual[el3] * dualself[el4]:
                             raise ValueError('The given list does not define a valid thetapoint')
 
@@ -877,7 +874,7 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
 
 
 @richcmp_method
-class KummerVarietyPoint(VarietyThetaStructurePoint):
+class KummerVarietyPoint(VarietyThetaStructurePoint): #Warning : addition formula changed, so maybe we have to change things here... not check
     """
     Constructor for a point on an kummer variety with theta structure.
 

@@ -617,15 +617,15 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         O = self.theta_null_point()
 
         eqns = []
-        for elem in product(D, repeat=4):
+        for elem in product(D, repeat=4): #too much equations but ok
             i, j, k, l = elem
-            if i + j + k + l in DD:
-                m = D([ZZ(x) / 2 for x in i + j + k + l])
+            if -i + j + k + l in DD:
+                m = D([ZZ(x) / 2 for x in -i + j + k + l])
                 for chi in twotorsion:
                     Pel1 = sum(tools.eval_car(chi, t) * P[i + t] * P[j + t] for t in twotorsion)
-                    Pel4 = sum(tools.eval_car(chi, t) * P[m - k + t] * P[m - l + t] for t in twotorsion)
                     Oel2 = sum(tools.eval_car(chi, t) * O[k + t] * O[l + t] for t in twotorsion)
-                    Oel3 = sum(tools.eval_car(chi, t) * O[m - i + t] * O[m - j + t] for t in twotorsion)
+                    Oel3 = sum(tools.eval_car(chi, t) * O[i + m + t] * O[j - m + t] for t in twotorsion)
+                    Pel4 = sum(tools.eval_car(chi, t) * P[k - m + t] * P[l - m + t] for t in twotorsion)
                     eq = Pel1 * Oel2 - Oel3 * Pel4
                     if eq != 0 and eq not in eqns:
                         eqns.append(eq)
