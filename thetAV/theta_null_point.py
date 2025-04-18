@@ -617,8 +617,8 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         O = self.theta_null_point()
 
         eqns = []
-        for elem in product(D, repeat=4): #too much equations but ok
-            i, j, k, l = elem
+        for elem in combinations_with_replacement(combinations_with_replacement(D, 2), 2): #too much equations but ok
+            (i, j), (k, l) = elem
             if -i + j + k + l in DD:
                 m = D([ZZ(x) / 2 for x in -i + j + k + l])
                 for chi in twotorsion:
