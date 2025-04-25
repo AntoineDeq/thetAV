@@ -27,7 +27,7 @@ This library borrows some of its code and has been much inspired by the Magma pa
 # Functionality
 
 In our library, we manipulate the objects $(A, L, \Theta)$ where
-- $A$ is a dimension-$g$ abelian variety over a field $k$;
+- $A$ is a dimension- $g$ abelian variety over a field $k$;
 - $L$ is a symmetric line bundle of level 2 or 4;
 - $\Theta$ is a theta structure.
 
