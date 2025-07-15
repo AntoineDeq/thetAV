@@ -55,7 +55,7 @@ from sage.misc.functional import sqrt
 from random import choice
 
 from . import analytic_theta_point, constructor
-from . import tools
+from . import tools, utilities
 from .theta_point import VarietyThetaStructurePoint, AbelianVarietyPoint, KummerVarietyPoint
 
 _Fields = Fields()
@@ -521,9 +521,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             arg = g * (m,)
             Q = PolynomialRing(FF, *arg, var_array='X')
 
-        BB = AbelianVariety(Q, m, g, [Q(e) for e in tuple(self(0))])
-
-        L = decomposition(M)
+        L = utilities.decomposition(M)
         L.reverse()
         
         res = list(cop(thet))
@@ -651,7 +649,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 ind = [0] * i + [dm] + [0] * (2 * g - i - 1)
                 Gp[i] = Gp[i].action_theta((ind[g:], ind[:g]))
         return Gp
-    
+
     
 
 
