@@ -314,6 +314,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             self._with_theta_basis[label] = th
             return th
 
+
         raise NotImplementedError
 
     def riemann_relation(self, *data):
@@ -328,10 +329,10 @@ class Variety_ThetaStructure(AlgebraicScheme):
         -  ``chi`` -- a character, given by its dual element in Z(2) as a subset of Z(n).
 
         -  ``i`` -- the index of a coordinate of P. For now we are assuming that they are an
-        element of Zmod(n)^g.
+            element of Zmod(n)^g.
 
         -  ``j`` -- the index of a coordinate of P. For now we are assuming that they are an
-        element of Zmod(n)^g.
+            element of Zmod(n)^g.
 
         Or a triple of 3 integers, the integer representation of ``chi``, ``i`` and ``j``.
 
@@ -357,14 +358,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 raise TypeError("Input should be a tuple of length 3 or 3 elements :", data)
         for (i3, i4) in cartesian_product([D, D]):
             bol1 = sum(tools.eval_car(chi, t) * P0[i3 + t] * P0[i4 + t] for t in twotorsion) != 0
-            bol2 = (i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) + i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) == -i + i0 + i3 + i4) #peut mieux faire : ajouter test directement dans get_dual_quadruplet ?
+            bol2 = (i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) + i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) == -i + i0 + i3 + i4)
             if bol1 and bol2 :
                 el = (idxchi, idx(i3), idx(i4))
                 self._dual[el] = sum(tools.eval_car(chi, t) * P0[i3 + t] * P0[i4 + t] for t in twotorsion)
                 i5, i6, i7, i8 = tools.get_dual_quadruplet(i, i0, i3, i4)
                 return [i, i0, i3, i4, i5, i6, i7, i8]
 
-    def _addition_formula2(self, P, Q, L):
+    def _addition_formula(self, P, Q, L):
         """
         Given two points P and Q and a list L containing integer triplets [idxchi, idxi, idxj]
         compute
@@ -407,95 +408,95 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 r[(el[0], idx(ci0 + t), idx(cj0 + t))] = tools.eval_car(chi, t) * S
         return r
 
-    def isogeny(self, l, basis, R=None, check=True):
-        """
-        Given the basis of an isotropic subgroup B of the l-torsion of A, compute
-        the thetanullpoints of the isogenous abelian variety A/B. Moreover, given a list of points R, it computes the
-        image of these points via the isogeny.
+    # def isogeny(self, l, basis, R=None, check=True):
+    #     """
+    #     Given the basis of an isotropic subgroup B of the l-torsion of A, compute
+    #     the thetanullpoints of the isogenous abelian variety A/B. Moreover, given a list of points R, it computes the
+    #     image of these points via the isogeny.
 
-        EXAMPLE::
+    #     EXAMPLE::
 
-            sage: #TODO examples
+    #         sage: #TODO examples
 
-        """
-        if self.level() == 2:
-            raise NotImplementedError
-        if R is None:
-            R = []
-        F = self.base_ring()
-        g = self.dimension()
-        ng = self._ng
-        r = len(R) + 1
+    #     """
+    #     if self.level() == 2:
+    #         raise NotImplementedError
+    #     if R is None:
+    #         R = []
+    #     F = self.base_ring()
+    #     g = self.dimension()
+    #     ng = self._ng
+    #     r = len(R) + 1
 
-        pts = []
-        deltas = []
-        for i, ei in enumerate(basis):
-            Re = [(P + ei) for P in R]
-            Be = [(ei + ej) for ej in basis[i + 1:]]
-            pts.append([ei] + Re + Be)
-            deltas += ei.compatible_lift(l, R, Re)
-            deltas += [eij.compatible_lift(l) for eij in Be]
+    #     pts = []
+    #     deltas = []
+    #     for i, ei in enumerate(basis):
+    #         Re = [(P + ei) for P in R]
+    #         Be = [(ei + ej) for ej in basis[i + 1:]]
+    #         pts.append([ei] + Re + Be)
+    #         deltas += ei.compatible_lift(l, R, Re)
+    #         deltas += [eij.compatible_lift(l) for eij in Be]
 
-        S = PolynomialRing(F, len(deltas), 'mu')
-        mus = S.gens()
-        T = S.quotient([mu ** l - delta for mu, delta in zip(mus, deltas)])
-        AT = self.change_ring(T)
+    #     S = PolynomialRing(F, len(deltas), 'mu')
+    #     mus = S.gens()
+    #     T = S.quotient([mu ** l - delta for mu, delta in zip(mus, deltas)])
+    #     AT = self.change_ring(T)
 
-        idx = partial(tools.idx, n=l)
-        Zl = Zmod(l) ** g
-        B = Zl.basis()
-        Bidx = [idx(e) for e in B]
-        lg = l ** g
+    #     idx = partial(tools.idx, n=l)
+    #     Zl = Zmod(l) ** g
+    #     B = Zl.basis()
+    #     Bidx = [idx(e) for e in B]
+    #     lg = l ** g
 
-        support = [range(l)] * g + [range(r)]
-        rows = list(accumulate((len(lst) for lst in pts)))
+    #     support = [range(l)] * g + [range(r)]
+    #     rows = list(accumulate((len(lst) for lst in pts)))
 
-        K = [[None] * lg for _ in range(r)]
-        # The cantor_product iterator guarantees that when we reach a certain element
-        # all the sub-sums are already initialized
-        for *lst, j in cantor_product(*support):
-            idxe = idx(lst)
-            e = Zl(lst)
-            ite = (i for i, t in enumerate(lst) if t)
-            if e == 0:
-                K[j][0] = AT(0) if j == 0 else AT(R[j - 1])
-                continue
-            i0 = next(ite)  # first non-zero element
-            if e in B:  # i0 will be the index of the element in the basis
-                rowi0 = rows[i0 - 1] if i0 != 0 else 0
-                K[j][idxe] = AT(pts[i0][j]).scale(mus[rowi0 + j])
-                continue
-            k = next((i for i, t in enumerate(lst) if t > 1), None)
-            if k is None:  # all elements are 0 or 1, and sum is at least 2
-                i1 = next(ite)
-                if j == 0 and next(ite, None) is None:  # we only have two ones, so it's still given in the input
-                    rowi0 = rows[i0 - 1] if i0 != 0 else 0  # i0 < i1 by definition
-                    ij = r + i1 - i0 - 1
-                    K[0][idxe] = AT(pts[i0][ij]).scale(mus[rowi0 + ij])
-                    continue
-                e0, e1 = B[i0], B[i1]
-                idx0, idx1 = Bidx[i0], Bidx[i1]
-                K[j][idxe] = K[0][idx0].three_way_add(K[0][idx1], K[j][idx(e - e0 - e1)], K[0][idx(e0 + e1)],
-                                                      K[j][idx(e - e0)], K[j][idx(e - e1)])
-                if K[j][idxe]!= K[0][idx0]+K[0][idx1]+ K[j][idx(e - e0 - e1)]:
-                    print(K[0][idx0]+K[0][idx1]== K[0][idx(e0 + e1)],K[0][idx0]+K[j][idx(e - e0 - e1)] == K[j][idx(e - e1)], K[0][idx1]+K[j][idx(e - e0 - e1)]==  K[j][idx(e - e0)] )
-                    print("problem in threeway add", j, Zl[idxe], Zl[idx0], Zl[idx1], e-e0-e1, e0+e1, e-e0, e-e1)
-                continue
-            ek = B[k]
-            idxk = Bidx[k]
-            K[j][idxe] = K[j][idx(e - ek)].diff_add(K[0][idxk], K[j][idx(e - 2 * ek)])
-            if K[j][idxe] !=  K[j][idx(e - ek)]+K[0][idxk]:
-                print("problem in diff add", j, Zl[idxe], e-ek, Zl[idxk], e-2*ek)
-        img = []
-        for j in range(r):
-            imgr = [0] * ng
-            for i in range(ng):
-                imgr[i] = sum(el[i] ** l for el in K[j]).lift()
-            img.append(imgr)
+    #     K = [[None] * lg for _ in range(r)]
+    #     # The cantor_product iterator guarantees that when we reach a certain element
+    #     # all the sub-sums are already initialized
+    #     for *lst, j in cantor_product(*support):
+    #         idxe = idx(lst)
+    #         e = Zl(lst)
+    #         ite = (i for i, t in enumerate(lst) if t)
+    #         if e == 0:
+    #             K[j][0] = AT(0) if j == 0 else AT(R[j - 1])
+    #             continue
+    #         i0 = next(ite)  # first non-zero element
+    #         if e in B:  # i0 will be the index of the element in the basis
+    #             rowi0 = rows[i0 - 1] if i0 != 0 else 0
+    #             K[j][idxe] = AT(pts[i0][j]).scale(mus[rowi0 + j])
+    #             continue
+    #         k = next((i for i, t in enumerate(lst) if t > 1), None)
+    #         if k is None:  # all elements are 0 or 1, and sum is at least 2
+    #             i1 = next(ite)
+    #             if j == 0 and next(ite, None) is None:  # we only have two ones, so it's still given in the input
+    #                 rowi0 = rows[i0 - 1] if i0 != 0 else 0  # i0 < i1 by definition
+    #                 ij = r + i1 - i0 - 1
+    #                 K[0][idxe] = AT(pts[i0][ij]).scale(mus[rowi0 + ij])
+    #                 continue
+    #             e0, e1 = B[i0], B[i1]
+    #             idx0, idx1 = Bidx[i0], Bidx[i1]
+    #             K[j][idxe] = K[0][idx0].three_way_add(K[0][idx1], K[j][idx(e - e0 - e1)], K[0][idx(e0 + e1)],
+    #                                                   K[j][idx(e - e0)], K[j][idx(e - e1)])
+    #             if K[j][idxe]!= K[0][idx0]+K[0][idx1]+ K[j][idx(e - e0 - e1)]:
+    #                 print(K[0][idx0]+K[0][idx1]== K[0][idx(e0 + e1)],K[0][idx0]+K[j][idx(e - e0 - e1)] == K[j][idx(e - e1)], K[0][idx1]+K[j][idx(e - e0 - e1)]==  K[j][idx(e - e0)] )
+    #                 print("problem in threeway add", j, Zl[idxe], Zl[idx0], Zl[idx1], e-e0-e1, e0+e1, e-e0, e-e1)
+    #             continue
+    #         ek = B[k]
+    #         idxk = Bidx[k]
+    #         K[j][idxe] = K[j][idx(e - ek)].diff_add(K[0][idxk], K[j][idx(e - 2 * ek)])
+    #         if K[j][idxe] !=  K[j][idx(e - ek)]+K[0][idxk]:
+    #             print("problem in diff add", j, Zl[idxe], e-ek, Zl[idxk], e-2*ek)
+    #     img = []
+    #     for j in range(r):
+    #         imgr = [0] * ng
+    #         for i in range(ng):
+    #             imgr[i] = sum(el[i] ** l for el in K[j]).lift()
+    #         img.append(imgr)
 
-        fA = constructor.AbelianVariety(F, self.level(), g, img[0])
-        fR = [fA(el, check=check) for el in img[1:]]
-        return fA, fR
+    #     fA = constructor.AbelianVariety(F, self.level(), g, img[0])
+    #     fR = [fA(el, check=check) for el in img[1:]]
+    #     return fA, fR
 
 
 @richcmp_method
@@ -617,7 +618,7 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         O = self.theta_null_point()
 
         eqns = []
-        for elem in combinations_with_replacement(combinations_with_replacement(D, 2), 2): #too much equations but ok
+        for elem in combinations_with_replacement(combinations_with_replacement(D, 2), 2): #too much equations listed but ok
             (i, j), (k, l) = elem
             if -i + j + k + l in DD:
                 m = D([ZZ(x) / 2 for x in -i + j + k + l])
@@ -717,26 +718,30 @@ class KummerVariety(Variety_ThetaStructure):
         """
         if self._eqns is not None:
             return self._eqns
-        if self._dimension != 2:
-            raise NotImplementedError
-        a, b, c, d = tuple(self(0))
-        a2, b2, c2, d2 = a ** 2, b ** 2, c ** 2, d ** 2
-        a4, b4, c4, d4 = a2 ** 2, b2 ** 2, c2 ** 2, d2 ** 2
-        A2 = (a2 + b2 + c2 + d2) # 4A^2 in [Gaud]
-        B2 = (a2 + b2 - c2 - d2)
-        C2 = (a2 - b2 + c2 - d2)
-        D2 = (a2 - b2 - c2 + d2)
-        abcd = a * b * c * d
-        E = abcd * A2 * B2 * C2 * D2 / (
-                (a2 * d2 - b2 * c2) * (a2 * c2 - b2 * d2) * (a2 * b2 - c2 * d2))
-        F = (a4 - b4 - c4 + d4) / (a2 * d2 - b2 * c2)
-        G = (a4 - b4 + c4 - d4) / (a2 * c2 - b2 * d2)
-        H = (a4 + b4 - c4 - d4) / (a2 * b2 - c2 * d2)
-    
-        FF = abcd.parent()
-        R = PolynomialRing(FF, 4, 'x')
-        x, y, z, t = R.gens()
-        self._eqns = [
-            x ** 4 + y ** 4 + z ** 4 + t ** 4 + 2 * E * x * y * z * t - F * (x ** 2 * t ** 2 + y ** 2 * z ** 2) - G * (
-                    x ** 2 * z ** 2 + y ** 2 * t ** 2) - H * (x ** 2 * y ** 2 + z ** 2 * t ** 2)]
-        return self._eqns
+        if self._dimension == 1:
+            # In this case, the equations are trivial
+            self._eqns = []
+            return self._eqns
+        if self._dimension == 2:
+            a, b, c, d = tuple(self(0))
+            a2, b2, c2, d2 = a ** 2, b ** 2, c ** 2, d ** 2
+            a4, b4, c4, d4 = a2 ** 2, b2 ** 2, c2 ** 2, d2 ** 2
+            A2 = (a2 + b2 + c2 + d2) # 4A^2 in [Gaud]
+            B2 = (a2 + b2 - c2 - d2)
+            C2 = (a2 - b2 + c2 - d2)
+            D2 = (a2 - b2 - c2 + d2)
+            abcd = a * b * c * d
+            E = abcd * A2 * B2 * C2 * D2 / (
+                    (a2 * d2 - b2 * c2) * (a2 * c2 - b2 * d2) * (a2 * b2 - c2 * d2))
+            F = (a4 - b4 - c4 + d4) / (a2 * d2 - b2 * c2)
+            G = (a4 - b4 + c4 - d4) / (a2 * c2 - b2 * d2)
+            H = (a4 + b4 - c4 - d4) / (a2 * b2 - c2 * d2)
+        
+            FF = abcd.parent()
+            R = PolynomialRing(FF, 4, 'x')
+            x, y, z, t = R.gens()
+            self._eqns = [
+                x ** 4 + y ** 4 + z ** 4 + t ** 4 + 2 * E * x * y * z * t - F * (x ** 2 * t ** 2 + y ** 2 * z ** 2) - G * (
+                        x ** 2 * z ** 2 + y ** 2 * t ** 2) - H * (x ** 2 * y ** 2 + z ** 2 * t ** 2)]
+            return self._eqns
+        raise NotImplementedError

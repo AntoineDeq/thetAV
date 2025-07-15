@@ -195,7 +195,7 @@ def reduce_symtwotorsion_couple(x, y):
 
 def get_dual_quadruplet(x, y, u, v):
     """
-    .. todo:: add minimal docstring. Twotorsion elements should be returned as elements in the twotorsion.
+    From a quadruplet well suited, compute a quadruplet such that the octuplet is in Riemann position
     """
     r = -x + y + u + v
     z = r.parent()([ZZ(e) // 2 for e in list(r)])
@@ -207,8 +207,8 @@ def get_dual_quadruplet(x, y, u, v):
 
 
 def eval_car(chi, t):
-    r"""
-    .. todo:: add minimal docstring.
+    """
+    Evaluates the character chi at the element t, for elements in the 2-torsion
     """
     if chi.parent() != t.parent():
         r = list(t)
@@ -219,8 +219,7 @@ def eval_car(chi, t):
         for i in range(n):
             r[i] = ZZ(r[i]) / halflevels[i]
         t = twotorsion(r)
-    return ZZ(-1) ** (chi * t) #faux : vaut seulement pour 2-torsion
-
+    return ZZ(-1) ** (chi * t)
 
 def evaluate_formal_points(w):
     r"""
@@ -262,3 +261,16 @@ def create_indexing(n, g, twotorsion=True):
         c = CallableConvertMap(TT, Z, lambda U, tt: U([s * ZZ(i) for i in tt]))
         Z.register_coercion(c)
     return Z, TT
+
+def from_m_to_n(Zn, tt):
+    n = len(Zn.base_ring())
+    m = len(tt.parent().base_ring())
+    s = n // m
+    return Zn([s * ZZ(i) for i in list(tt)])
+
+def vector_to_Zmg(Zmg, v):
+    if v.nrows() != 1:
+        v = v.transpose()
+    if v.nrows() != 1:
+        raise ValueError("Not good dimension")
+    return Zmg(tuple(v)[0])

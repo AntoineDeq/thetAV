@@ -181,9 +181,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                         return False, None
             return True, c
 
-        for i, val in enumerate(self):
+        for i in range(len(self)):
             for j in range(i + 1, len(self)):
-                if val * Q[j] != self[j] * Q[i]:
+                if self[i] * Q[j] != self[j] * Q[i]:
                     return False
         return True
 
@@ -303,7 +303,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             sage: #TODO level 4 tests
             
         """
-        return self._add(other)
+        return self.schematic_addition(other, i0=0)
 
     def _add(self, other, i0=0):
         """
@@ -425,11 +425,6 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             ((41*t^3 + 291*t^2 + 122*t + 305 : 119*t^3 + 95*t^2 + 120*t + 68 : 81*t^3 + 168*t^2 + 326*t + 24 : 202*t^3 + 251*t^2 + 246*t + 169),
             (311 : 326 : 136 : 305))
         
-        .. todo::
-
-            If we don't need kP, then we don't need to compute kP, only (k/2)P, so
-            we lose 2 differential additions. Could be optimized here.
-            
         """
         if k == 0:
             point0 = self.scheme().theta_null_point()
@@ -457,7 +452,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                 P0 = P0.diff_add(P0, point0)
         return PQ0, P0
 
-    def weil_pairing(self, l, Q, PQ=None):
+    def weil_pairing_power(self, l, Q, PQ=None):
         """
         Computes the Weil pairing of P=self and Q.  See also
         :meth:`~._weil_pairing_from_points` to use precomputed points.
@@ -483,7 +478,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         if PQ is None:
             if self.scheme().level() == 2:
                 raise NotImplementedError
-            PQ = self + Q
+            PQ = self. + Q
         else:
             if self.scheme() != PQ.scheme():
                 raise ValueError('The points must belong to the same Abelian Variety.')
@@ -560,10 +555,12 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             sage: R.<X> = PolynomialRing(GF(331))
             sage: poly = X^4 + 3*X^2 + 290*X + 3
             sage: F.<t> = poly.splitting_field()
-            sage: A = KummerVariety(F, 2, [328, 213, 75, 1])
-            sage: P = A([255, 89, 30, 1])
-            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280, 155*t^3 + 84*t^2 + 15*t + 170, 1])
-            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129, 172*t^3 + 157*t^2 + 43*t + 222, 258*t^3 + 39*t^2 + 313*t + 150, 1])
+            sage: A = KummerVariety(F, 2, [328 , 213 , 75 , 1])
+            sage: P = A([255 , 89 , 30 , 1])
+            sage: Q = A([158*t^3 + 67*t^2 + 9*t + 293, 290*t^3 + 25*t^2 + 235*t + 280,\
+            155*t^3 + 84*t^2 + 15*t + 170, 1])
+            sage: PmQ = A([62*t^3 + 16*t^2 + 255*t + 129, 172*t^3 + 157*t^2 + 43*t + 222, \
+                258*t^3 + 39*t^2 + 313*t + 150, 1])
             sage: PQ = P.diff_add(Q, PmQ)
             sage: P.diff_multadd(2, PQ, Q)[0] == P.three_way_add(P, Q, 2*P, PQ, PQ)
             True
@@ -579,13 +576,15 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         mP = -self
         mQ = -Q
         mR = -R
-        if mP[i0] == 0:
-            return self.three_way_add(Q, R, PQ, QR, PR, i0 + 1)
         AA = self.scheme()
         O = AA.theta_null_point()
         n = AA.level()
         g = AA.dimension()
         D = AA._D
+        DD = cartesian_product([D, D])
+        LD = list(D)
+        if mP[LD[i0]] == 0:
+            return self.three_way_add(Q, R, PQ, QR, PR, i0 + 1)
         twotorsion = AA._twotorsion
         ng = n ** g
         twong = ng ** 2 - 1
@@ -594,21 +593,21 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         for idxi, i in enumerate(D):
             val = 0
             for chi in twotorsion:
-                i3, i4 = None, None
+                (i3, i4) = None, None
                 bol1, bol2, bol3 = False, False, True
                 k = 0
                 while not(bol1 and bol2) or bol3:
-                    (i3, i4) = cartesian_product([D, D])[k]
+                    (i3, i4) = DD[k]
                     l2 = sum(tools.eval_car(chi, t) * mQ[i3 + t] * mR[i4 + t] for t in twotorsion)
                     bol1 = l2 != 0
-                    bol2 = (i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) + i.parent()([ZZ(e) // 2 for e in list(-i + i0 + i3 + i4)]) == -i + i0 + i3 + i4)
+                    bol2 = (i.parent()([ZZ(e) // 2 for e in list(-i + LD[i0] + i3 + i4)]) + i.parent()([ZZ(e) // 2 for e in list(-i + LD[i0] + i3 + i4)]) == -i + LD[i0] + i3 + i4)
                     bol3 = k == twong
                     k += 1
-                i5, i6, i7, i8 = tools.get_dual_quadruplet(i, i0, i3, i4)
+                i5, i6, i7, i8 = tools.get_dual_quadruplet(i, LD[i0], i3, i4)
                 l3 = sum(tools.eval_car(chi, t) * O[i5 + t] * QR[i6 + t] for t in twotorsion)
                 l4 = sum(tools.eval_car(chi, t) * PR[i7 + t] * PQ[i8 + t] for t in twotorsion)
                 val += l3 * l4 / l2
-            PQR[idxi] = val / (twog * mP[i0])
+            PQR[idxi] = val / (twog * mP[LD[i0]])
         if not any(PQ):
             return self.three_way_add(Q, R, PQ, QR, PR, i0 + 1)
         return AA.point(PQR)
@@ -1013,7 +1012,7 @@ class KummerVarietyPoint(VarietyThetaStructurePoint): #Warning : addition formul
 
         return point0.point(PQ)
 
-    def schematic_add(self, other, idxi0=0):
+    def schematic_addition(self, other, idxi0=0):
         """
         Normal addition between self and other on the affine plane with respect to i0.
         If (self - other)[i] == 0, then it tries with another affine plane.
