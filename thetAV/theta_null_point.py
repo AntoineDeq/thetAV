@@ -25,6 +25,7 @@ variety) and computing Riemann equations to represent its projective embedding a
 AUTHORS:
 
 - Anna Somoza (2020-22): initial implementation
+- Antoine Dequay (2025)
 
 """
 
@@ -51,6 +52,7 @@ from sage.structure.element import is_Vector
 from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
 from sage.schemes.hyperelliptic_curves.jacobian_morphism import JacobianMorphism_divisor_class_field
 from sage.misc.functional import sqrt
+from random import choice
 
 from . import analytic_theta_point, constructor
 from . import tools
@@ -78,7 +80,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
     """
     _point = VarietyThetaStructurePoint
 
-    def __init__(self, R, n, g, T):
+    def __init__(self, R, n, g, T, roots=None):
         """
         Initialize.
         """
@@ -98,6 +100,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
         self._riemann = {}
         self._dual = {}
         self._with_theta_basis = {}
+        
+        self._roots = roots
 
     def __richcmp__(self, X, op):
         """
@@ -408,6 +412,250 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 r[(el[0], idx(ci0 + t), idx(cj0 + t))] = tools.eval_car(chi, t) * S
         return r
 
+    def compute_lst_roots(self, n, root_n=None):
+        """
+        Compute the roots of unity used to compute the action of the theta action.
+
+        INPUT:
+
+        - ``n`` -- an integer.
+        - ``root_n`` -- an n-root of unity.
+
+        OUTPUT:
+
+        A list L of roots of unity such that L[i] = root_n ^(n/i) for i|n stored in self._roots if empty.
+        If ``root_n`` is not given, it is computed as a random n-th root of unity in the base ring.
+
+        EXAMPLES::
+
+            sage: #TODO examples
+
+        """
+        if self._roots is None:
+            if n == 1:
+                self._roots = [self.base_ring()(1)]
+            else:
+                if root_n is None:
+                    Q = PolynomialRing(self.base_ring(), 'X')
+                    X, = Q.gens()
+                    L_r = (X ** n - 1).roots(ring = self.base_ring(), multiplicities = None)
+                    root_n = choice(L_r)
+                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
+                        root_n = choice(L_r)
+                lst_roots = [self.base_ring()(1)]
+                for e in range(1, n + 1):
+                    if n % e != 0:
+                        lst_roots.append(None)
+                    else:
+                        lst_roots.append(root_n ** (n // e))
+                self._roots = lst_roots
+        else:
+            if (len(self._roots) > n and self._roots[n] is None) or (len(self._roots) < n and n % (len(self._roots) - 1) != 0):
+                raise NotImplementedError(f"Roots of unity already computed for {len(self._roots) - 1} but asked for {n}.")
+            elif len(self._roots) < n:
+                if root_n is None:
+                    Q = PolynomialRing(self.base_ring(), 'X')
+                    X, = Q.gens()
+                    L_r = (X ** (n // (len(self._roots) - 1)) - self._roots[-1]).roots(ring = self.base_ring(), multiplicities = None)
+                    root_n = choice(L_r)
+                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
+                        root_n = choice(L_r)
+                lst_roots = [self.base_ring()(1)]
+                for e in range(1, n + 1):
+                    if n % e != 0:
+                        lst_roots.append(None)
+                    else:
+                        lst_roots.append(root_n ** (n // e))
+                self._roots = lst_roots
+
+    def eval_car_comp(self, chi, t):
+        r"""
+        .. todo:: add minimal docstring.
+        """
+        if chi.parent() != t.parent():
+            raise TypeError("Chi and t must have the same parent.")
+        return self._roots[self.level()] ** (chi * t)
+    
+    def action_Sp(self, M):
+        """
+            See Algorithm 1 in [DeLu25].
+
+            INPUT:
+            -   M in Sp_{2g}(Z/mZ)
+            
+            OUTPUT:
+
+            -   B_new the new abelian variety defined by
+            the new theta null point computed with the action of M.
+            -   from_B the conversion.
+            
+
+            EXAMPLES:
+
+                sage: TODO
+
+
+            TODO : coerssion from thet to res
+        """
+        # M = M.inverse()
+        Zmg = self._D
+        thet = self(0)
+        g = self.dimension()
+        m = self.level()
+        FF = self.base_ring()
+        
+        if Zmg.base_ring() != M.base_ring():
+            raise ValueError("Not the same base ring")
+        if not(M.is_square()):
+            raise ValueError("M is not square")
+        if 2 * self.dimension() != M.nrows():
+            raise ValueError("Wrong dimension", self.dimension(), 2 * M.nrows())
+
+        Zm = M.base_ring()
+        idx = partial(tools.idx, n=m)
+
+        if g == 1:
+            arg = m
+            Q = PolynomialRing(FF, arg, 'X')
+        else:
+            arg = g * (m,)
+            Q = PolynomialRing(FF, *arg, var_array='X')
+
+        BB = AbelianVariety(Q, m, g, [Q(e) for e in tuple(self(0))])
+
+        L = decomposition(M)
+        L.reverse()
+        
+        res = list(cop(thet))
+        resX = list(Q.gens())
+        res1X = None
+        
+        for ((a, b), _) in L:
+            if a == "Bg":
+                res1X = cop(resX)
+                for i in Zmg:
+                    resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
+            elif a == "Sg":
+                res1X = cop(resX)
+                dico = calc_sqr_Sg(b)
+                for i in Zmg:
+                    a = Matrix(Zm, i).transpose()
+                    a.set_immutable()
+                    resX[idx(i)] = res1X[idx(i)] * dico[a]
+            else: # a == "Hg"
+                res1X = cop(resX)
+                for i in Zmg:
+                    resX[idx(i)] = sum([self.eval_car_comp(i, j) * res1X[idx(j)] for j in Zmg])
+                res1X = cop(resX)
+                for i in Zmg:
+                    resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, -b * Matrix(Zm, i).transpose()))]
+        
+        thet_new = [e_resX(res) for e_resX in resX]
+
+        B_new = AbelianVariety(self.base_ring(), self.level(), g, thet_new, check = True)
+
+        from_B = lambda tht_pt: B_new([e_resX(list(tht_pt)) for e_resX in resX])
+        return B_new, from_B
+
+    
+    def thet_pt_comp(self, n, G, check = True):
+        """
+            See Algorithm 3 in [DeLu25].
+
+            INPUT:
+            -   n = md
+            -   G a basis of G1 : assuming it is ordered 
+            
+            OUTPUT:
+
+            -   B_new the new abelian variety
+            -   from_B the conversion
+            
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        m = self.level()
+        g = self.dimension()
+        FF = self.base_ring()
+        d = n // m
+        if d % 2 == 1:
+            raise ValueError("d is not even")
+
+        c = self._D(0)
+        P0 = self(0)
+        for ej in G:
+            if not ej.sym_comp(n):
+                dej = ej._mult(d)
+                for l in self._D:
+                    if dej == P0.action_theta((l, self._D(0))):
+                        e = l
+                        break
+                c += e
+        thetb = list(P0.action_theta((0, c), 2))
+        B_new = AbelianVariety(FF, m, g, thetb, check=check)
+        from_B = lambda thet_pt: B_new(list(thet_pt.action_theta((0, c), 2)))
+        return B_new, from_B
+    
+    def decomp_compat(self, n, G):
+        """
+            See Algorithm 4 in [DeLu25].
+            Work in progress.
+
+            INPUT:
+            -   n = md
+            -   G a basis of G
+            
+            OUTPUT:
+            -   G the new basis of G, such that dG is isotropic & G is symmetric compatible...
+            
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        g = self.dimension()
+        m = self.level()
+        d = n / m
+        dm = m / 2
+        
+        assert(len(G) == 2 * g)
+        Zm = self._D.base_ring()
+        # power_rac_prim = [Lst_rac_prim[m] ** i for i in range(m)]
+        
+        # def log_W_pair(eP, eQ, m):
+        #     w_pair = eval_car_comp(eQ[1], eP[0], m) / eval_car_comp(eP[1], eQ[0], m)
+        #     return power_rac_prim.index(w_pair)
+        
+        dG = [e.ell() for e in G]
+        assert(all(e[0] == d for e in dG)) # doesn't generate everything if not
+        # M = Matrix([[log_W_pair(de[2], df[2], m) for de in dG] for df in dG])
+        # print(M)
+        # print([de[2] for de in dG])
+        N = Matrix(Zm, [list(de[2][0]) + list(de[2][1]) for de in dG]).T.inverse()
+        Gp = [B(0)] * 2 * g
+        for j in range(2 * g):
+            for i in range(2 * g):
+                Gp[j] = (Gp[j])._add((G[i])._mult(ZZ(N[i, j])))
+        # dG = [ell(B, e) for e in Gp]
+        # assert(all(e[0] == d for e in dG)) # strange if not ?
+        # print([de[2] for de in dG])
+        # assert(all(e[0] == d for e in dG)) # strange if not ?
+        # M = Matrix([[log_W_pair(de[2], df[2], m) for de in dG] for df in dG])
+        # print(M)
+        # for e in Gp:
+        #     print(algo2(n, B, e))
+        for i, e in enumerate(Gp):
+            if not e.sym_comp(n):
+                ind = [0] * i + [dm] + [0] * (2 * g - i - 1)
+                Gp[i] = Gp[i].action_theta((ind[g:], ind[:g]))
+        return Gp
+    
+    
+
+
+
     # def isogeny(self, l, basis, R=None, check=True):
     #     """
     #     Given the basis of an isotropic subgroup B of the l-torsion of A, compute
@@ -662,7 +910,7 @@ class KummerVariety(Variety_ThetaStructure):
     _point = KummerVarietyPoint
     _level = 2
 
-    def __init__(self, R, g, T):
+    def __init__(self, R, g, T, check=False):
         """
         Initialize.
         """

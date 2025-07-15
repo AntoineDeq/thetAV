@@ -4,6 +4,7 @@
 AUTHORS:
 
 - Anna Somoza (2020-22): initial implementation
+- Antoine Dequay (2025)
     
 """
 
@@ -324,11 +325,12 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             
         """
         point0 = self.scheme()
+        idx = partial(tools.idx, n=point0.level())
         D = point0._D
-        mPcoord = [0] * len(point0)
-        for idxi, i in enumerate(D):
-            mPcoord[idxi] = self[-i]
-        return point0.point(mPcoord)
+        mP = [0] * len(point0)
+        for i in D:
+            mP[idx(i)] = self[idx(-i)]
+        return point0.point(mP)
 
     def _rmul_(self, k):
         """
@@ -870,6 +872,94 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
         if not any(PQ):
             return self.schematic_addition(other, i0 + 1)
         return A.point(PQ)
+    
+    def action_theta(self, x, envi = None):
+        """
+            INPUT:
+            -  x element of K(2) as a list
+            -  envi : 2 if x is in the twotorsion, None if not (then x is in self._D)
+
+            OUTPUT:
+
+            -  x.self
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        A = self.scheme()
+        if envi == 2:
+            envi = A._twotorsion
+        else:
+            envi = A._D
+        x0 = A._D(envi(x[0]))
+        x1 = A._D(envi(x[1]))
+        thetb = [None] * len(A._D)
+        idx = partial(tools.idx, n=A.level())
+        for i in A._D:
+            thetb[idx(i)] = A.eval_car_comp(x1, -i - x0) * self[idx(i + x0)]
+        return A(thetb)
+
+    def ell(self, max = Infinity):
+        """Compute the numbering coherent with the symplectic structure.
+
+        Returns:
+        -   l -- such that l*self is a point in B(M)
+        -   lP -- the point l*self
+        -   e -- the element of K(M) such that lP = action_theta(B, e, B(0))
+        """
+        B = self.scheme()
+        l = 0
+        lP = B(0)
+        lm1P = -P
+        while l < max + 1:
+            l += 1
+            lm1P, lP = lP, lP.diff_add(P, lm1P)
+            for e in cartesian_product([B._D] * 2):
+                if lP == (B(0)).action_theta(e):
+                    return l, lP, e
+        raise ValueError("Pb")
+    
+    def sym_comp(self, n):
+        """
+            See Algorithm 2 in [DeLu25].
+
+            INPUT:
+            -   n = md with m the level of the theta structure and d an integer.
+            
+            OUTPUT:
+
+            -   True iff x is symmetric compatible with B(0).
+            
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        B = self.scheme()
+        m = B.level()
+        d = n // m
+        assert(d * m == n)
+        if d % 2 == 1:
+            return True
+
+        dp = d // 2
+        
+        gfe = self._mult(dp)
+        dx = gfe._mult(2)
+        e = None
+
+        l, _, e = dx.ell()
+        
+        if l != 1:
+            raise ValueError("dx not in \\Thetabar(Z(m)x\\{0\\}) U \\Thetabar(\\{0\\}xZ(m))")
+
+        gf = (-gfe).action_theta(e)
+        
+        bol, fact = gf.is_equal(gfe, factor=True)
+        if not bol:
+            raise ValueError("Pb compuptation kappa")
+        return fact == 1
 
 
 @richcmp_method

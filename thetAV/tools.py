@@ -4,6 +4,7 @@ Additional tools.
 AUTHORS:
 
 - Anna Somoza (2020-22): initial implementation
+- Antoine Dequay (2025)
 
 """
 
@@ -241,6 +242,9 @@ def idx(c, n):
 
 
 def create_conversions(n, g):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     Z = Zmod(n) ** g
     from_ZZ = CallableConvertMap(ZZ, Z, lambda U, idx: U(idx.digits(n, padto=g)))
     from_int = CallableConvertMap(int, Z, lambda U, idx: U(ZZ(idx).digits(n, padto=g)))
@@ -252,6 +256,9 @@ def create_conversions(n, g):
 
 
 def create_indexing(n, g, twotorsion=True):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     Z = create_conversions(n, g)
     if not twotorsion:
         return Z
@@ -263,14 +270,21 @@ def create_indexing(n, g, twotorsion=True):
     return Z, TT
 
 def from_m_to_n(Zn, tt):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     n = len(Zn.base_ring())
     m = len(tt.parent().base_ring())
     s = n // m
     return Zn([s * ZZ(i) for i in list(tt)])
 
 def vector_to_Zmg(Zmg, v):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     if v.nrows() != 1:
         v = v.transpose()
     if v.nrows() != 1:
         raise ValueError("Not good dimension")
     return Zmg(tuple(v)[0])
+

@@ -120,7 +120,7 @@ def _from_curve(C, level=4):
         sage: th = AbelianVariety.from_curve(C); th.with_theta_basis('F(2,2)')
         (1 : 37 : 56 : 57 : 34*z2 + 43 : 0 : 50*z2 + 73 : 0 : 30 : 2*z2 + 82 : 0 : 0 : 16*z2 + 37 : 0 : 0 : 61*z2 + 21)
 
-    TODO :: Can we generalize to more curves: Genus 1? Genus >2?
+    TODO :: Can we generalize to more curves: Genus 1? Genus >2? to be liked to 
 
     """
     if not isinstance(C, HyperellipticCurve_g2):

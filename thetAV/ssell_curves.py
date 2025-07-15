@@ -45,9 +45,3 @@ class SupersingularEndomorphismStructure():
  
  def Endomorphism(self, r)
         return asMap(Str.E, &+[Integers()![x[1][i]] * asPoint(self.indep[i], E_): i in [0..3]]);
-
-
-        
- def enumerateDeuring(self)
-        
-        return
