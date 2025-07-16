@@ -53,6 +53,7 @@ from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
 from sage.schemes.hyperelliptic_curves.jacobian_morphism import JacobianMorphism_divisor_class_field
 from sage.misc.functional import sqrt
 from random import choice
+from copy import deepcopy as cop
 
 from . import analytic_theta_point, constructor
 from . import tools, utilities
@@ -535,7 +536,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
             elif a == "Sg":
                 res1X = cop(resX)
-                dico = calc_sqr_Sg(b)
+                dico = utilities.calc_sqr_Sg(b)
                 for i in Zmg:
                     a = Matrix(Zm, i).transpose()
                     a.set_immutable()
@@ -550,7 +551,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         
         thet_new = [e_resX(res) for e_resX in resX]
 
-        B_new = AbelianVariety(self.base_ring(), self.level(), g, thet_new, check = True)
+        B_new = constructor.AbelianVariety(self.base_ring(), self.level(), g, thet_new, check = True)
 
         from_B = lambda tht_pt: B_new([e_resX(list(tht_pt)) for e_resX in resX])
         return B_new, from_B
@@ -592,7 +593,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                         break
                 c += e
         thetb = list(P0.action_theta((0, c), 2))
-        B_new = AbelianVariety(FF, m, g, thetb, check=check)
+        B_new = constructor.AbelianVariety(FF, m, g, thetb, check=check)
         from_B = lambda thet_pt: B_new(list(thet_pt.action_theta((0, c), 2)))
         return B_new, from_B
     
@@ -650,8 +651,228 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 Gp[i] = Gp[i].action_theta((ind[g:], ind[:g]))
         return Gp
 
-    
+    def good_lift_group(self, n, G, x, ii = 1, G_good = False):
+        """
+            See Algorithm 6 in [DeLu25].
 
+            INPUT:
+            -   n = md
+            -   G a basis of G if not G_good, else a good lift of G
+            -   x an affine lift of a point of self
+            -   i such that Gi is G1 or G2
+            
+            OUTPUT:
+
+            -   Gt a good lift of G if not G_good
+            -   xpGt a good lift of x+G
+            
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        g = self._dimension
+        idx = partial(tools.idx, n=n)
+        ng = n ** g
+        m = self.level()
+        d = n // m
+        Zn = tools.create_conversions(n, g)
+        Zd = tools.create_conversions(d, g)
+        Zm = tools.create_conversions(m, g)
+        if not G_good:
+            Gt = [None] * ng
+            Gt[idx(Zn(0))] = self(0)
+        else:
+            Gt = G
+        xpGt = [None] * ng
+        xpGt[idx(Zn(0))] = x
+        for i, ei in enumerate(Zd.basis()):
+            if G_good:
+                xpGt[idx(ei)] = (G[idx(ei)]).good_lift_point(x, True)
+            else:
+                a, b = (G[i]).good_lift_point(x)
+                Gt[idx(ei)] = a
+                xpGt[idx(ei)] = b
+            for ej in list(Zd.basis())[:i]:
+                Gt[idx(ei + ej)] = (Gt[idx(ei)]).good_lift_point(Gt[idx(ej)], True)
+                
+                # three_way_add2(x, y, z, x+y, y+z, x+z) = ThreeWayAdd(x+y, y+z, x+z, x, y, z, 0)
+                xpGt[idx(ei + ej)] = x.three_way_add(Gt[idx(ei)], Gt[idx(ej)], xpGt[idx(ei)], Gt[idx(ei + ej)], xpGt[idx(ej)])
+        
+        strat = tools.strat_decomp(Zd)
+        
+        for exe in strat:
+            if exe[0] == 2:
+                Q = Gt[idx(exe[3])]
+                
+                if not G_good:
+                    P = Gt[idx(exe[2])]
+                    PmQ = Gt[idx(exe[4])]
+                    Gt[idx(exe[1])] = P.diff_add(Q, PmQ)
+                
+                xpP = xpGt[idx(exe[2])]
+                xpPmQ = xpGt[idx(exe[4])]
+                xpGt[idx(exe[1])] = xpP.diff_add(Q, xpPmQ)
+            
+            else: #exe[0] == 3
+                Q = Gt[idx(exe[3])]
+                R = Gt[idx(exe[4])]
+                QR = Gt[idx(exe[6])]
+                
+                if not G_good:
+                    P = Gt[idx(exe[2])]
+                    PQ = Gt[idx(exe[5])]
+                    PR = Gt[idx(exe[7])]
+                    Gt[idx(exe[1])] = P.three_way_add(Q, R, PQ, QR, PR)
+                
+                xpP = xpGt[idx(exe[2])]
+                xpPQ = xpGt[idx(exe[5])]
+                xpPR = xpGt[idx(exe[7])]
+                xpGt[idx(exe[1])] = xpP.three_way_add(Q, R, xpPQ, QR, xpPR)
+
+        Zrondd = [Zn([ZZ(i) for i in e]) for e in Zd]
+        for ed in Zrondd:
+            for em in Zm:
+                e = ed + tools.from_m_to_n(Zn, em)
+                if ii == 1:
+                    em = (em, self._D(0))
+                else: #ii==2
+                    em = (self._D(0), em)
+                if not G_good:
+                    Gt[idx(e)] = (Gt[idx(ed)]).action_theta(em)
+                xpGt[idx(e)] = (xpGt[idx(ed)]).action_theta(em)
+        if G_good:
+            return xpGt
+        return Gt, xpGt
+
+    def change_level_fonc(self, n, lst_ai, G1t, G2t, x):
+        """
+            See Algorithm 7 in [].
+
+            INPUT:
+            -   n = md with m the level of self
+            -   lst_ai a list of the ais
+            -   G1t a good lift of G1
+            -   G2t a good lift of G2
+            -   x an affine lift of a point of self
+            
+            OUTPUT:
+
+            -   res the point x coordinates in level n
+            
+
+            EXAMPLES:
+
+                sage: TODO
+                
+            TODO: Can be improved by smart choices for j0 according to j
+        """
+        g = self.dimension()
+        ng = n ** g
+        m = self.level()
+        assert(n % m == 0)
+        
+        idx = partial(tools.idx, n=n)
+        
+        Zn = tools.create_conversions(n, g)
+        Zm = tools.create_conversions(m, g)
+        
+        xpG1t = self.good_lift_group(n, G1t, x, 1, True)
+        # xpG2t = self.good_lift_group(n, G2t, x, 2, True) # not used
+        L_xpPpG2t = []
+        for xpP in xpG1t: #choose the good P now if you don't want all the coordinates or if j0 is choose smartly
+            xpPpG2t = self.good_lift_group(n, G2t, xpP, 2, True)
+            L_xpPpG2t.append(xpPpG2t)
+        
+        ai_reduit = list(set(lst_ai))
+        
+        Lst_ai_L_xpPpG2t = []
+        Lst_ai_L_xpPpQ = []
+        for xpPpG2t in L_xpPpG2t: #P varies
+            Lst_ai_L_xpPpQ = []
+            for xpPpQ in xpPpG2t: #Q varies
+                Lst_ai_L_xpPpQ.append([xpPpQ._mult(ai) for ai in ai_reduit])
+            Lst_ai_L_xpPpG2t.append(Lst_ai_L_xpPpQ)
+        
+        j0 = Zm(0)
+        res = [None] * ng
+        for j in Zn:
+            num_P = idx(j - tools.from_m_to_n(Zn, j0))
+            
+            e_res = 0
+            for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
+                e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][0] for ai in lst_ai)
+            res[idx(j)] = e_res
+        
+        return res
+    
+    def change_level(self, n, lst_ai, G, check = True):
+        """
+            See Algorithm 7 in [].
+
+            INPUT:
+            -   n = md with m the level of self
+            -   lst_ai a list of the ais
+            -   B the abelian variety
+            -   G a basis of G
+            -   x an affine lift of a point of self
+            
+            OUTPUT:
+
+            -   A the abelian variety of level n
+            -   fonc_conv a conversion function from self to A
+            
+
+            EXAMPLES:
+
+                sage: TODO
+                
+            TODO: Can be improved by smart choices for j0 according to j
+        """
+        g = self.dimension()
+        ng = n ** g
+        m = self.level()
+        x = self(0)
+        
+        G = self.decomp_compat(n, G)
+        G1 = G[:g]
+        G2 = G[g:]
+        idx = partial(tools.idx, n=n)
+        
+        Zn = tools.create_conversions(n, g)
+        Zm = tools.create_conversions(m, g)
+        
+        G1t, xpG1t = self.good_lift_group(n, G1, x, 1)
+        G2t, _ = self.good_lift_group(n, G2, x, 2) # xpG2t not used
+        L_xpPpG2t = []
+        for xpP in xpG1t: #choose the good P now if you don't want all the coordinates or if j0 is choose smartly
+            xpPpG2t = self.good_lift_group(n, G2t, xpP, 2, True)
+            L_xpPpG2t.append(xpPpG2t)
+        
+        ai_reduit = list(set(lst_ai))
+        
+        Lst_ai_L_xpPpG2t = []
+        Lst_ai_L_xpPpQ = []
+        for xpPpG2t in L_xpPpG2t: #P varies
+            Lst_ai_L_xpPpQ = []
+            for xpPpQ in xpPpG2t: #Q varies
+                Lst_ai_L_xpPpQ.append([xpPpQ._mult(ai) for ai in ai_reduit])
+            Lst_ai_L_xpPpG2t.append(Lst_ai_L_xpPpQ)
+        
+        j0 = Zm(0)
+        res = [None] * ng
+        for j in Zn:
+            num_P = idx(j - tools.from_m_to_n(Zn, j0))
+            
+            e_res = 0
+            for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
+                e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][0] for ai in lst_ai)
+            res[idx(j)] = e_res
+        
+        A = constructor.AbelianVariety(self.base_ring(), n, g, res, check = check)
+        fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x))
+        
+        return A, fonc_conv
 
 
     # def isogeny(self, l, basis, R=None, check=True):

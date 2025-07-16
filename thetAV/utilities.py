@@ -221,7 +221,10 @@ def half(A, Lst, stop=Infinity):
     
     return Lst_div
 
+# *****************************************************************************
 # Computation of the action of Sp_2g(Z/mZ) on the theta functions.
+# *****************************************************************************
+
 
 def Sg(Zm, g, C):
     return block_matrix([[identity_matrix(Zm, g), zero_matrix(Zm, g)], [C, identity_matrix(Zm, g)]])
@@ -486,3 +489,240 @@ def calc_sqr_Sg(C, check = True):
             cond = len(dico) != mg
     return dico
 
+# *****************************************************************************
+# 
+# *****************************************************************************
+
+def Legendre_to_Elliptic(lm):
+    """ 
+    For given lm, compute E:y^2=x*(x-1)*(x-lm).
+    """
+    E = EllipticCurve(parent(lm), [0, (-lm - 1), 0, lm, 0])
+    return E
+
+def Elliptic_to_Legendre(E):
+    """ 
+    For given E, compute lmd s.t. y^2=x*(x-1)*(x-lmd).
+    this form is called "Legendre form".
+    """
+    coeff = E.a_invariants()
+    #y^2=x^3+ax^2+bx+c
+    a = coeff[1]
+    b = coeff[3]
+    c = coeff[4]
+    fld = E.base_field()
+    X = gen(fld['X'])
+    f = X ** 3 + a * X ** 2 + b * X + c
+    roots = f.roots()
+    # assert(len(roots) == 3)
+    x1 = roots[0][0]
+    x2 = roots[1][0]
+    x3 = roots[2][0]
+    lmd = (x3 - x1) / (x2 - x1)
+    E_lmd = Legendre_to_Elliptic(lmd)
+    iso_E_Elmd = E.isomorphisms(E_lmd)[1] # not 0 because trivial
+    return lmd, E_lmd, iso_E_Elmd
+
+def Legendre_to_lv2tnp(lm):
+    """ 
+    From Legendre form, compute theta-null point of level 2.
+    """
+    K = parent(lm)
+    sq_rt_lm = sqrt(lm)
+    sq_rt_lmm1 = sqrt(lm-1)
+    # assert(sq_rt_lm ** 2 == lm)
+    # assert(sq_rt_lmm1 ** 2 == lm - 1)
+    thnp0_sq = sq_rt_lm
+    thnp1_sq = sq_rt_lmm1
+    thnp2_sq = K(1)
+    lv2tnp = [(thnp0_sq + thnp2_sq), thnp1_sq]
+    return lv2tnp, sq_rt_lm, sq_rt_lmm1
+
+def Lv2tnp_to_Legendre(lv2tnp:list):
+    """ 
+    From theta-null point of level 2, compute Legendre form.
+    """
+    assert(len(lv2tnp) == 2)
+    a = lv2tnp[0]
+    b = lv2tnp[1]
+    sq_rt_lm = (a ** 2 + b ** 2) / (a ** 2 - b ** 2)
+    sq_rt_lmm1 = (1 + sq_rt_lm) * (lv2tnp[1] / lv2tnp[0])
+    lm = sq_rt_lm ** 2
+    assert(sq_rt_lmm1 ** 2 + 1 == lm)
+    return lm, sq_rt_lm, sq_rt_lmm1
+
+def Is_isomorphic_Legendre(lmd_1,lmd_2):
+    """ 
+    for 2 lmd, check if the defining elliptic curves are isomorphic.
+    """
+    if lmd_1 in {lmd_2, 1 / lmd_2, 1 - lmd_2, 1 / (1 - lmd_2), 1 - (1 / lmd_2), lmd_2 / (lmd_2 - 1)}:
+        return True
+    else:
+        return False
+
+def lv2tnp_to_j_inv(lv2tnp):
+    """
+    From theta-null point of level 2, compute the j-invariant of the assiociated elliptic curve.
+    """
+    B = lv2tnp.scheme()
+    assert(B.dimension() == 1)
+    assert(B.level() == 2)
+    a = lv2tnp[0]
+    b = lv2tnp[1]
+    sq_rt_lm = (a ** 2 + b ** 2) / (a ** 2 - b ** 2)
+    lm = sq_rt_lm ** 2
+    j = 2 ** 8 * (lm ** 2 - lm + 1) ** 3 / (lm ** 2 * (lm - 1) ** 2)
+    return j
+
+def set_to_eta(S, g):
+    """
+    Compute eta_S as in Mumford [Tata II]
+    """
+    L1 = [0] * g
+    L2 = [0] * g
+    a = Matrix(Zmod(2), [L1, L2])
+    for i in S:
+        n = (i + 1) // 2
+        L1 = [0] * (n - 1) + [1] + [0] * (g - n)
+        if i % 2 == 0:
+            L2 = [1] * n + [0] * (g - n)
+        else:
+            L2 = [1] * (n - 1) + [0] * (g - n + 1)
+        if i == 0:
+            L1 = [0] * g
+            L2 = [0] * g
+        if i == 2 * g + 1:
+            L1 = [0] * g
+            L2 = [1] * g
+        a = a + Matrix(Zmod(2), [L1, L2])
+    a.set_immutable()
+    return a
+
+def compute_formula_inv_thomae(thet, k, i, j, g):
+    """
+    Compute (ak - aj) / (ak - ai) as in [Cosset, Thm 3.1.20]. See def p.41 for syst. of representation
+
+    Test every V possible (the first one should always be ok (?)
+    """
+    V = set([i, j])
+    U = set(range(1, 2 * g + 2, 2)) # indices of branch points of U
+    u = 0
+    V_poss = [set(e) for e in combinations_with_replacement([f for f in range(1, 2 * g + 2) if f != k], 2) if len(set(e)) == g - 1]
+    if V_poss == []:
+        V_poss = [set()]
+    ln = len(V_poss)
+    while u != ln:
+        V = V_poss[u].union(set([i, j]))
+        
+        UVi = set_to_eta(U.symmetric_difference(V).symmetric_difference(set([i])), g)
+        UVi = [ZZ(e) for e in UVi[0, :][0]] + [ZZ(e) for e in UVi[1, :][0]]
+        UVj = set_to_eta(U.symmetric_difference(V).symmetric_difference(set([j])), g)
+        UVj = [ZZ(e) for e in UVj[0, :][0]] + [ZZ(e) for e in UVj[1, :][0]]
+        UVik = set_to_eta(U.symmetric_difference(V).symmetric_difference(set([i, k])), g)
+        UVik = [ZZ(e) for e in UVik[0, :][0]] + [ZZ(e) for e in UVik[1, :][0]]
+        UVjk = set_to_eta(U.symmetric_difference(V).symmetric_difference(set([j, k])), g)
+        UVjk = [ZZ(e) for e in UVjk[0, :][0]] + [ZZ(e) for e in UVjk[1, :][0]]
+        
+        etakp = set_to_eta(set([k]), g)[0, :]
+        etaijpp = set_to_eta(set([i, j]), g)[1, :]
+        
+        if (thet[ZZ(UVi, 2)] ** 2 * thet[ZZ(UVjk, 2)] ** 2) != 0:
+            return (-1) ** (etakp * etaijpp.transpose())[0, 0] * (thet[ZZ(UVj, 2)] ** 2 * thet[ZZ(UVik, 2)] ** 2) / (thet[ZZ(UVi, 2)] ** 2 * thet[ZZ(UVjk, 2)] ** 2)
+        u += 1
+    return None
+
+def mat_inv_thomae(thet, g):
+    """
+    Compute M such that Ker(M) is the {a_i} as in inverse Thomae formula in [Cosset, Thm 3.1.20]
+    """
+    M = []
+    L0 = [0] * (2 * g + 1)
+    L_nouv = None
+    for k, i, j in cartesian_product([range(2 * g + 1)] * 3):
+        if len(set([k, i, j])) == 3:
+            u = compute_formula_inv_thomae(thet, k + 1, i + 1, j + 1, g)
+            if u != None:
+                # print(k,i,j, u)
+                L_nouv = cop(L0)
+                L_nouv[k] = 1 - u
+                L_nouv[i] = u
+                L_nouv[j] = -1
+                M.append(L_nouv)
+    return Matrix(M)
+
+def thet_us_to_thet_eta(tnp, n = 4):
+    """
+    level 4 ok, TODO: test for other levels
+    """
+    g = tnp.scheme().dimension()
+    return list(mat_thomae(g, n).inverse().solve_right(Matrix(tnp).transpose()).transpose()[0])
+
+def lv4tnp_to_ai_space(tnp):
+    """
+    Compute the sapce of solution for the ai's considering Thomae inverse formulas
+    """
+    g = tnp.scheme().dimension()
+    thet = thet_us_to_thet_eta(tnp)
+    M = mat_inv_thomae(thet, g)
+    K = M.right_kernel()
+    return K
+
+def lv4tnp_to_j_inv(lv4tnp):
+    """
+    From theta-null point of level 4, compute the j-invariant of the assiociated elliptic curve.
+
+    -> We compute the Legendre form for that, i.e. E:y^2=x*(x-1)*(x-lm)
+    """
+    B = lv4tnp.scheme()
+    assert(B.dimension() == 1)
+    assert(B.level() == 4)
+    th = [0] * 16
+    
+    K = lv4tnp_to_ai_space(lv4tnp)
+    Basis = K.basis()
+    M = Matrix([[e[i] for e in Basis] for i in range(2)])
+    goal = Matrix([[0, 1]]).transpose()
+    pre_res = M.solve_right(goal)
+    
+    lm = (Matrix([e[2] for e in Basis]) * pre_res)[0,0]
+    E = EllipticCurve(parent(lm), [0, (-lm - 1), 0, lm, 0])
+    
+    j = 2 ** 8 * (lm ** 2 - lm + 1) ** 3 / (lm ** 2 * (lm - 1) ** 2)
+    return j
+
+def equation_to_igusa_inv(p): # coherent with lv4tnp_to_igusa_inv
+    A, B, C, D = clebsch_invariants(p)
+    I2, I4, I6, I10 = clebsch_to_igusa(A, B, C, D)
+    j1, j2, j3 = I2 ** 5 / I10, I4 * I2 ** 3 / I10, I6 * I2 ** 2 / I10 # see version j' of Weng [Wen01] p.28, PHD thesis in German
+    return j1, j2, j3
+
+def lv4tnp_to_igusa_inv(lv4tnp): # cohérent with equation_to_igusa_inv
+    """
+    From theta-null point of level 4, compute the Igusa invariants of the assiociated hyperelliptic curve.
+
+    See formulas from [DupontPhd] -> def 5.2, section 6.2, section 6.3.3
+    """
+    B = lv4tnp.scheme()
+    assert(B.dimension() == 2)
+    assert(B.level() == 4)
+    g = B.dimension()
+    #θb0+2b1+4a0+8a1 = θa,b -> inverse % the rest of this module
+    th = [0] * 16
+    
+    def trad(k): # b and a have inverse role in formulas compared to the rest of this module
+        l = ZZ(k).digits(2, padto = 2 * g)
+        return ZZ(l[g:] + l[:g], 2)
+    
+    thet = thet_us_to_thet_eta(lv4tnp, g)
+    for k in range(16):
+        th[trad(k)] = thet[k]
+    
+    P2 = {0, 1, 2, 3, 4, 6, 8, 9, 12, 15}
+    h4 = sum([th[j] ** 8 for j in P2])
+    h10 = prod([th[j] ** 2 for j in P2])
+    h12 = (th[0] * th[1] * th[2] * th[4] * th[8] * th[15]) ** 4 + (th[0] * th[1] * th[2] * th[6] * th[9] * th[12]) ** 4 + (th[0] * th[1] * th[3] * th[4] * th[9] * th[15]) ** 4 + (th[0] * th[1] * th[3] * th[6] * th[8] * th[12]) ** 4 + (th[0] * th[1] * th[4] * th[6] * th[12] * th[15]) ** 4 + (th[0] * th[2] * th[3] * th[4] * th[9] * th[12]) ** 4 + (th[0] * th[2] * th[3] * th[6] * th[8] * th[15]) ** 4 + (th[0] * th[2] * th[8] * th[9] * th[12] * th[15]) ** 4 + (th[0] * th[3] * th[4] * th[6] * th[8] * th[9]) ** 4 + (th[1] * th[2] * th[3] * th[4] * th[8] * th[12]) ** 4 + (th[1] * th[2] * th[3] * th[6] * th[9] * th[15]) ** 4 + (th[1] * th[2] * th[4] * th[6] * th[8] * th[9]) ** 4 + (th[1] * th[3] * th[8] * th[9] * th[12] * th[15]) ** 4 + (th[2] * th[3] * th[4] * th[6] * th[12] * th[15]) ** 4 + (th[4] * th[6] * th[8] * th[9] * th[12] * th[15]) ** 4
+    h16 = (th[3] ** 8 + th[6] ** 8 + th[9] ** 8 + th[12] ** 8) * (th[0] * th[1] * th[2] * th[4] * th[8] * th[15]) ** 4 + (th[3] ** 8 + th[4] ** 8 + th[8] ** 8 + th[15] ** 8) * (th[0] * th[1] * th[2] * th[6] * th[9] * th[12]) ** 4 + (th[2] ** 8 + th[6] ** 8 + th[8] ** 8 + th[12] ** 8) * (th[0] * th[1] * th[3] * th[4] * th[9] * th[15]) ** 4 + (th[2] ** 8 + th[4] ** 8 + th[9] ** 8 + th[15] ** 8) * (th[0] * th[1] * th[3] * th[6] * th[8] * th[12]) ** 4 + (th[2] ** 8 + th[3] ** 8 + th[8] ** 8 + th[9] ** 8) * (th[0] * th[1] * th[4] * th[6] * th[12] * th[15]) ** 4 + (th[1] ** 8 + th[6] ** 8 + th[8] ** 8 + th[15] ** 8) * (th[0] * th[2] * th[3] * th[4] * th[9] * th[12]) ** 4 + (th[1] ** 8 + th[4] ** 8 + th[9] ** 8 + th[12] ** 8) * (th[0] * th[2] * th[3] * th[6] * th[8] * th[15]) ** 4 + (th[1] ** 8 + th[3] ** 8 + th[4] ** 8 + th[6] ** 8) * (th[0] * th[2] * th[8] * th[9] * th[12] * th[15]) ** 4 + (th[1] ** 8 + th[2] ** 8 + th[12] ** 8 + th[15] ** 8) * (th[0] * th[3] * th[4] * th[6] * th[8] * th[9]) ** 4 + (th[0] ** 8 + th[6] ** 8 + th[9] ** 8 + th[15] ** 8) * (th[1] * th[2] * th[3] * th[4] * th[8] * th[12]) ** 4 + (th[0] ** 8 + th[4] ** 8 + th[8] ** 8 + th[12] ** 8) * (th[1] * th[2] * th[3] * th[6] * th[9] * th[15]) ** 4 + (th[0] ** 8 + th[3] ** 8 + th[12] ** 8 + th[15] ** 8) * (th[1] * th[2] * th[4] * th[6] * th[8] * th[9]) ** 4 + (th[0] ** 8 + th[2] ** 8 + th[4] ** 8 + th[6] ** 8) * (th[1] * th[3] * th[8] * th[9] * th[12] * th[15]) ** 4 + (th[0] ** 8 + th[1] ** 8 + th[8] ** 8 + th[9] ** 8) * (th[2] * th[3] * th[4] * th[6] * th[12] * th[15]) ** 4 + (th[0] ** 8 + th[1] ** 8 + th[2] ** 8 + th[3] ** 8) * (th[4] * th[6] * th[8] * th[9] * th[12] * th[15]) ** 4
+    j1 = h12 ** 5 / h10 ** 6
+    j2 = h4 * h12 ** 3 / h10 ** 4
+    j3 = h16 * h12 ** 2 / h10 ** 4
+    return j1, j2, j3

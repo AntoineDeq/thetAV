@@ -716,6 +716,162 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         self._with_theta_basis[label] = A._point.from_algebraic(self, thc=A)
         return self._with_theta_basis[label]
 
+    def action_theta(self, x, envi = None):
+        """
+            INPUT:
+            -  x element of K(2) as a list
+            -  envi : 2 if x is in the twotorsion, None if not (then x is in self._D)
+
+            OUTPUT:
+
+            -  x.self
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        A = self.scheme()
+        if envi == 2:
+            envi = A._twotorsion
+        else:
+            envi = A._D
+        x0 = A._D(envi(x[0]))
+        x1 = A._D(envi(x[1]))
+        thetb = [None] * len(A._D)
+        idx = partial(tools.idx, n=A.level())
+        for i in A._D:
+            thetb[idx(i)] = A.eval_car_comp(x1, -i - x0) * self[idx(i + x0)]
+        return A(thetb)
+
+    def ell(self, max = Infinity):
+        """Compute the numbering coherent with the symplectic structure.
+
+        Returns:
+        -   l -- such that l*self is a point in B(M)
+        -   lP -- the point l*self
+        -   e -- the element of K(M) such that lP = action_theta(B, e, B(0))
+        """
+        B = self.scheme()
+        l = 0
+        lP = B(0)
+        lm1P = -P
+        while l < max + 1:
+            l += 1
+            lm1P, lP = lP, lP.diff_add(P, lm1P)
+            for e in cartesian_product([B._D] * 2):
+                if lP == (B(0)).action_theta(e):
+                    return l, lP, e
+        raise ValueError("Pb")
+    
+    def sym_comp(self, n):
+        """
+            See Algorithm 2 in [DeLu25].
+
+            INPUT:
+            -   n = md with m the level of the theta structure and d an integer.
+            
+            OUTPUT:
+
+            -   True iff x is symmetric compatible with B(0).
+            
+
+            EXAMPLES:
+
+                sage: TODO
+        """
+        B = self.scheme()
+        m = B.level()
+        d = n // m
+        assert(d * m == n)
+        if d % 2 == 1:
+            return True
+
+        dp = d // 2
+        
+        gfe = self._mult(dp)
+        dx = gfe._mult(2)
+        e = None
+
+        l, _, e = dx.ell()
+        
+        if l != 1:
+            raise ValueError("dx not in \\Thetabar(Z(m)x\\{0\\}) U \\Thetabar(\\{0\\}xZ(m))")
+
+        gf = (-gfe).action_theta(e)
+        
+        bol, fact = gf.is_equal(gfe, factor=True)
+        if not bol:
+            raise ValueError("Pb compuptation kappa")
+        return fact == 1
+    
+    def good_lift_point(self, x, good_lift = False):
+        """
+            See Algorithm 5 in [DeLu25].
+
+            INPUT:
+            -   self a point in B[n]
+            -   x an affine lift of a point of B
+            -   good_lift = True iff self is already a good lift with respect to B(0)
+            
+            OUTPUT:
+
+            -   Pt a good lift of self if not good_lift and not ij
+            -   xpPt a good lift of x+self if not ij
+            -   Pt a good lift of self+x if ij
+            
+
+            EXAMPLES:
+
+                sage: 
+        """
+        l, _, e = self.ell()
+        B = self.scheme()
+        m = B.level()
+        FF = B.base_ring()
+        
+        Q = PolynomialRing(FF, 'lambd', order = "lex")
+        
+        lambd, = Q.gens()
+        BB = AbelianVariety(Q, m, B.dimension(), [Q(f) for f in tuple(B(0))])
+        mg = m ** B.dimension()
+        Pt, xpPt = BB(list(self)), BB(list(x._add(self)))
+
+        lambd_xpPt = BB([lambd * Q(f) for f in xpPt])
+        
+        if not good_lift:
+            lambd_Pt = BB([lambd * Q(f) for f in Pt])
+            #diff_multadd2(P, l, P+Q, Q)[0] = ScalarMult(l, P+Q, P, Q, 0)
+            mb_left = list(lambd_Pt.diff_multadd(l, lambd_Pt, BB(0))[0])
+            mb_right = list((BB(0)).action_theta(e))
+            
+            eq1 = [mb_left[i] - mb_right[i] for i in range(mg)]
+            
+            mb_left = list(lambd_Pt.diff_multadd2(l - 1, lambd_Pt, BB(0))[0])
+            mb_right = list((-lambd_Pt).action_theta(e))
+            
+            eq2 = [mb_left[i] - mb_right[i] for i in range(mg)]
+            
+            IdP = Q.ideal(eq1 + eq2)
+            lambda_P = choice(IdP.gens()[0].roots(multiplicities = None))
+            
+            Pt_gl = B([lambda_P * f for f in list(Pt)])
+        else:
+            Pt_gl = self
+        
+        Pt_gl_BB = BB([Q(f) for f in list(Pt_gl)])
+        mb_left = list(Pt_gl_BB.diff_multadd(l, lambd_xpPt, x)[0])
+        mb_right = list(x.action_theta(e))
+        
+        eq3 = [mb_left[i] - mb_right[i] for i in range(mg)]
+        
+        Idx = Q.ideal(eq3)
+        lambda_x = choice(Idx.gens()[0].roots(multiplicities = None))
+        if good_lift:
+            return B([lambda_x * f for f in list(xpPt)])
+        else:
+            return Pt_gl, B([lambda_x * f for f in list(xpPt)])
+        
+    
 
 @richcmp_method
 class AbelianVarietyPoint(VarietyThetaStructurePoint):
@@ -872,94 +1028,6 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
         if not any(PQ):
             return self.schematic_addition(other, i0 + 1)
         return A.point(PQ)
-    
-    def action_theta(self, x, envi = None):
-        """
-            INPUT:
-            -  x element of K(2) as a list
-            -  envi : 2 if x is in the twotorsion, None if not (then x is in self._D)
-
-            OUTPUT:
-
-            -  x.self
-
-            EXAMPLES:
-
-                sage: TODO
-        """
-        A = self.scheme()
-        if envi == 2:
-            envi = A._twotorsion
-        else:
-            envi = A._D
-        x0 = A._D(envi(x[0]))
-        x1 = A._D(envi(x[1]))
-        thetb = [None] * len(A._D)
-        idx = partial(tools.idx, n=A.level())
-        for i in A._D:
-            thetb[idx(i)] = A.eval_car_comp(x1, -i - x0) * self[idx(i + x0)]
-        return A(thetb)
-
-    def ell(self, max = Infinity):
-        """Compute the numbering coherent with the symplectic structure.
-
-        Returns:
-        -   l -- such that l*self is a point in B(M)
-        -   lP -- the point l*self
-        -   e -- the element of K(M) such that lP = action_theta(B, e, B(0))
-        """
-        B = self.scheme()
-        l = 0
-        lP = B(0)
-        lm1P = -P
-        while l < max + 1:
-            l += 1
-            lm1P, lP = lP, lP.diff_add(P, lm1P)
-            for e in cartesian_product([B._D] * 2):
-                if lP == (B(0)).action_theta(e):
-                    return l, lP, e
-        raise ValueError("Pb")
-    
-    def sym_comp(self, n):
-        """
-            See Algorithm 2 in [DeLu25].
-
-            INPUT:
-            -   n = md with m the level of the theta structure and d an integer.
-            
-            OUTPUT:
-
-            -   True iff x is symmetric compatible with B(0).
-            
-
-            EXAMPLES:
-
-                sage: TODO
-        """
-        B = self.scheme()
-        m = B.level()
-        d = n // m
-        assert(d * m == n)
-        if d % 2 == 1:
-            return True
-
-        dp = d // 2
-        
-        gfe = self._mult(dp)
-        dx = gfe._mult(2)
-        e = None
-
-        l, _, e = dx.ell()
-        
-        if l != 1:
-            raise ValueError("dx not in \\Thetabar(Z(m)x\\{0\\}) U \\Thetabar(\\{0\\}xZ(m))")
-
-        gf = (-gfe).action_theta(e)
-        
-        bol, fact = gf.is_equal(gfe, factor=True)
-        if not bol:
-            raise ValueError("Pb compuptation kappa")
-        return fact == 1
 
 
 @richcmp_method

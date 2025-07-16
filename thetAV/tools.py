@@ -288,3 +288,54 @@ def vector_to_Zmg(Zmg, v):
         raise ValueError("Not good dimension")
     return Zmg(tuple(v)[0])
 
+def basis_chain_basis(Zd):
+    B0 = list(Zd.gens())
+    g = len(B0)
+    B_chain = [B0[k] + B0[l] for k in range(g) for l in range(k + 1, g)]
+    return B0, B_chain
+
+def strat_decomp(Zd):
+    B0, B_chain = basis_chain_basis(Zd)
+    res_en_cours = [Zd(0)] + B0 + B_chain
+    pile_en_cours = B0 + B_chain
+    but = list(Zd)
+    ln_but = len(Zd)
+    res = []
+    bol = True
+    while len(res_en_cours) != ln_but and bol:
+        bol = False
+        while len(res_en_cours) != ln_but and len(pile_en_cours) > 0: #progra qui favorise Threeway
+            e = pile_en_cours.pop()
+            for f in res_en_cours:
+                if e + f not in res_en_cours and e - f in res_en_cours:
+                    res.append((2, e + f, e, f, e - f))
+                    res_en_cours.append(e + f)
+                    pile_en_cours.append(e + f)
+                    bol = True
+        if len(res_en_cours) == ln_but:
+            break
+        for e, f, g in combinations_with_replacement(res_en_cours, 3):
+            if e + f + g not in res_en_cours and e + f in res_en_cours and e + g in res_en_cours and f + g in res_en_cours:
+                res.append((3, e + f + g, e, f, g, e + f, f + g, e + g))
+                res_en_cours.append(e + f + g)
+                pile_en_cours.append(e + f + g)
+                bol = True
+    if len(res_en_cours) != ln_but:
+        raise ValueError("can't compute everything")
+    return res
+
+def set_sum_squares(d, n, L = [], S = [], res = [], b = 0):
+    if b == 0:
+        L = [i ** 2 for i in range(1, d + 1) if i**2 <= d and gcd(i, n) == 1]
+        S = [[u, [u]] for u in L]
+        return set_sum_squares(d, n, L, S, [], 1)
+    if b == d + 1:
+        return [[sqrt(f) for f in e] for e in res]
+    Sp = []
+    res = res + [e[1] for e in S if e[0] == d]
+    for e in S:
+        for f in L:
+            if f >= e[1][-1] and e[0] + f <= d:
+                Sp.append([e[0] + f, e[1] + [f]])
+    return set_sum_squares(d, n, L, Sp, res, b + 1)
+
