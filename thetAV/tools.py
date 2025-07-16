@@ -20,6 +20,8 @@ AUTHORS:
 from sage.rings.all import ZZ, Integer, Zmod
 from sage.structure.coerce_maps import CallableConvertMap
 from sage.misc.constant_function import ConstantFunction
+from sage.misc.functional import sqrt
+from sage.arith.misc import gcd
 
 integer_types = (int, Integer)
 

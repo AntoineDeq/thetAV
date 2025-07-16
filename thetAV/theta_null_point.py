@@ -42,16 +42,17 @@ from itertools import product, combinations_with_replacement, accumulate
 
 from sage.misc.mrange import cantor_product
 from sage.categories.fields import Fields
-from sage.rings.all import PolynomialRing, FractionField, ZZ, Zmod
+from sage.rings.all import PolynomialRing, FractionField, ZZ
 from sage.rings.integer import Integer
+from sage.modules.free_module_element import FreeModuleElement
 from sage.schemes.generic.algebraic_scheme import AlgebraicScheme
 from sage.schemes.generic.homset import SchemeHomset_points
 from sage.schemes.generic.morphism import SchemeMorphism_point
 from sage.schemes.projective.projective_space import ProjectiveSpace
-from sage.structure.element import is_Vector
 from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
 from sage.schemes.hyperelliptic_curves.jacobian_morphism import JacobianMorphism_divisor_class_field
-from sage.misc.functional import sqrt
+from sage.misc.misc_c import prod
+from sage.categories.cartesian_product import cartesian_product
 from random import choice
 from copy import deepcopy as cop
 
@@ -85,8 +86,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
         """
         Initialize.
         """
-        if isinstance(self, Variety_ThetaStructure):
-            raise Exception("Use either AbelianVariety or KummerVariety.")
+        # if isinstance(self, Variety_ThetaStructure):
+        #     raise Exception("Use either AbelianVariety or KummerVariety.")
         PP = ProjectiveSpace(R, n ** g - 1)
         # Given a characteristic x in (Z/nZ)^g its theta constant is at position ZZ(x, n)
         # Given a coordinate i, T[i] corresponds to the theta constant with characteristic
@@ -94,15 +95,15 @@ class Variety_ThetaStructure(AlgebraicScheme):
         self._dimension = g
         self._level = n
         self._ng = n ** g
-
-        AlgebraicScheme.__init__(self, PP)
-
-        self._thetanullpoint = self.point(T)
+        
         self._riemann = {}
         self._dual = {}
         self._with_theta_basis = {}
         
         self._roots = roots
+        
+        AlgebraicScheme.__init__(self, PP)
+        self._thetanullpoint = self.point(T)
 
     def __richcmp__(self, X, op):
         """
@@ -192,6 +193,74 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Return the theta null point as a point of the variety.
         """
         return self._thetanullpoint
+    
+    def compute_lst_roots(self, n, root_n=None):
+        """
+        Compute the roots of unity used to compute the action of the theta action.
+
+        INPUT:
+
+        - ``n`` -- an integer.
+        - ``root_n`` -- an n-root of unity.
+
+        OUTPUT:
+
+        A list L of roots of unity such that L[i] = root_n ^(n/i) for i|n stored in self._roots if empty.
+        If ``root_n`` is not given, it is computed as a random n-th root of unity in the base ring.
+
+        EXAMPLES::
+
+            sage: #TODO examples
+
+        """
+        if self._roots is not None and len(self._roots) > n and self._roots[n] is not None:
+            return self._roots[n]
+        elif self._roots is None:
+            if n == 1:
+                self._roots = [self.base_ring()(1)]
+                return self._roots[n]
+            else:
+                if root_n is None:
+                    Q = PolynomialRing(self.base_ring(), 'X')
+                    X, = Q.gens()
+                    L_r = (X ** n - 1).roots(ring = self.base_ring(), multiplicities = None)
+                    root_n = choice(L_r)
+                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
+                        root_n = choice(L_r)
+                lst_roots = [self.base_ring()(1)]
+                for e in range(1, n + 1):
+                    if n % e != 0:
+                        lst_roots.append(None)
+                    else:
+                        lst_roots.append(root_n ** (n // e))
+                self._roots = lst_roots
+                return self._roots[n]
+        else:
+            if (len(self._roots) > n and self._roots[n] is None) or (len(self._roots) < n and n % (len(self._roots) - 1) != 0):
+                raise NotImplementedError(f"Roots of unity already computed for {len(self._roots) - 1} but asked for {n}.")
+            elif len(self._roots) < n:
+                if root_n is None:
+                    Q = PolynomialRing(self.base_ring(), 'X')
+                    X, = Q.gens()
+                    L_r = (X ** (n // (len(self._roots) - 1)) - self._roots[-1]).roots(ring = self.base_ring(), multiplicities = None)
+                    root_n = choice(L_r)
+                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
+                        root_n = choice(L_r)
+                lst_roots = [self.base_ring()(1)]
+                for e in range(1, n + 1):
+                    if n % e != 0:
+                        lst_roots.append(None)
+                    else:
+                        lst_roots.append(root_n ** (n // e))
+                self._roots = lst_roots
+                return self._roots[n]
+    
+    def roots(self, n):
+        """
+        Return the n-roots of unity linked to the symplectic pairing.
+        """
+        self.compute_lst_roots(n, root_n=None)
+        return self._roots[n]
 
     def change_ring(self, R):
         """
@@ -413,70 +482,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 r[(el[0], idx(ci0 + t), idx(cj0 + t))] = tools.eval_car(chi, t) * S
         return r
 
-    def compute_lst_roots(self, n, root_n=None):
-        """
-        Compute the roots of unity used to compute the action of the theta action.
-
-        INPUT:
-
-        - ``n`` -- an integer.
-        - ``root_n`` -- an n-root of unity.
-
-        OUTPUT:
-
-        A list L of roots of unity such that L[i] = root_n ^(n/i) for i|n stored in self._roots if empty.
-        If ``root_n`` is not given, it is computed as a random n-th root of unity in the base ring.
-
-        EXAMPLES::
-
-            sage: #TODO examples
-
-        """
-        if self._roots is None:
-            if n == 1:
-                self._roots = [self.base_ring()(1)]
-            else:
-                if root_n is None:
-                    Q = PolynomialRing(self.base_ring(), 'X')
-                    X, = Q.gens()
-                    L_r = (X ** n - 1).roots(ring = self.base_ring(), multiplicities = None)
-                    root_n = choice(L_r)
-                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
-                        root_n = choice(L_r)
-                lst_roots = [self.base_ring()(1)]
-                for e in range(1, n + 1):
-                    if n % e != 0:
-                        lst_roots.append(None)
-                    else:
-                        lst_roots.append(root_n ** (n // e))
-                self._roots = lst_roots
-        else:
-            if (len(self._roots) > n and self._roots[n] is None) or (len(self._roots) < n and n % (len(self._roots) - 1) != 0):
-                raise NotImplementedError(f"Roots of unity already computed for {len(self._roots) - 1} but asked for {n}.")
-            elif len(self._roots) < n:
-                if root_n is None:
-                    Q = PolynomialRing(self.base_ring(), 'X')
-                    X, = Q.gens()
-                    L_r = (X ** (n // (len(self._roots) - 1)) - self._roots[-1]).roots(ring = self.base_ring(), multiplicities = None)
-                    root_n = choice(L_r)
-                    while not(all(root_n ** k != self.base_ring()(1) for k in range(1, n))):
-                        root_n = choice(L_r)
-                lst_roots = [self.base_ring()(1)]
-                for e in range(1, n + 1):
-                    if n % e != 0:
-                        lst_roots.append(None)
-                    else:
-                        lst_roots.append(root_n ** (n // e))
-                self._roots = lst_roots
-
     def eval_car_comp(self, chi, t):
         r"""
         .. todo:: add minimal docstring.
         """
         if chi.parent() != t.parent():
             raise TypeError("Chi and t must have the same parent.")
-        return self._roots[self.level()] ** (chi * t)
-    
+        return self.roots(self.level()) ** (chi * t)
+
     def action_Sp(self, M):
         """
             See Algorithm 1 in [DeLu25].
@@ -998,7 +1011,7 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         """
         if n % 2 != 0 or n < 4:
             raise ValueError(f"n={n} has to be an even number >= 4.")
-        if is_Vector(T):
+        if isinstance(T, FreeModuleElement):
             T = list(T)
         if not isinstance(T, (list, tuple, SchemeMorphism_point)):
             raise TypeError(f"Argument (T={T}) must be a list, a tuple, a vector or a point.")
@@ -1023,21 +1036,19 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
                 raise ValueError('The given list does not define a valid thetanullpoint')
 
             for (idxi, i), (idxj, j) in product(enumerate(D), repeat=2):
-                ii, jj, tt = tools.reduce_twotorsion_couple(i, j)
                 for idxchi, chi in enumerate(twotorsion):
-                    el = (idxchi, idx(ii), idx(jj))
+                    el = (idxchi, idxi, idxj)
                     if el not in dual:
-                        dual[el] = sum(tools.eval_car(chi, t) * T[idx(ii + t)] * T[idx(jj + t)] for t in twotorsion)
-                    dual[(idxchi, idxi, idxj)] = tools.eval_car(chi, tt) * dual[el]
+                        dual[el] = sum(tools.eval_car(chi, t) * T[idx(i + t)] * T[idx(j + t)] for t in twotorsion)
 
             for elem in combinations_with_replacement(combinations_with_replacement(enumerate(D), 2), 2):
                 ((idxi, i), (idxj, j)), ((idxk, k), (idxl, l)) = elem
-                if i + j + k + l in DD:
-                    m = D([ZZ(x) / 2 for x in i + j + k + l])
+                if -i + j + k + l in DD:
+                    m = D([ZZ(x) / 2 for x in -i + j + k + l])
                     for idxchi in range(len(twotorsion)):
                         el1 = (idxchi, idxi, idxj)
                         el2 = (idxchi, idxk, idxl)
-                        el3 = (idxchi, idx(m - i), idx(m - j))
+                        el3 = (idxchi, idx(m + i), idx(m - j))
                         el4 = (idxchi, idx(m - k), idx(m - l))
                         if dual[el1] * dual[el2] != dual[el3] * dual[el4]:
                             raise ValueError('The given list does not define a valid thetanullpoint')
@@ -1047,8 +1058,8 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
 
         self._D = D
         self._twotorsion = twotorsion
-        Variety_ThetaStructure.__init__(self, R, n, g, T)
         self._eqns = None
+        Variety_ThetaStructure.__init__(self, R, n, g, T)
 
     def _repr_(self):
         """
@@ -1135,7 +1146,7 @@ class KummerVariety(Variety_ThetaStructure):
         """
         n = 2
 
-        if is_Vector(T):
+        if isinstance(T, FreeModuleElement):
             T = list(T)
         if not isinstance(T, (list, tuple, SchemeMorphism_point)):
             raise TypeError(f"Argument (T={T}) must be a list, a tuple, a vector or a point.")

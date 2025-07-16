@@ -21,11 +21,13 @@ AUTHORS:
 from functools import partial
 from itertools import product, combinations_with_replacement
 import warnings
-
+from sage.categories.cartesian_product import cartesian_product
+from sage.rings.infinity import *
 from sage.matrix.all import Matrix
 from sage.misc.all import ConstantFunction
 from sage.modules.free_module_element import vector, FreeModuleElement
 from sage.rings.all import PolynomialRing, Integer, ZZ
+from sage.rings.integer import *
 from sage.schemes.generic.morphism import SchemeMorphism_point
 from sage.structure.all import Sequence
 from sage.structure.element import AdditiveGroupElement
@@ -55,7 +57,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         Initialize.
         """
         point_homset = X.point_homset()
-        R = point_homset.value_ring()
+        R = point_homset.base_ring()
         if isinstance(v, dict):
             try:
                 ig = X._itemgetter
@@ -71,8 +73,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             raise ValueError(f"v (={v}) must have length n^g (={len(X)}).")
         if not any(v):
             raise ValueError('The given list does not define a valid thetapoint because all entries are zero')
-        if not all(e(tuple(v)) == 0 for e in X.equations()):
-            raise ValueError('The given point does not define a valid thetapoint of {X} (see equations)')
+        if X._eqns is not None:
+            if not all(e(tuple(v)) == 0 for e in X.equations()):
+                raise ValueError('The given point does not define a valid thetapoint of {X} (see equations)')
 
         self._coords = v
         self.domain = ConstantFunction(point_homset.domain())
@@ -304,7 +307,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             sage: #TODO level 4 tests
             
         """
-        return self.schematic_addition(other, i0=0)
+        return self._add(other)
 
     def _add(self, other, i0=0):
         """
@@ -379,6 +382,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             
         """
         point0 = self.scheme().theta_null_point()
+        k = Integer(k)
         if k == 0:
             return point0
         if k == 1:
@@ -428,6 +432,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             (311 : 326 : 136 : 305))
         
         """
+        k = Integer(k)
         if k == 0:
             point0 = self.scheme().theta_null_point()
             return Q, point0  # In Magma implementation it only returns Q, but I think it should be Q, P0
@@ -480,7 +485,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         if PQ is None:
             if self.scheme().level() == 2:
                 raise NotImplementedError
-            PQ = self. + Q
+            PQ = self._add(Q)
         else:
             if self.scheme() != PQ.scheme():
                 raise ValueError('The points must belong to the same Abelian Variety.')
@@ -1170,7 +1175,7 @@ class KummerVarietyPoint(VarietyThetaStructurePoint): #Warning : addition formul
 
         return point0.point(PQ)
 
-    def schematic_addition(self, other, idxi0=0):
+    def schematic_add(self, other, idxi0=0):
         """
         Normal addition between self and other on the affine plane with respect to i0.
         If (self - other)[i] == 0, then it tries with another affine plane.

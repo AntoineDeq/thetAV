@@ -16,18 +16,23 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 # *****************************************************************************
 
-from functools import *
-from itertools import *
+from sage.categories.cartesian_product import cartesian_product
 from sage.rings.polynomial.msolve import *
 from copy import deepcopy as cop
-from sage.structure.coerce_maps import CallableConvertMap
-from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
-from sage.structure.element import is_Vector
-from sage.schemes.generic.morphism import SchemeMorphism_point
-from thetAV.tools import idx
-from sage.misc.mrange import cantor_product
-from sage.schemes.hyperelliptic_curves.invariants import clebsch_invariants, clebsch_to_igusa
+from sage.matrix.all import Matrix
+from sage.rings.all import PolynomialRing, Integer, ZZ
 from random import choice, sample
+from sage.structure.factory import *
+from sage.schemes.hyperelliptic_curves.constructor import HyperellipticCurve
+from sage.misc.functional import log
+from sage.misc.misc_c import prod
+from sage.all import EllipticCurve
+# from sage.modules.free_module_element import vector, FreeModuleElement
+# from sage.schemes.generic.morphism import SchemeMorphism_point
+# from sage.structure.all import Sequence
+# from sage.structure.element import AdditiveGroupElement
+# from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
+
 import sys
 integer_types = (int, Integer)
 
@@ -108,7 +113,8 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     # print(B)
 
     ### Creation of the curve and computation of the corresponding abelian variety
-    Q.<x> = PolynomialRing(FF)
+    Q = PolynomialRing(FF, 'x')
+    x, = Q.gens()
     
     p = prod([x - e for e in B])
     if g == 1:
@@ -118,17 +124,17 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
         E = EllipticCurve(FF, coeffs)
         # j_inv_E = E.j_invariant()
         if m == 2:
-            Theta2 = Legendre_to_lv2tnp(Elliptic_to_Legendre(E)[0])[0]
+            Theta2 = utilities.Legendre_to_lv2tnp(utilities.Elliptic_to_Legendre(E)[0])[0]
             A = constructor.AbelianVariety(FF, m, g, Theta2)
         elif m == 4:
-            Theta4 = generation_thet4(B, g)
+            Theta4 = utilities.generation_thet4(FF, B, g)
             A = constructor.AbelianVariety(FF, m, g, Theta4, check = True)
         else:
             raise NotImplementedError('m > 4')
     else:
         E = HyperellipticCurve(p)
         if g == 2:
-            A = AbelianVariety.from_curve(E, m)
+            A = constructor.AbelianVariety.from_curve(E, m)
         else:
             raise NotImplementedError('g > 2')
     
@@ -148,8 +154,10 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     print(Gtest_m)
     Gtest_L = [(A(0)).action_theta(x) for x in Gtest_m]
     Gtest_list = cop(Gtest_L)
+    return A, Gtest_list
     for _ in range(log(d, 2)):
         Gtest_list = [utilities.half(A, [g]) for g in Gtest_list]
+        print(Gtest_list)
     print("\nA[n] computed\n")
     
     if supp is None:

@@ -16,18 +16,20 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 # *****************************************************************************
 
-from functools import *
-from itertools import *
+from itertools import combinations_with_replacement
 from sage.rings.polynomial.msolve import *
 from copy import deepcopy as cop
-from sage.structure.coerce_maps import CallableConvertMap
-from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
-from sage.structure.element import is_Vector
-from sage.schemes.generic.morphism import SchemeMorphism_point
-from . import tools
-from sage.misc.mrange import cantor_product
+from sage.rings.infinity import *
+from sage.matrix.all import Matrix, zero_matrix, identity_matrix, block_matrix
+from sage.rings.all import PolynomialRing, Integer, ZZ, Zmod
 from sage.schemes.hyperelliptic_curves.invariants import clebsch_invariants, clebsch_to_igusa
-from random import choice
+from sage.misc.misc_c import prod
+from sage.structure.factory import *
+from sage.all import EllipticCurve
+from sage.misc.functional import sqrt
+from sage.categories.cartesian_product import cartesian_product
+
+from . import tools, constructor
 integer_types = (int, Integer)
 
 def thet4(A, S):
@@ -58,14 +60,14 @@ def thet4(A, S):
     else:
         return (-1) ** len(SiU) * prod([(A[i - 1] - A[j - 1]) ** (-1) for i in SoU for j in BmSoU])
 
-def mat_thomae(g, n = 4):
+def mat_thomae(FF, g, n = 4):
     """
     Change-of-basis matrix for the theta functions of level n, related to theta[n_S] as in Mumford Tata II p. 120 and [DeLu25].
     """
     Zn = Zmod(n) ** g
     Z2 = Zmod(2) ** g
     Z2n = [tools.from_m_to_n(Zn, z) for z in Z2]
-    M = matrix.zero(FF, n ** g)
+    M = zero_matrix(n ** g)
     for k in range(n ** g):
         ind = ZZ(k).digits(2, padto = 2 * g)
         chi = Z2(ind[:g])
@@ -113,11 +115,9 @@ def calc_U_Thomae(g):
         keys = list(dico.keys())
     return dico
 
-def generation_thet4(B, g):
+def generation_thet4(FF, B, g):
     """
     from the roots of the equation of an hyperelliptic curve, compute the theta functions of level 4.
-    
-    
     """
     dico = calc_U_Thomae(g)
     
@@ -133,17 +133,17 @@ def generation_thet4(B, g):
     
     ThetaJ2 = [sqrt(e) for e in ThetaJ4]
     ThetaJ = [sqrt(e) for e in ThetaJ2]
-    Theta = list(mat_thomae(g).solve_right(Matrix(ThetaJ).transpose()).transpose()[0])
+    Theta = list(mat_thomae(FF, g).solve_right(Matrix(ThetaJ).transpose()).transpose()[0])
     return Theta
 
-def groeb_roots(L, LX, sub, stop=Infinity):
+def groeb_roots(FF, L, LX, sub, stop=Infinity):
     """
     Test all combinations of roots given by groebner_basis
     """
     if L == []:
         return [[]]
     if L[-1] == 0:
-        return groeb_roots(L[:-1], LX, sub, stop)
+        return groeb_roots(FF, L[:-1], LX, sub, stop)
     po = PolynomialRing(FF, LX[-1])(L[-1])
     for fact in po.factor():
         if fact[0].degree() > 1 and fact[0] != LX[-1] ** fact[0].degree():
@@ -156,7 +156,7 @@ def groeb_roots(L, LX, sub, stop=Infinity):
         new_sub[len(LX) - 1] = r
         for j in range(len(U)):
             U[j] = U[j](new_sub)
-        part_res = groeb_roots(U, LX[:-1], new_sub)
+        part_res = groeb_roots(FF, U, LX[:-1], new_sub)
         res = res + [pr + [r] for pr in part_res]
         if len(res) >= stop:
             break
@@ -187,13 +187,13 @@ def half(A, Lst, stop=Infinity):
         Q = PolynomialRing(FF, *arg, var_array='X', order = "lex")
     
     X = list(Q.gens())
-    AA = AbelianVariety(Q, n, g, [Q(e) for e in tuple(A(0))])
+    AA = constructor.AbelianVariety(Q, n, g, [Q(e) for e in tuple(A(0))])
     
     #Equations of the variety
     eqvar = [e(X) for e in A.equations()]
     
     #Equations for doubling
-    eqmult = list(AA(X)._mult(2))
+    eqmult = list((AA(X)).diff_add(AA(X), AA(0)))
     
     List_Id = []
     for a in Lst:
@@ -201,7 +201,7 @@ def half(A, Lst, stop=Infinity):
     
     Lst_div = []
     for e in List_Id:
-        Lst_div += groeb_roots(e.groebner_basis(), X, X, stop=stop)
+        Lst_div += groeb_roots(FF, e.groebner_basis(), X, X, stop=stop)
     
     Lst_div = [A(e) for e in Lst_div]
     
@@ -641,8 +641,7 @@ def mat_inv_thomae(thet, g):
     for k, i, j in cartesian_product([range(2 * g + 1)] * 3):
         if len(set([k, i, j])) == 3:
             u = compute_formula_inv_thomae(thet, k + 1, i + 1, j + 1, g)
-            if u != None:
-                # print(k,i,j, u)
+            if u is not None:
                 L_nouv = cop(L0)
                 L_nouv[k] = 1 - u
                 L_nouv[i] = u
@@ -655,7 +654,8 @@ def thet_us_to_thet_eta(tnp, n = 4):
     level 4 ok, TODO: test for other levels
     """
     g = tnp.scheme().dimension()
-    return list(mat_thomae(g, n).inverse().solve_right(Matrix(tnp).transpose()).transpose()[0])
+    FF = tnp.scheme().base_ring()
+    return list(mat_thomae(FF, g, n).inverse().solve_right(Matrix(tnp).transpose()).transpose()[0])
 
 def lv4tnp_to_ai_space(tnp):
     """
