@@ -73,9 +73,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             raise ValueError(f"v (={v}) must have length n^g (={len(X)}).")
         if not any(v):
             raise ValueError('The given list does not define a valid thetapoint because all entries are zero')
-        if X._eqns is not None:
-            if not all(e(tuple(v)) == 0 for e in X.equations()):
-                raise ValueError('The given point does not define a valid thetapoint of {X} (see equations)')
+        # if X._eqns is not None:
+        #     if not all(e(tuple(v)) == 0 for e in X.equations()):
+        #         raise ValueError('The given point does not define a valid thetapoint of {X} (see equations)')
 
         self._coords = v
         self.domain = ConstantFunction(point_homset.domain())
@@ -724,8 +724,8 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
     def action_theta(self, x, envi = None):
         """
             INPUT:
-            -  x element of K(2) as a list
-            -  envi : 2 if x is in the twotorsion, None if not (then x is in self._D)
+            -  x an element of K(2) or K(n) as a list
+            -  envi : 2 if x is in the twotorsion, None if not (then x is in A._D)
 
             OUTPUT:
 
