@@ -144,7 +144,7 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     if m == 2:
         print("\nTest not working for m = 2, debug as to be done for basic functions")
     if g == 2:
-        print("\nTest not working for g = 2, the weil pairing is not fully computed yet")
+        print("\nTest not always working for g = 2, the weil pairing is not fully computed yet")
     ######
     
     lst_ai = choice(tools.set_sum_squares(d, n))
@@ -157,9 +157,9 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
         bol = not(gene2(Gtest_m))
     print("\nNumbering of the selected basis :", Gtest_m)
     Gtest_L = [A(0).action_theta(x) for x in Gtest_m]
-    Gtest_list = cop(Gtest_L)
-    for _ in range(log(d, 2)):
-        Gtest_list = [utilities.half(A, [g]) for g in Gtest_list]
+    Gtest_list = [utilities.half(A, [g]) for g in Gtest_L]
+    for _ in range(log(d, 2) - 1):
+        Gtest_list = [utilities.half(A, g) for g in Gtest_list]
     print("\nA[n] computed\n")
     
     if supp is None:
@@ -169,31 +169,36 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
             Ap, _ = A.change_level(n, lst_ai, Gtest)
             
             print("\nNew abelian variety :", Ap)
-            
-            if verif_duplication_formula(A, Ap):
-                print("Test successful")
+            if d == 2:
+                if verif_duplication_formula(A, Ap):
+                    print("\nTest successful")
+                else:
+                    print("\nTest compiled but failed on duplication formulas")
             else:
-                print("Test compiled but failed on duplication formulas")
+                print("\nTest compiled with a valid theta null point, but compatibility has not been checked as d > 2")
         except ValueError as inst:
             if inst.args[0] == "The given list does not define a valid thetanullpoint":
-                print("Test compiled but failed")
+                print("\nTest compiled but failed")
             else:
-                print("Test failed")
+                print("\nTest failed")
     
     else:
         nb_tests = 1
         for Gtest in cartesian_product(Gtest_list):
             try:
                 Ap, _ = A.change_level(n, lst_ai, Gtest)
-                if verif_duplication_formula(A, Ap):
-                    print("Test n°{} worked".format(nb_tests))
+                if d == 2:
+                    if verif_duplication_formula(A, Ap):
+                        print("\nTest n°{} worked".format(nb_tests))
+                    else:
+                        print("\nTest n°{} compiled but failed".format(nb_tests))
                 else:
-                    print("Test n°{} compiled but failed".format(nb_tests))
+                    print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked as d > 2".format(nb_tests))
             except ValueError as inst:
                 if inst.args[0] == "The given list does not define a valid thetanullpoint":
-                    print("Test n°{} compiled but failed".format(nb_tests))
+                    print("\nTest n°{} compiled but failed".format(nb_tests))
                 else:
-                    print("Test n°{} failed".format(nb_tests))
+                    print("\nTest n°{} failed".format(nb_tests))
             nb_tests += 1
             if nb_tests >= supp:
                 break
