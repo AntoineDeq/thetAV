@@ -29,7 +29,7 @@ from sage.all import EllipticCurve
 from sage.misc.functional import sqrt
 from sage.categories.cartesian_product import cartesian_product
 
-from . import tools, constructor
+from . import tools
 integer_types = (int, Integer)
 
 def thet4(A, S):
@@ -187,12 +187,13 @@ def half(A, Lst, stop=Infinity):
         Q = PolynomialRing(FF, *arg, var_array='X', order = "lex")
     
     X = list(Q.gens())
-    AA = constructor.AbelianVariety(Q, n, g, [Q(e) for e in tuple(A(0))])
+    AA = A.change_ring(Q)
     
-    #Equations of the variety
+    # Equations of the variety
     eqvar = [e(X) for e in A.equations()]
     
-    #Equations for doubling
+    # Equations for doubling
+    # eqmult = list((AA(X))._mult(2))
     eqmult = list((AA(X)).diff_add(AA(X), AA(0)))
     
     List_Id = []

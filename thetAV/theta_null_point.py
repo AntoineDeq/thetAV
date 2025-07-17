@@ -41,6 +41,7 @@ from functools import partial
 from itertools import product, combinations_with_replacement, accumulate
 
 from sage.misc.mrange import cantor_product
+from sage.matrix.all import Matrix
 from sage.categories.fields import Fields
 from sage.rings.all import PolynomialRing, FractionField, ZZ
 from sage.rings.integer import Integer
@@ -490,7 +491,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             raise TypeError("Chi and t must have the same parent.")
         return self.roots(self.level()) ** (chi * t)
 
-    def action_Sp(self, M):
+    def action_Sp(self, M, check = True):
         """
             See Algorithm 1 in [DeLu25].
 
@@ -564,7 +565,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         
         thet_new = [e_resX(res) for e_resX in resX]
 
-        B_new = constructor.AbelianVariety(self.base_ring(), self.level(), g, thet_new, check = True)
+        B_new = constructor.AbelianVariety(self.base_ring(), self.level(), g, thet_new, check = check)
 
         from_B = lambda tht_pt: B_new([e_resX(list(tht_pt)) for e_resX in resX])
         return B_new, from_B
@@ -646,10 +647,10 @@ class Variety_ThetaStructure(AlgebraicScheme):
         # print(M)
         # print([de[2] for de in dG])
         N = Matrix(Zm, [list(de[2][0]) + list(de[2][1]) for de in dG]).T.inverse()
-        Gp = [B(0)] * 2 * g
+        Gp = [self(0)] * 2 * g
         for j in range(2 * g):
             for i in range(2 * g):
-                Gp[j] = (Gp[j])._add((G[i])._mult(ZZ(N[i, j])))
+                Gp[j] = Gp[j]._add(G[i]._mult(ZZ(N[i, j])))
         # dG = [ell(B, e) for e in Gp]
         # assert(all(e[0] == d for e in dG)) # strange if not ?
         # print([de[2] for de in dG])
@@ -671,19 +672,20 @@ class Variety_ThetaStructure(AlgebraicScheme):
             INPUT:
             -   n = md
             -   G a basis of G if not G_good, else a good lift of G
-            -   x an affine lift of a point of self
+            -   x an affine lift of a point of self or None
             -   i such that Gi is G1 or G2
             
             OUTPUT:
 
             -   Gt a good lift of G if not G_good
-            -   xpGt a good lift of x+G
+            -   xpGt a good lift of x+G if x is not None
             
 
             EXAMPLES:
 
                 sage: TODO
         """
+        assert(not G_good or x is not None)
         g = self._dimension
         idx = partial(tools.idx, n=n)
         ng = n ** g
@@ -697,20 +699,24 @@ class Variety_ThetaStructure(AlgebraicScheme):
             Gt[idx(Zn(0))] = self(0)
         else:
             Gt = G
-        xpGt = [None] * ng
-        xpGt[idx(Zn(0))] = x
+        if x is not None:
+            xpGt = [None] * ng
+            xpGt[idx(Zn(0))] = x
         for i, ei in enumerate(Zd.basis()):
             if G_good:
-                xpGt[idx(ei)] = (G[idx(ei)]).good_lift_point(x, True)
-            else:
-                a, b = (G[i]).good_lift_point(x)
+                xpGt[idx(ei)] = G[idx(ei)].good_lift_point(x, True)
+            elif x is not None:
+                a, b = G[i].good_lift_point(x)
                 Gt[idx(ei)] = a
                 xpGt[idx(ei)] = b
+            else:
+                Gt[idx(ei)] = G[i].good_lift_point()
             for ej in list(Zd.basis())[:i]:
-                Gt[idx(ei + ej)] = (Gt[idx(ei)]).good_lift_point(Gt[idx(ej)], True)
+                Gt[idx(ei + ej)] = Gt[idx(ei)].good_lift_point(Gt[idx(ej)], True)
                 
-                # three_way_add2(x, y, z, x+y, y+z, x+z) = ThreeWayAdd(x+y, y+z, x+z, x, y, z, 0)
-                xpGt[idx(ei + ej)] = x.three_way_add(Gt[idx(ei)], Gt[idx(ej)], xpGt[idx(ei)], Gt[idx(ei + ej)], xpGt[idx(ej)])
+                if x is not None:
+                    # x.three_way_add(y, z, x+y, y+z, x+z) = ThreeWayAdd(x+y, y+z, x+z, x, y, z, 0)
+                    xpGt[idx(ei + ej)] = x.three_way_add(Gt[idx(ei)], Gt[idx(ej)], xpGt[idx(ei)], Gt[idx(ei + ej)], xpGt[idx(ej)])
         
         strat = tools.strat_decomp(Zd)
         
@@ -723,9 +729,10 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     PmQ = Gt[idx(exe[4])]
                     Gt[idx(exe[1])] = P.diff_add(Q, PmQ)
                 
-                xpP = xpGt[idx(exe[2])]
-                xpPmQ = xpGt[idx(exe[4])]
-                xpGt[idx(exe[1])] = xpP.diff_add(Q, xpPmQ)
+                if x is not None:
+                    xpP = xpGt[idx(exe[2])]
+                    xpPmQ = xpGt[idx(exe[4])]
+                    xpGt[idx(exe[1])] = xpP.diff_add(Q, xpPmQ)
             
             else: #exe[0] == 3
                 Q = Gt[idx(exe[3])]
@@ -738,10 +745,11 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     PR = Gt[idx(exe[7])]
                     Gt[idx(exe[1])] = P.three_way_add(Q, R, PQ, QR, PR)
                 
-                xpP = xpGt[idx(exe[2])]
-                xpPQ = xpGt[idx(exe[5])]
-                xpPR = xpGt[idx(exe[7])]
-                xpGt[idx(exe[1])] = xpP.three_way_add(Q, R, xpPQ, QR, xpPR)
+                if x is not None:
+                    xpP = xpGt[idx(exe[2])]
+                    xpPQ = xpGt[idx(exe[5])]
+                    xpPR = xpGt[idx(exe[7])]
+                    xpGt[idx(exe[1])] = xpP.three_way_add(Q, R, xpPQ, QR, xpPR)
 
         Zrondd = [Zn([ZZ(i) for i in e]) for e in Zd]
         for ed in Zrondd:
@@ -752,10 +760,13 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 else: #ii==2
                     em = (self._D(0), em)
                 if not G_good:
-                    Gt[idx(e)] = (Gt[idx(ed)]).action_theta(em)
-                xpGt[idx(e)] = (xpGt[idx(ed)]).action_theta(em)
+                    Gt[idx(e)] = Gt[idx(ed)].action_theta(em)
+                if x is not None:
+                    xpGt[idx(e)] = xpGt[idx(ed)].action_theta(em)
         if G_good:
             return xpGt
+        if x is None:
+            return Gt
         return Gt, xpGt
 
     def change_level_fonc(self, n, lst_ai, G1t, G2t, x):
@@ -826,7 +837,6 @@ class Variety_ThetaStructure(AlgebraicScheme):
             INPUT:
             -   n = md with m the level of self
             -   lst_ai a list of the ais
-            -   B the abelian variety
             -   G a basis of G
             -   x an affine lift of a point of self
             
@@ -856,7 +866,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Zm = tools.create_conversions(m, g)
         
         G1t, xpG1t = self.good_lift_group(n, G1, x, 1)
-        G2t, _ = self.good_lift_group(n, G2, x, 2) # xpG2t not used
+        G2t = self.good_lift_group(n, G2, None, 2)
         L_xpPpG2t = []
         for xpP in xpG1t: #choose the good P now if you don't want all the coordinates or if j0 is choose smartly
             xpPpG2t = self.good_lift_group(n, G2t, xpP, 2, True)
@@ -1048,8 +1058,8 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
                     for idxchi in range(len(twotorsion)):
                         el1 = (idxchi, idxi, idxj)
                         el2 = (idxchi, idxk, idxl)
-                        el3 = (idxchi, idx(m + i), idx(m - j))
-                        el4 = (idxchi, idx(m - k), idx(m - l))
+                        el3 = (idxchi, idx(i + m), idx(j - m))
+                        el4 = (idxchi, idx(k - m), idx(l - m))
                         if dual[el1] * dual[el2] != dual[el3] * dual[el4]:
                             raise ValueError('The given list does not define a valid thetanullpoint')
             self._dual = dual
@@ -1071,7 +1081,16 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         r"""
         Return the abelian variety with field of definition R.
         """
-        return AbelianVariety_ThetaStructure(R, self.level(), self.dimension(), self.theta_null_point())
+        self_new = AbelianVariety_ThetaStructure(R, self.level(), self.dimension(), [R(e) for e in self.theta_null_point()])
+        if self._roots is not None:
+            new_roots = cop(self._roots)
+            for i, root in enumerate(self._roots):
+                if root is not None:
+                    new_roots[i] = R(root)
+            self_new._roots = new_roots
+        else:
+            self_new._roots = None
+        return self_new
 
     def equations(self, stop=0):
         """
@@ -1103,9 +1122,9 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
                 for chi in twotorsion:
                     Pel1 = sum(tools.eval_car(chi, t) * P[i + t] * P[j + t] for t in twotorsion)
                     Oel2 = sum(tools.eval_car(chi, t) * O[k + t] * O[l + t] for t in twotorsion)
-                    Oel3 = sum(tools.eval_car(chi, t) * O[i + m + t] * O[j - m + t] for t in twotorsion)
-                    Pel4 = sum(tools.eval_car(chi, t) * P[k - m + t] * P[l - m + t] for t in twotorsion)
-                    eq = Pel1 * Oel2 - Oel3 * Pel4
+                    Pel3 = sum(tools.eval_car(chi, t) * P[i + m + t] * P[j - m + t] for t in twotorsion)
+                    Oel4 = sum(tools.eval_car(chi, t) * O[k - m + t] * O[l - m + t] for t in twotorsion)
+                    eq = Pel1 * Oel2 - Pel3 * Oel4
                     if eq != 0 and eq not in eqns:
                         eqns.append(eq)
                         if len(eqns) == stop:
@@ -1177,7 +1196,16 @@ class KummerVariety(Variety_ThetaStructure):
         r"""
         Return the kummer variety with field of definition R.
         """
-        return KummerVariety(R, self.dimension(), self.theta_null_point())
+        self_new = KummerVariety(R, self.dimension(), [R(e) for e in self.theta_null_point()])
+        if self._roots is not None:
+            new_roots = cop(self._roots)
+            for i, root in enumerate(self._roots):
+                if root is not None:
+                    new_roots[i] = R(root)
+            self_new._roots = new_roots
+        else:
+            self_new._roots = None
+        return self_new
 
     def equations(self):
         """

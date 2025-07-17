@@ -32,6 +32,7 @@ from sage.schemes.generic.morphism import SchemeMorphism_point
 from sage.structure.all import Sequence
 from sage.structure.element import AdditiveGroupElement
 from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
+from random import choice
 
 from . import tools
 
@@ -310,10 +311,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         return self._add(other)
 
     def _add(self, other, i0=0):
-        """
-        Not implemented for a general point.
-        """
-        raise NotImplementedError
+        return self.schematic_addition(other)
 
     def _neg_(self):
         """
@@ -400,7 +398,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
                     P1 = P1.diff_add(P0, self)
                     P0 = P0.diff_add(P0, point0)
             return P0
-        if algorithm == 'SquareAndMultiply': #not checked
+        if algorithm == 'SquareAndMultiply': # not checked
             if self.scheme().level() == 2:
                 raise NotImplementedError("Square and Multiply algorithm is only for level > 2.")
             for b in (k-1).binary()[1:]:
@@ -435,9 +433,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         k = Integer(k)
         if k == 0:
             point0 = self.scheme().theta_null_point()
-            return Q, point0  # In Magma implementation it only returns Q, but I think it should be Q, P0
+            return Q, point0 # In Magma implementation it only returns Q, but I think it should be Q, P0
         if k < 0:
-            mP = - self
+            mP = -self
             return mP.diff_multadd(-k, Q.diff_add(mP, PQ), Q)
         if k == 1:
             return PQ, self
@@ -724,8 +722,8 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
     def action_theta(self, x, envi = None):
         """
             INPUT:
-            -  x an element of K(2) or K(n) as a list
-            -  envi : 2 if x is in the twotorsion, None if not (then x is in A._D)
+            -  x element of K(2) as a list
+            -  envi : 2 if x is in the twotorsion, None if not (then x is in self._D)
 
             OUTPUT:
 
@@ -759,12 +757,12 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         B = self.scheme()
         l = 0
         lP = B(0)
-        lm1P = -P
+        lm1P = -self
         while l < max + 1:
             l += 1
-            lm1P, lP = lP, lP.diff_add(P, lm1P)
+            lm1P, lP = lP, lP.diff_add(self, lm1P)
             for e in cartesian_product([B._D] * 2):
-                if lP == (B(0)).action_theta(e):
+                if lP == B(0).action_theta(e):
                     return l, lP, e
         raise ValueError("Pb")
     
@@ -809,13 +807,13 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
             raise ValueError("Pb compuptation kappa")
         return fact == 1
     
-    def good_lift_point(self, x, good_lift = False):
+    def good_lift_point(self, x = None, P_good = False):
         """
             See Algorithm 5 in [DeLu25].
 
             INPUT:
-            -   self a point in B[n]
-            -   x an affine lift of a point of B
+            -   self a point in self[n]
+            -   x an affine lift of a point of self or None
             -   good_lift = True iff self is already a good lift with respect to B(0)
             
             OUTPUT:
@@ -829,6 +827,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
 
                 sage: 
         """
+        assert(not P_good or x is not None)
         l, _, e = self.ell()
         B = self.scheme()
         m = B.level()
@@ -837,21 +836,20 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         Q = PolynomialRing(FF, 'lambd', order = "lex")
         
         lambd, = Q.gens()
-        BB = AbelianVariety(Q, m, B.dimension(), [Q(f) for f in tuple(B(0))])
+        BB = B.change_ring(Q)
         mg = m ** B.dimension()
-        Pt, xpPt = BB(list(self)), BB(list(x._add(self)))
-
-        lambd_xpPt = BB([lambd * Q(f) for f in xpPt])
+        Pt = BB(list(self))
         
-        if not good_lift:
+        if not P_good:
             lambd_Pt = BB([lambd * Q(f) for f in Pt])
-            #diff_multadd2(P, l, P+Q, Q)[0] = ScalarMult(l, P+Q, P, Q, 0)
-            mb_left = list(lambd_Pt.diff_multadd(l, lambd_Pt, BB(0))[0])
-            mb_right = list((BB(0)).action_theta(e))
             
+            #P.diff_multadd(l, P+Q, Q)[0] = ScalarMult(l, P+Q, P, Q, 0)
+            mb_left = list(lambd_Pt.diff_multadd(l, lambd_Pt, BB(0))[0])
+            mb_right = list(BB(0).action_theta(e))
+
             eq1 = [mb_left[i] - mb_right[i] for i in range(mg)]
             
-            mb_left = list(lambd_Pt.diff_multadd2(l - 1, lambd_Pt, BB(0))[0])
+            mb_left = list(lambd_Pt.diff_multadd(l - 1, lambd_Pt, BB(0))[0])
             mb_right = list((-lambd_Pt).action_theta(e))
             
             eq2 = [mb_left[i] - mb_right[i] for i in range(mg)]
@@ -863,7 +861,14 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         else:
             Pt_gl = self
         
+        if x is None:
+            return Pt_gl
+        
         Pt_gl_BB = BB([Q(f) for f in list(Pt_gl)])
+        
+        xpPt = BB(list(x._add(self)))
+        lambd_xpPt = BB([lambd * Q(f) for f in xpPt])
+        
         mb_left = list(Pt_gl_BB.diff_multadd(l, lambd_xpPt, x)[0])
         mb_right = list(x.action_theta(e))
         
@@ -871,10 +876,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         
         Idx = Q.ideal(eq3)
         lambda_x = choice(Idx.gens()[0].roots(multiplicities = None))
-        if good_lift:
+        if P_good:
             return B([lambda_x * f for f in list(xpPt)])
-        else:
-            return Pt_gl, B([lambda_x * f for f in list(xpPt)])
+        return Pt_gl, B([lambda_x * f for f in list(xpPt)])
         
     
 
@@ -920,15 +924,11 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
             dual = X._dual
             D = X._D
             twotorsion = X._twotorsion
-            if len(dual) != len(X):
-                for (idxi, i), (idxj, j) in product(enumerate(D), enumerate(D)):
-                    ii, jj, tt = tools.reduce_twotorsion_couple(i, j)
-                    for idxchi, chi in enumerate(twotorsion):
-                        el = (idxchi, idx(ii), idx(jj))
-                        if el not in dual:
-                            dual[el] = sum(tools.eval_car(chi, t) * O[ii + t] * O[jj + t] for t in twotorsion)
-                        el2 = (idxchi, idxi, idxj)
-                        dual[el2] = tools.eval_car(chi, tt) * dual[el]
+            for (idxi, i), (idxj, j) in product(enumerate(D), repeat=2):
+                for idxchi, chi in enumerate(twotorsion):
+                    el = (idxchi, idxi, idxj)
+                    if el not in dual:
+                        dual[el] = sum(tools.eval_car(chi, t) * O[idx(i + t)] * O[idx(j + t)] for t in twotorsion)
             X._dual = dual
 
             dualself = {}
@@ -995,7 +995,7 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
         """
         if PmQ[i0] == 0:
             return self.diff_add(Q, PmQ, check, i0 + 1)
-        A = self.abelian_variety()
+        A = self.scheme()
         n = A.level()
         g = A.dimension()
         ng = n ** g
@@ -1022,7 +1022,7 @@ class AbelianVarietyPoint(VarietyThetaStructurePoint):
         """
         if (x := self == 0) or other == 0:
             return other if x else self
-        A = self.abelian_variety()
+        A = self.scheme()
         n = A.level()
         g = A.dimension()
         ng = n ** g

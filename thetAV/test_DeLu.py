@@ -130,17 +130,21 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
             Theta4 = utilities.generation_thet4(FF, B, g)
             A = constructor.AbelianVariety(FF, m, g, Theta4, check = True)
         else:
-            raise NotImplementedError('m > 4')
+            raise NotImplementedError('Random example for m > 4')
     else:
         E = HyperellipticCurve(p)
         if g == 2:
             A = constructor.AbelianVariety.from_curve(E, m)
         else:
-            raise NotImplementedError('g > 2')
+            raise NotImplementedError('Random example for g > 2')
     
-    print("Curve used for this test : ", E)
-    print("\nAbelian variety used for this test : ", A)
+    print("Curve used for this test :", E)
+    print("\nAbelian variety used for this test :", A)
     
+    if m == 2:
+        print("\nTest not working for m = 2, debug as to be done for basic functions")
+    if g == 2:
+        print("\nTest not working for g = 2, the weil pairing is not fully computed yet")
     ######
     
     lst_ai = choice(tools.set_sum_squares(d, n))
@@ -151,22 +155,30 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     while bol:
         Gtest_m = sample([cart_prod[i] for i in range(ln)], 2 * g)
         bol = not(gene2(Gtest_m))
-    print(Gtest_m)
-    Gtest_L = [(A(0)).action_theta(x) for x in Gtest_m]
+    print("\nNumbering of the selected basis :", Gtest_m)
+    Gtest_L = [A(0).action_theta(x) for x in Gtest_m]
     Gtest_list = cop(Gtest_L)
-    return A, Gtest_list
     for _ in range(log(d, 2)):
         Gtest_list = [utilities.half(A, [g]) for g in Gtest_list]
-        print(Gtest_list)
     print("\nA[n] computed\n")
     
     if supp is None:
         Gtest = [choice(e) for e in Gtest_list]
         
-        Ap, _ = A.change_level(n, lst_ai, Gtest)
-        
-        print("\nNew abelian variety : ", Ap)
-        print("\nDuplication Formulas verified : ", verif_duplication_formula(A, Ap))
+        try:
+            Ap, _ = A.change_level(n, lst_ai, Gtest)
+            
+            print("\nNew abelian variety :", Ap)
+            
+            if verif_duplication_formula(A, Ap):
+                print("Test successful")
+            else:
+                print("Test compiled but failed on duplication formulas")
+        except ValueError as inst:
+            if inst.args[0] == "The given list does not define a valid thetanullpoint":
+                print("Test compiled but failed")
+            else:
+                print("Test failed")
     
     else:
         nb_tests = 1
@@ -177,8 +189,11 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
                     print("Test n°{} worked".format(nb_tests))
                 else:
                     print("Test n°{} compiled but failed".format(nb_tests))
-            except:
-                print("Test n°{} failed".format(nb_tests))
+            except ValueError as inst:
+                if inst.args[0] == "The given list does not define a valid thetanullpoint":
+                    print("Test n°{} compiled but failed".format(nb_tests))
+                else:
+                    print("Test n°{} failed".format(nb_tests))
             nb_tests += 1
             if nb_tests >= supp:
                 break

@@ -5,6 +5,7 @@ Analytic theta null point and theta point.
 AUTHORS:
 
 - Anna Somoza (2021-22): initial implementation
+- Antoine Dequay (2025)
 
 """
 
@@ -24,7 +25,7 @@ from sage.rings.all import ZZ, Zmod, Integer, PolynomialRing
 from sage.schemes.generic.morphism import SchemeMorphism_point
 from sage.schemes.hyperelliptic_curves.constructor import HyperellipticCurve
 from sage.schemes.hyperelliptic_curves.jacobian_morphism import JacobianMorphism_divisor_class_field
-from sage.structure.element import is_Vector, parent
+from sage.structure.element import parent
 from sage.modules.free_module_element import FreeModuleElement
 
 from . import theta_null_point
@@ -249,7 +250,7 @@ class AnalyticThetaNullPoint:
         # Equivalent to "AnalyticThetaNullPoint" intrinsic method in magma
         if l != 2 and l != 4:
             raise NotImplementedError
-        if is_Vector(v):
+        if isinstance(v, FreeModuleElement):
             v = list(v)
         if not isinstance(v, (list, tuple, SchemeMorphism_point)):
             raise TypeError(f"Argument (v={v}) must be a list, a tuple, a vector or a point.")
