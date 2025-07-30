@@ -1009,7 +1009,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][0] for ai in lst_ai)
             res[idx(j)] = e_res
         
-        A = constructor.AbelianVariety(self.base_ring(), n, g, res, check = check)
+        A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
         fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x))
         
         return A, fonc_conv
@@ -1132,7 +1132,7 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
     """
     _point = AbelianVarietyPoint
 
-    def __init__(self, R, n, g, T, check=False):
+    def __init__(self, R, n, g, T, roots=None, check=False):
         """
         Initialize.
         """
@@ -1186,7 +1186,7 @@ class AbelianVariety_ThetaStructure(Variety_ThetaStructure):
         self._D = D
         self._twotorsion = twotorsion
         self._eqns = None
-        Variety_ThetaStructure.__init__(self, R, n, g, T)
+        Variety_ThetaStructure.__init__(self, R, n, g, T, roots)
 
     def _repr_(self):
         """
@@ -1276,7 +1276,7 @@ class KummerVariety(Variety_ThetaStructure):
     _point = KummerVarietyPoint
     _level = 2
 
-    def __init__(self, R, g, T, check=False):
+    def __init__(self, R, g, T, roots = None, check=False):
         """
         Initialize.
         """
@@ -1297,7 +1297,7 @@ class KummerVariety(Variety_ThetaStructure):
 
         twotorsion = tools.create_indexing(n, g, False)
 
-        Variety_ThetaStructure.__init__(self, R, n, g, T)
+        Variety_ThetaStructure.__init__(self, R, n, g, T, roots)
 
         self._D = twotorsion
         self._twotorsion = twotorsion
