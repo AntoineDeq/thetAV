@@ -274,7 +274,7 @@ def pseudo_smith(M0):
         OUTPUT:
 
         -  U, V, M such that U * M0 * V == M
-        -  and e pseudo rank r of M.        
+        -  the pseudo rank r of M.
 
         EXAMPLES:
 

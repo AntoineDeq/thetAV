@@ -84,15 +84,77 @@ def verif_duplication_formula(B, Bp):
 
     fact_proj_l = thet_n[0] ** 2
     fact_proj_r = sum(thet_2n[Z2n(t)] ** 2 for t in Bp._twotorsion)
+    if fact_proj_l == 0 or fact_proj_r == 0:
+        for i, j in cartesian_product([Z2n] * 2):
+            if all(ZZ(e) % 2 == 0 for e in list(i + j)):
+                ipj = Zn([ZZ(e) // 2 for e in list(i + j)])
+                imj = Zn([ZZ(e) // 2 for e in list(i - j)])
+                fact_proj_l = thet_n[ipj] * thet_n[imj]
+                fact_proj_r = sum(thet_2n[i + t] * thet_2n[j + t] for t in Bp._twotorsion)
+                if fact_proj_l != 0 and fact_proj_r != 0:
+                    break
     for i, j in cartesian_product([Z2n] * 2):
         if all(ZZ(e) % 2 == 0 for e in list(i + j)):
             ipj = Zn([ZZ(e) // 2 for e in list(i + j)])
             imj = Zn([ZZ(e) // 2 for e in list(i - j)])
             if thet_n[ipj] * thet_n[imj] / fact_proj_l != sum(thet_2n[i + t] * thet_2n[j + t] for t in Bp._twotorsion) / fact_proj_r:
-                print(i,j)
-                print(thet_n[ipj] * thet_n[imj] / fact_proj_l, sum(thet_2n[i + t] * thet_2n[j + t] for t in Bp._twotorsion) / fact_proj_r)
                 return False
     return True
+
+def new_rand_ab_var(g, m, n, FF11, FF):
+    d = n // m
+    assert(type(log(d, 2)) is Integer)
+
+    B = sample(list(FF11), 2 * g + 1) # {branch points a_i} - \infty
+    B.sort()
+    B = [FF(e) for e in B]
+    # print(B)
+
+    ### Creation of the curve and computation of the corresponding abelian variety
+    Q = PolynomialRing(FF, 'x')
+    x, = Q.gens()
+    
+    p = prod([x - e for e in B])
+    if g == 1:
+        coeffs_p = list(p)
+        coeffs_p.reverse()
+        coeffs = [0] + coeffs_p[1:2] + [0] + coeffs_p[2:]
+        E = EllipticCurve(FF, coeffs)
+        # j_inv_E = E.j_invariant()
+        if m == 2:
+            Theta2 = utilities.Legendre_to_lv2tnp(utilities.Elliptic_to_Legendre(E)[0])[0]
+            A = constructor.AbelianVariety(FF, m, g, Theta2)
+        elif m == 4:
+            Theta4 = utilities.generation_thet4(FF, B, g)
+            A = constructor.AbelianVariety(FF, m, g, Theta4, check = True)
+        else:
+            raise NotImplementedError('Random example for m > 4')
+    else:
+        E = HyperellipticCurve(p)
+        if g == 2:
+            A = constructor.AbelianVariety.from_curve(E, m)
+        else:
+            raise NotImplementedError('Random example for g > 2')
+    
+    print("Curve used for this test :", E)
+    print("\nAbelian variety used for this test :", A)
+
+    bol = True
+    cart_prod = cartesian_product([A._D] * 2)
+    ln = len(A._D) ** 2
+    while bol:
+        Gtest_m = sample([cart_prod[i] for i in range(ln)], 2 * g)
+        bol = not(gene2(Gtest_m))
+    print("\nNumbering of the selected basis :", Gtest_m)
+    Gtest_L = [A(0).action_theta(x) for x in Gtest_m]
+    Gtest_list = [utilities.half(A, [g]) for g in Gtest_L]
+    for _ in range(log(d, 2) - 1):
+        Gtest_list = [utilities.half(A, g) for g in Gtest_list]
+    print("\nA[n] computed")
+    
+    Gtest = [choice(e) for e in Gtest_list]
+
+    return A, Gtest
 
 def test_change_level(g, m, n, FF11, FF, supp = None):
     """
@@ -160,7 +222,7 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     Gtest_list = [utilities.half(A, [g]) for g in Gtest_L]
     for _ in range(log(d, 2) - 1):
         Gtest_list = [utilities.half(A, g) for g in Gtest_list]
-    print("\nA[n] computed\n")
+    print("\nA[n] computed")
     
     if supp is None:
         Gtest = [choice(e) for e in Gtest_list]
@@ -180,7 +242,7 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
             if inst.args[0] == "The given list does not define a valid thetanullpoint":
                 print("\nTest compiled but failed")
             else:
-                print("\nTest failed")
+                print("\nTest failed", inst.args[0])
     
     else:
         nb_tests = 1

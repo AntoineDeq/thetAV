@@ -17,6 +17,8 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 # *****************************************************************************
 
+from itertools import combinations_with_replacement
+
 from sage.rings.all import ZZ, Integer, Zmod
 from sage.structure.coerce_maps import CallableConvertMap
 from sage.misc.constant_function import ConstantFunction
@@ -290,23 +292,40 @@ def vector_to_Zmg(Zmg, v):
         raise ValueError("Not good dimension")
     return Zmg(tuple(v)[0])
 
-def basis_chain_basis(Zd):
-    B0 = list(Zd.gens())
+def basis_num(G, n):
+    """
+        Return a possible numerotation of the basis of G in Z(n) compatible with the numerotation induced by the symplectic structure
+    """
+    m = G[0].scheme().level()
+    g = G[0].scheme().dimension()
+    d = n // m
+    Zn = create_conversions(n, g)
+    Zm = G[0].scheme()._D
+    
+    dG = [e.ell() for e in G]
+    assert(all(e[0] == d for e in dG))
+    assert(all(e[2][1] == Zm(0) for e in dG[:g]))
+    assert(all(e[2][0] == Zm(0) for e in dG[g:]))
+
+    return [Zn([ZZ(i) for i in list(tt[2][0])]) for tt in dG[:g]] + [Zn([ZZ(i) for i in list(tt[2][1])]) for tt in dG[g:]]
+
+def basis_chain_basis(Zd, B0 = None):
+    if B0 is None:
+        B0 = list(Zd.gens())
     g = len(B0)
     B_chain = [B0[k] + B0[l] for k in range(g) for l in range(k + 1, g)]
     return B0, B_chain
 
-def strat_decomp(Zd):
-    B0, B_chain = basis_chain_basis(Zd)
+def strat_decomp(Zd, B0 = None):
+    B0, B_chain = basis_chain_basis(Zd, B0)
     res_en_cours = [Zd(0)] + B0 + B_chain
     pile_en_cours = B0 + B_chain
-    but = list(Zd)
     ln_but = len(Zd)
     res = []
     bol = True
     while len(res_en_cours) != ln_but and bol:
         bol = False
-        while len(res_en_cours) != ln_but and len(pile_en_cours) > 0: #progra qui favorise Threeway
+        while len(res_en_cours) != ln_but and len(pile_en_cours) > 0: # Programming that favors diff_add
             e = pile_en_cours.pop()
             for f in res_en_cours:
                 if e + f not in res_en_cours and e - f in res_en_cours:

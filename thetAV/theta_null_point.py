@@ -41,9 +41,9 @@ from functools import partial
 from itertools import product, combinations_with_replacement, accumulate
 
 from sage.misc.mrange import cantor_product
-from sage.matrix.all import Matrix
+from sage.matrix.all import Matrix, block_matrix, zero_matrix, identity_matrix
 from sage.categories.fields import Fields
-from sage.rings.all import PolynomialRing, FractionField, ZZ
+from sage.rings.all import PolynomialRing, FractionField, ZZ, Zmod
 from sage.rings.integer import Integer
 from sage.modules.free_module_element import FreeModuleElement
 from sage.schemes.generic.algebraic_scheme import AlgebraicScheme
@@ -54,6 +54,7 @@ from sage.structure.richcmp import richcmp_method, richcmp, op_EQ, op_NE
 from sage.schemes.hyperelliptic_curves.jacobian_morphism import JacobianMorphism_divisor_class_field
 from sage.misc.misc_c import prod
 from sage.categories.cartesian_product import cartesian_product
+from sage.arith.misc import inverse_mod
 from random import choice
 from copy import deepcopy as cop
 
@@ -610,8 +611,87 @@ class Variety_ThetaStructure(AlgebraicScheme):
         B_new = constructor.AbelianVariety(FF, m, g, thetb, check=check)
         from_B = lambda thet_pt: B_new(list(thet_pt.action_theta((0, c), 2)))
         return B_new, from_B
-    
-    def decomp_compat(self, n, G):
+
+    def symplectic_diagonalization1(self, M):
+        """
+        Put an alternated form M over Z/nZ in symplectic normal form.
+        Returns a matrix P such that (P ** (-1)) * M * P = J.
+        """
+
+        n = M.base_ring().order()
+        g = M.nrows() // 2
+        Zm = self._D.base_ring()
+        Zn = Zmod(n)
+        J = block_matrix([[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]]) # goal
+
+        P = identity_matrix(Zn, 2 * g)
+        B = cop(M)
+        
+        for k in range(g):
+            i0, j0 = None, None
+            found = False
+            for i in range(k, g):
+                for j in range(k, g):
+                    if (j > i):
+                        if B[i, j].is_unit():
+                            found = True
+                            i0, j0 = i, j
+                            break
+                        if B[i + g, j + g].is_unit():
+                            found = True
+                            i0, j0 = i + g, j + g
+                            break
+                    if B[i, j + g].is_unit():
+                        found = True
+                        i0, j0 = i, j + g
+                        break
+                if found:
+                    break
+            if not found:
+                raise ValueError("Cannot find invertible block: strange since the Weil pairing is non-degenerate")
+            
+            PPa = identity_matrix(Zn, 2 * g)
+            PPa.swap_rows(i0, k)
+            B = PPa.T * B * PPa
+            P = P * PPa
+            
+            PPa = identity_matrix(Zn, 2 * g)
+            PPa.swap_rows(j0, k + g)
+            B = PPa.T * B * PPa
+            P = P * PPa
+            
+            PPa = identity_matrix(Zn, 2 * g)
+            k0 = choice([k, k + g])
+            if k0 == k:
+                a, a_inv = B[k, k + g], B[k, k + g] ** (-1)
+            else:
+                a_inv, a = B[k, k + g], B[k, k + g] ** (-1)
+            PPa[k0, k0] = a
+            PPb = identity_matrix(Zn, 2 * g)
+            PPb[k0, k0] = a_inv
+            B = PPb * B * PPa
+            P = P * PPa
+            
+            for i in range(2 * g):
+                if i != k + g:
+                    PPa = identity_matrix(Zn, 2 * g)
+                    a = B[k, i]
+                    PPa[k + g, i] = -a
+                    B = (PPa.T) * B * PPa
+                    P = P * PPa
+        
+        for k in range(g, 2 * g):
+            for i in range(k + 1, 2 * g):
+                PPa = identity_matrix(Zn, 2 * g)
+                a = B[k, i]
+                PPa[k - g, i] = a
+                B = (PPa.T) * B * PPa
+                P = P * PPa
+        
+        assert (P.T) * M * P == B and B == J
+        return P
+
+    def compat_decomp(self, n, G):
         """
             See Algorithm 4 in [DeLu25].
             Work in progress.
@@ -630,42 +710,75 @@ class Variety_ThetaStructure(AlgebraicScheme):
         """
         g = self.dimension()
         m = self.level()
-        d = n / m
-        dm = m / 2
+        d = n // m
+        dm = m // 2
+        Zm = self._D.base_ring()
+        Zn = Zmod(n)
+        J = block_matrix([[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]])
         
         assert(len(G) == 2 * g)
-        Zm = self._D.base_ring()
-        # power_rac_prim = [Lst_rac_prim[m] ** i for i in range(m)]
+        power_prim_roots = [self.roots(n) ** i for i in range(n)]
         
-        # def log_W_pair(eP, eQ, m):
-        #     w_pair = eval_car_comp(eQ[1], eP[0], m) / eval_car_comp(eP[1], eQ[0], m)
-        #     return power_rac_prim.index(w_pair)
-        
-        dG = [e.ell() for e in G]
-        assert(all(e[0] == d for e in dG)) # doesn't generate everything if not
-        # M = Matrix([[log_W_pair(de[2], df[2], m) for de in dG] for df in dG])
-        # print(M)
-        # print([de[2] for de in dG])
-        N = Matrix(Zm, [list(de[2][0]) + list(de[2][1]) for de in dG]).T.inverse()
-        Gp = [self(0)] * 2 * g
-        for j in range(2 * g):
-            for i in range(2 * g):
-                Gp[j] = Gp[j]._add(G[i]._mult(ZZ(N[i, j])))
-        # dG = [ell(B, e) for e in Gp]
-        # assert(all(e[0] == d for e in dG)) # strange if not ?
-        # print([de[2] for de in dG])
-        # assert(all(e[0] == d for e in dG)) # strange if not ?
-        # M = Matrix([[log_W_pair(de[2], df[2], m) for de in dG] for df in dG])
-        # print(M)
-        # for e in Gp:
-        #     print(algo2(n, B, e))
-        for i, e in enumerate(Gp):
-            if not e.sym_comp(n):
-                ind = [0] * i + [dm] + [0] * (2 * g - i - 1)
-                Gp[i] = Gp[i].action_theta((ind[g:], ind[:g]))
-        return Gp
+        def log_W_pair_matrix(GG):
+            M = zero_matrix(Zn, 2 * g)
+            for i, e in enumerate(GG):
+                for j, f in enumerate(GG):
+                    if i > j:
+                        a = Zn(power_prim_roots.index(e.weil_pairing(f, n))) # could use dG to optimize this
+                        M[i, j] = a
+                        M[j, i] = -a
+            return M
 
-    def good_lift_group(self, n, G, x, ii = 1, G_good = False):
+        dG = [e.ell() for e in G]
+        assert(all(e[0] == d for e in dG))
+        M = log_W_pair_matrix(G)
+        
+        bol1 = M == J
+        bol2 = all(dG[i][2][1] == self._D(0) for i in range(g)) and all(dG[i][2][0] == self._D(0) for i in range(g, 2 * g))
+        bol3 = all(e.sym_comp(n) for e in G)
+
+        Gpp = cop(G)
+        while not(bol1 and bol2 and bol3):
+            
+            Gp = cop(Gpp)
+            N = Matrix(Zm, [list(de[2][0]) + list(de[2][1]) for de in dG]).T.inverse()
+            Gpp = [self(0)] * (2 * g)
+            for j in range(2 * g):
+                for i in range(2 * g):
+                    Gpp[j] = Gpp[j]._add(Gp[i]._mult(ZZ(N[i, j])))
+            
+            dG = [e.ell() for e in Gpp]
+
+            for i, e in enumerate(Gpp):
+                if not e.sym_comp(n):
+                    Gpp[i] = e.action_theta(([dm * e for e in dG[i][2][1]], [dm * e for e in dG[i][2][0]]))
+            
+            Gp = cop(Gpp)
+            M = log_W_pair_matrix(Gp)
+
+            bol1 = M == J
+            bol2 = all(dG[i][2][1] == self._D(0) for i in range(g)) and all(dG[i][2][0] == self._D(0) for i in range(g, 2 * g))
+            bol3 = all(e.sym_comp(n) for e in Gpp)
+            
+            if bol1 and bol2 and bol3:
+                break
+            
+            N = self.symplectic_diagonalization1(M)
+            Gpp = [self(0)] * (2 * g)
+            for j in range(2 * g):
+                for i in range(2 * g):
+                    Gpp[j] = Gpp[j]._add(Gp[i]._mult(ZZ(N[i, j])))
+
+            Gp = cop(Gpp)
+            M = log_W_pair_matrix(Gp)
+
+            bol1 = M == J
+            bol2 = all(dG[i][2][1] == self._D(0) for i in range(g)) and all(dG[i][2][0] == self._D(0) for i in range(g, 2 * g))
+            bol3 = all(e.sym_comp(n) for e in Gp)
+        
+        return Gpp
+
+    def good_lift_group(self, n, G, x, ii = 1, G_good = False, B0 = None):
         """
             See Algorithm 6 in [DeLu25].
 
@@ -694,7 +807,11 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Zn = tools.create_conversions(n, g)
         Zd = tools.create_conversions(d, g)
         Zm = tools.create_conversions(m, g)
-        if not G_good:
+        if B0 is None:
+            B0 = list(Zd.basis())
+        strat = tools.strat_decomp(Zd, B0)
+        
+        if G_good is False:
             Gt = [None] * ng
             Gt[idx(Zn(0))] = self(0)
         else:
@@ -702,7 +819,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         if x is not None:
             xpGt = [None] * ng
             xpGt[idx(Zn(0))] = x
-        for i, ei in enumerate(Zd.basis()):
+        for i, ei in enumerate(B0):
             if G_good:
                 xpGt[idx(ei)] = G[idx(ei)].good_lift_point(x, True)
             elif x is not None:
@@ -711,15 +828,12 @@ class Variety_ThetaStructure(AlgebraicScheme):
                 xpGt[idx(ei)] = b
             else:
                 Gt[idx(ei)] = G[i].good_lift_point()
-            for ej in list(Zd.basis())[:i]:
+            for ej in B0[:i]:
                 Gt[idx(ei + ej)] = Gt[idx(ei)].good_lift_point(Gt[idx(ej)], True)
                 
                 if x is not None:
                     # x.three_way_add(y, z, x+y, y+z, x+z) = ThreeWayAdd(x+y, y+z, x+z, x, y, z, 0)
                     xpGt[idx(ei + ej)] = x.three_way_add(Gt[idx(ei)], Gt[idx(ej)], xpGt[idx(ei)], Gt[idx(ei + ej)], xpGt[idx(ej)])
-        
-        strat = tools.strat_decomp(Zd)
-        
         for exe in strat:
             if exe[0] == 2:
                 Q = Gt[idx(exe[3])]
@@ -734,7 +848,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     xpPmQ = xpGt[idx(exe[4])]
                     xpGt[idx(exe[1])] = xpP.diff_add(Q, xpPmQ)
             
-            else: #exe[0] == 3
+            else: # exe[0] == 3
                 Q = Gt[idx(exe[3])]
                 R = Gt[idx(exe[4])]
                 QR = Gt[idx(exe[6])]
@@ -751,13 +865,13 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     xpPR = xpGt[idx(exe[7])]
                     xpGt[idx(exe[1])] = xpP.three_way_add(Q, R, xpPQ, QR, xpPR)
 
-        Zrondd = [Zn([ZZ(i) for i in e]) for e in Zd]
+        Zrondd = [ed for ed in Zn if Gt[idx(ed)] is not None]
         for ed in Zrondd:
             for em in Zm:
                 e = ed + tools.from_m_to_n(Zn, em)
                 if ii == 1:
                     em = (em, self._D(0))
-                else: #ii==2
+                else: # ii == 2
                     em = (self._D(0), em)
                 if not G_good:
                     Gt[idx(e)] = Gt[idx(ed)].action_theta(em)
@@ -802,7 +916,6 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Zm = tools.create_conversions(m, g)
         
         xpG1t = self.good_lift_group(n, G1t, x, 1, True)
-        # xpG2t = self.good_lift_group(n, G2t, x, 2, True) # not used
         L_xpPpG2t = []
         for xpP in xpG1t: #choose the good P now if you don't want all the coordinates or if j0 is choose smartly
             xpPpG2t = self.good_lift_group(n, G2t, xpP, 2, True)
@@ -855,18 +968,22 @@ class Variety_ThetaStructure(AlgebraicScheme):
         g = self.dimension()
         ng = n ** g
         m = self.level()
+        assert(n % m == 0)
+        d = n // m
         x = self(0)
         
-        G = self.decomp_compat(n, G)
+        G = self.compat_decomp(n, G)
         G1 = G[:g]
         G2 = G[g:]
         idx = partial(tools.idx, n=n)
-        
+
+        B0 = tools.basis_num(G, n)
+
         Zn = tools.create_conversions(n, g)
         Zm = tools.create_conversions(m, g)
         
-        G1t, xpG1t = self.good_lift_group(n, G1, x, 1)
-        G2t = self.good_lift_group(n, G2, None, 2)
+        G1t, xpG1t = self.good_lift_group(n, G1, x, 1, False, B0[:g])
+        G2t = self.good_lift_group(n, G2, None, 2, False, B0[g:])
         L_xpPpG2t = []
         for xpP in xpG1t: #choose the good P now if you don't want all the coordinates or if j0 is choose smartly
             xpPpG2t = self.good_lift_group(n, G2t, xpP, 2, True)

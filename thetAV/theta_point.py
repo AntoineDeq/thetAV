@@ -459,7 +459,7 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
 
     def weil_pairing_power(self, l, Q, PQ=None):
         """
-        Computes the Weil pairing of P=self and Q.  See also
+        Computes a power of the Weil pairing of P=self and Q.  See also
         :meth:`~._weil_pairing_from_points` to use precomputed points.
 
         INPUT:
@@ -499,6 +499,59 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         r, k1Q = lPQ.is_equal(Q, proj=True, factor=True)  # lP+ Q == Q, k1Q is the factor
         assert r
         return k1P * k0P / (k1Q * k0Q)
+    
+    def weil_pairing(self, Q, n, PQ=None):
+        """
+        Computes the Weil pairing of P=self and Q.  See also
+        :meth:`~._weil_pairing_from_points` to use precomputed points.
+
+        INPUT:
+
+        - ``P=self`` -- An point of torsion `n`
+        - ``Q`` -- Another point of torsion `n`
+        - ``n`` -- An integer
+        - ``PQ`` (default: None) -- The addition of ``P`` and ``Q``.
+
+        OUTPUT:
+
+        The weil pairing of P and Q.
+
+        EXAMPLES::
+
+            sage: #TODO examples
+            
+        REFERENCE:
+        
+            Fast pairings via biextensions and cubical arithmetic Preliminary version for April 1st, 2025, by Damien Robert.
+        """
+        if self.scheme() != Q.scheme():
+            raise ValueError('The points must belong to the same Abelian Variety.')
+        if PQ is None:
+            if self.scheme().level() == 2:
+                raise NotImplementedError
+            PQ = self._add(Q)
+        else:
+            if self.scheme() != PQ.scheme():
+                raise ValueError('The points must belong to the same Abelian Variety.')
+        l = ZZ(n / self.scheme().level())
+        point0 = self.scheme().theta_null_point()
+        lPQ, lP = self.diff_multadd(l, PQ, Q)  # lP + Q, lP
+        PlQ, lQ = Q.diff_multadd(l, PQ, self)  # P + lQ, lQ
+        _, _, eP = (-self).ell()
+        _, _, eQ = (-Q).ell()
+        mlPlP = lP.action_theta(eP)
+        mlPlPQ = lPQ.action_theta(eP)
+        mlQlQ = lQ.action_theta(eQ)
+        mlQPlQ = PlQ.action_theta(eQ)
+        r, k0P = mlPlP.is_equal(point0, proj=True, factor=True)  # P is l-torsion, k0P is the factor
+        assert r, "Bad pairing!" + str(self)
+        r, k0Q = mlQlQ.is_equal(point0, proj=True, factor=True)  # Q is l-torsion, k0Q is the factor
+        assert r, "Bad pairing!" + str(Q)
+        r, k1P = mlPlPQ.is_equal(Q, proj=True, factor=True)  # P + lQ == P, k1P is the factor
+        assert r
+        r, k1Q = mlQPlQ.is_equal(self, proj=True, factor=True)  # lP+ Q == Q, k1Q is the factor
+        assert r
+        return k1P * k0Q / (k1Q * k0P)
 
     def tate_pairing(self, l, Q, PQ=None):
         """
