@@ -24,6 +24,7 @@ from sage.structure.coerce_maps import CallableConvertMap
 from sage.misc.constant_function import ConstantFunction
 from sage.misc.functional import sqrt
 from sage.arith.misc import gcd
+from sage.matrix.all import Matrix, block_matrix, zero_matrix, identity_matrix
 
 integer_types = (int, Integer)
 
@@ -360,3 +361,40 @@ def set_sum_squares(d, n, L = [], S = [], res = [], b = 0):
                 Sp.append([e[0] + f, e[1] + [f]])
     return set_sum_squares(d, n, L, Sp, res, b + 1)
 
+def is_isotrop(basis, J):
+    """
+    Vérifie que basis est isotrope pour J
+    """
+    for e in basis:
+        for f in basis:
+            if (e * J * f) != 0:
+                return False
+    return True
+
+def M_vers_symplec(K, n):
+    """
+    Retourne une matrice symplectique M telle que M envoie les vecteurs de K
+    sur les vecteurs e_1,...,e_g
+    """
+    Zn = Zmod(n)
+    g = len(K)
+    V = Zn ** (2 * g)
+    J = block_matrix(Zn, [[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]])
+
+    if not is_isotrop(K, J):
+        raise ValueError("K is not isotropic.")
+
+    basis = list(K)
+
+    for i in range(g):
+        for candidate in V: # peut faire mieux ?
+            if all((basis[j] * J * candidate) == 0 for j in range(i)) and (basis[i] * J * candidate) == 1:
+                basis.append(candidate)
+                break
+        else:
+            raise ValueError("Impossible to extend the basis to a symplectic basis.")
+
+    M = Matrix(Zn, basis).T.inverse()
+    assert M.T * J * M == J
+    
+    return M

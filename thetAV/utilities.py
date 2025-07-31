@@ -20,7 +20,7 @@ from itertools import combinations_with_replacement
 from sage.rings.polynomial.msolve import *
 from copy import deepcopy as cop
 from sage.rings.infinity import *
-from sage.matrix.all import Matrix, zero_matrix, identity_matrix, block_matrix
+from sage.matrix.all import Matrix, zero_matrix, identity_matrix, block_matrix, MatrixSpace
 from sage.rings.all import PolynomialRing, Integer, ZZ, Zmod
 from sage.schemes.hyperelliptic_curves.invariants import clebsch_invariants, clebsch_to_igusa
 from sage.misc.misc_c import prod
@@ -433,17 +433,18 @@ def decomposition(M1, check = True):
         M = mID2g * Hg * Sg(Zm, g, B) * Hg * M
 
     if check:
-        assert(M != identity_matrix(Zm, 2 * g))
+        assert(M == identity_matrix(Zm, 2 * g))
         assert(prod([e for (_, e) in L_left] + [e for (_, e) in L_right]) == M1)
     return L_left + L_right
 
 
-def calc_sqr_Sg(C, check = True):
+def calc_sqr_Sg(A, C, check = True):
     """
         Compute \\sqrt(\\gamma_C(i)(i)) as described in [Prop 9].
 
         INPUT:
             C a symmetric matrix in M_g(Z/mZ)
+            A the abelian variety
 
         OUTPUT:
 
@@ -465,7 +466,7 @@ def calc_sqr_Sg(C, check = True):
     new = []
     rac, a, items = None, None, None
     for _, vk in B:
-        rac = sqrt(eval_car_comp(vector_to_Zmg(Zmg, C * vk), vector_to_Zmg(Zmg, vk), m))
+        rac = sqrt(A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * vk), tools.vector_to_Zmg(Zmg, vk)))
         dico[vk] = rac
         new.append((vk, rac))
     if check:
@@ -479,11 +480,11 @@ def calc_sqr_Sg(C, check = True):
             a = i + j
             a.set_immutable()
             if a not in dico:
-                rac = raci * racj * eval_car_comp(vector_to_Zmg(Zmg, C * i), vector_to_Zmg(Zmg, j), m)
+                rac = raci * racj * A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * i), tools.vector_to_Zmg(Zmg, j))
                 dico[a] = rac
                 new.append((a, rac))
             elif check:
-                assert(dico[a] == raci * racj * eval_car_comp(vector_to_Zmg(Zmg, C * i), vector_to_Zmg(Zmg, j), m))
+                assert(dico[a] == raci * racj * A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * i), tools.vector_to_Zmg(Zmg, j)))
         if check:
             cond = new != []
         else:

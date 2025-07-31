@@ -551,7 +551,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
             elif a == "Sg":
                 res1X = cop(resX)
-                dico = utilities.calc_sqr_Sg(b)
+                dico = utilities.calc_sqr_Sg(self, b)
                 for i in Zmg:
                     a = Matrix(Zm, i).transpose()
                     a.set_immutable()
@@ -1011,6 +1011,163 @@ class Variety_ThetaStructure(AlgebraicScheme):
         
         A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
         fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x))
+        
+        return A, fonc_conv
+
+
+######
+
+
+    def isog_comput_fonc(self, n, lst_ai, Bpp, Kpp, G1t, from_B_to_Bpp, x):
+        """
+            See Algorithm 8 in [DeLu25].
+
+            INPUT:
+            -   n = md
+            -   lst_ai a list of the ais
+            -   Bpp as computed in isog_comput
+            -   Kpp as computed in isog_comput
+            -   G1t a good lift of G1 as computed in isog_comput
+            -   from_B_to_Bpp a conversion function from self to Bpp as computed in isog_comput
+            -   x an affine lift of a point of self
+            
+            OUTPUT:
+
+            -   res_sol the image of x by the isogeny, see isog_comput
+            
+
+            EXAMPLES:
+
+                sage: 
+        """
+        m = self.level()
+        g = self.dimension()
+        Zn = tools.create_conversions(n, g)
+        Zm = tools.create_conversions(m, g)
+        Zmd = tools.create_conversions(m, 2 * g)
+        d = n // m
+        md = m // d
+        mg = m ** g
+        idxn = partial(tools.idx, n=n)
+        idxm = partial(tools.idx, n=m)
+        def rho_nm(Zm, tt):
+            m = len(Zm.base_ring())
+            return Zm([ZZ(i) % m for i in list(tt)])
+        
+        xpp = from_B_to_Bpp(x)
+        
+        xpG1t = Bpp.good_lift_group(n, G1t, xpp, 1, True)
+        
+        res_sol = [None] * mg
+        for j0 in Zm: #dump choice for j1 and j2
+            j1 = Zn([ZZ(i) for i in list(j0)])
+            j2 = Zm(0)
+            assert(j0 == rho_nm(Zm, j1 + tools.from_m_to_n(Zn, j2)))
+            
+            ai_reduit = list(set(lst_ai))
+            
+            Lst_ai_L_xpPpg1j1 = []
+            for P in Kpp: #P varies -> carrefull with numbering ?
+                xpPpg1j1 = xpG1t[idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1)]
+                Lst_ai_L_xpPpg1j1.append([xpPpg1j1._mult(ai) for ai in ai_reduit])
+            
+            res = 0
+            for L_xpPpg1j1 in Lst_ai_L_xpPpg1j1:
+                res += prod(L_xpPpg1j1[ai_reduit.index(ai)][idxm(j2)] for ai in lst_ai)
+
+            res_sol[idxm(j0)] = res
+        
+        return res_sol
+
+    def isog_comput(self, n, lst_ai, K, G1, check = True):
+        """
+            See Algorithm 8 in [DeLu25].
+
+            INPUT:
+            -   n = md
+            -   lst_ai a list of the ais
+            -   K a basis of K
+            -   G1 a basis of G1
+            -   x an affine lift of a point of self
+            
+            OUTPUT:
+
+            -   A the quotient abelian variety of level m
+            -   fonc_conv the isogeny function from self to A
+            
+
+            EXAMPLES:
+
+                sage: 
+        """
+        x = self(0)
+        m = self.level()
+        g = self.dimension()
+        Zn = tools.create_conversions(n, g)
+        Zm = tools.create_conversions(m, g)
+        Zmd = tools.create_conversions(m, 2 * g)
+        d = n // m
+        md = m // d
+        mg = m ** g
+        idxn = partial(tools.idx, n=n)
+        idxm = partial(tools.idx, n=m)
+        
+        def rho_nm(Zm, tt):
+            m = len(Zm.base_ring())
+            return Zm([ZZ(i) % m for i in list(tt)])
+
+        # try something here or later in the code to change the basis of K to a isotropic one ?
+
+        # computation of M
+        G1_basis = []
+        for P in G1:
+            _, _, e = P.ell()
+            # a choice is made here. Does it always work? (can list possibilities if needed)
+            G1_basis.append(Zmd(list(e[0]) + list(e[1])))
+        # print(G1_basis)
+        M = tools.M_vers_symplec(G1_basis, m) # be careful with the choice of M : as done here, it is necessary that $d.g_i \in {k_i}$
+        # print(M)
+        
+        Bp, from_B_to_Bp = self.action_Sp(M, check = check)
+        Kp = [from_B_to_Bp(k) for k in K]
+        G1p = [from_B_to_Bp(g1) for g1 in G1]
+        xp = from_B_to_Bp(x)
+        
+        dG = [e.ell() for e in G1p]
+        print([(e[0], e[2]) for e in dG])
+
+        Bpp, from_Bp_to_Bpp = Bp.thet_pt_comp(n, G1p, check = check)
+        Kpp = [from_Bp_to_Bpp(kp) for kp in Kp]
+        G1pp = [from_Bp_to_Bpp(g1p) for g1p in G1p]
+        xpp = from_Bp_to_Bpp(xp)
+        
+        B0 = tools.basis_num(G1pp, n)
+        
+        G1t, xpG1t = Bpp.good_lift_group(n, G1pp, xpp, 1, False, B0)
+        
+        res_sol = [None] * mg
+        for j0 in Zm:#dump choices for j1 and j2
+            j1 = Zn([ZZ(i) for i in list(j0)])
+            j2 = Zm(0)
+            assert(j0 == rho_nm(Zm, j1 + tools.from_m_to_n(Zn, j2)))
+            
+            ai_reduit = list(set(lst_ai))
+            
+            Lst_ai_L_xpPpg1j1 = []
+            for P in Kpp: #P varies -> carrefull with numbering ?
+                # print(G1t.index(P._add(G1t[idxn(j1)])) == idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1)) # True
+                xpPpg1j1 = xpG1t[idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1)]
+                Lst_ai_L_xpPpg1j1.append([xpPpg1j1._mult(ai) for ai in ai_reduit])
+            
+            res = 0
+            for L_xpPpg1j1 in Lst_ai_L_xpPpg1j1:
+                res += prod(L_xpPpg1j1[ai_reduit.index(ai)][idxm(j2)] for ai in lst_ai)
+
+            res_sol[idxm(j0)] = res
+        
+        A = constructor.AbelianVariety(self.base_ring(), m, g, res_sol, roots = self._roots, check = check)
+        
+        fonc_conv = lambda x:A(isog_comput_fonc(self, n, lst_ai, Bpp, Kpp, G1t, lambda y:from_Bp_to_Bpp(from_B_to_Bp(y)), x))
         
         return A, fonc_conv
 

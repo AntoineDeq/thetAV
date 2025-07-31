@@ -205,8 +205,6 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
     
     if m == 2:
         print("\nTest not working for m = 2, debug as to be done for basic functions")
-    if g == 2:
-        print("\nTest not always working for g = 2, the weil pairing is not fully computed yet")
     ######
     
     lst_ai = choice(tools.set_sum_squares(d, n))
@@ -256,6 +254,179 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
                         print("\nTest n°{} compiled but failed".format(nb_tests))
                 else:
                     print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked as d > 2".format(nb_tests))
+            except ValueError as inst:
+                if inst.args[0] == "The given list does not define a valid thetanullpoint":
+                    print("\nTest n°{} compiled but failed".format(nb_tests))
+                else:
+                    print("\nTest n°{} failed".format(nb_tests))
+            nb_tests += 1
+            if nb_tests >= supp:
+                break
+
+def gene_isog(Zmg2, ln, g, m, d):
+    Zm = Zmg2.base_ring()
+    Zmg = Zm ** g
+    a = None
+    dico = {}
+    bol = True
+    while bol:
+        Gtest_m = sample([Zmg2[i] for i in range(ln)], g) # [(A._D(1), A._D(0)), (A._D(0), A._D(1))]
+        for f in Gtest_m:
+            for b in Zmg2:
+                a = Matrix([b[0], b[1]])
+                a.set_immutable()
+                dico[a] = False
+            usef = []
+            for e in Zm:
+                b = Zmg2((e * f[0], e * f[1]))
+                a = Matrix([b[0], b[1]])
+                a.set_immutable()
+                dico[a] = True
+            
+            usef = [a for a, b in dico.items() if b]
+            bol = bol and len(usef) == m
+        
+        for b in Zmg2:
+            a = Matrix([b[0], b[1]])
+            a.set_immutable()
+            dico[a] = False
+        usef = []
+        for e in Zmg:
+            comb_lin = [Zmg2((e[i] * Gtest_m[i][0], e[i] * Gtest_m[i][1])) for i in range(g)]
+            b = Zmg2[0]
+            for u in comb_lin:
+                b += u
+            a = Matrix([b[0], b[1]])
+            a.set_immutable()
+            dico[a] = True
+        
+        usef = [Zmg2((Zmg(a[0,:][0]), Zmg(a[1,:][0]))) for a, b in dico.items() if b]
+        bol = bol and len(usef) == m ** g
+        # print("usef", usef)
+        
+        if bol:
+            # print("G", Gtest_m)
+            while bol:
+                Ktest_m = sample(usef, g) # [ZZ(m / d) * e for e in Gtest_m] # attention, spécifique
+                # print("K", Ktest_m)
+                for f in Ktest_m:
+                    for b in Zmg2:
+                        a = Matrix([b[0], b[1]])
+                        a.set_immutable()
+                        dico[a] = False
+                    for e in Zm:
+                        b = Zmg2((e * f[0], e * f[1]))
+                        a = Matrix([b[0], b[1]])
+                        a.set_immutable()
+                        dico[a] = True
+                    usef2 = [a for a, b in dico.items() if b]
+                    # print(f, usef2, len(usef2) == d, bol and len(usef2) == d)
+                    bol = bol and len(usef2) == d
+                
+                for b in Zmg2:
+                    a = Matrix([b[0], b[1]])
+                    a.set_immutable()
+                    dico[a] = False
+                for e in Zmg:
+                    comb_lin = [Zmg2((e[i] * Ktest_m[i][0], e[i] * Ktest_m[i][1])) for i in range(g)]
+                    b = Zmg2[0]
+                    for u in comb_lin:
+                        b += u
+                    a = Matrix([b[0], b[1]])
+                    a.set_immutable()
+                    dico[a] = True
+                usef2 = [a for a, b in dico.items() if b]
+                bol = bol and len(usef2) == d ** g
+                bol = not(bol)
+        else:
+            bol = not(bol)
+    return Gtest_m, Ktest_m
+
+def test_isog_comput(g, m, n, FF11, FF, supp = None):
+    """
+    Test the isogeny computation for a random abelian variety, computed from a random curve,
+    given the genus g, the level m, the new level n such that n=md with d|m,
+    FF11 a field in which we choose the roots of the curve, and FF the field of definition
+    of the abelian variety, big enough to allow to compute all the n-torsion.
+    
+    supp is either None if we want a random basis for the n-torsion,
+    or a positive integer if we want to test supp possible bases of the n-torsion.
+    """
+    d = n // m
+    assert(type(log(d, 2)) is Integer)
+
+    B = sample(list(FF11), 2 * g + 1) # {branch points a_i} - \infty
+    B.sort()
+    B = [FF(e) for e in B]
+    # print(B)
+
+    ### Creation of the curve and computation of the corresponding abelian variety
+    Q = PolynomialRing(FF, 'x')
+    x, = Q.gens()
+    
+    p = prod([x - e for e in B])
+    if g == 1:
+        coeffs_p = list(p)
+        coeffs_p.reverse()
+        coeffs = [0] + coeffs_p[1:2] + [0] + coeffs_p[2:]
+        E = EllipticCurve(FF, coeffs)
+        # j_inv_E = E.j_invariant()
+        if m == 2:
+            Theta2 = utilities.Legendre_to_lv2tnp(utilities.Elliptic_to_Legendre(E)[0])[0]
+            A = constructor.AbelianVariety(FF, m, g, Theta2)
+        elif m == 4:
+            Theta4 = utilities.generation_thet4(FF, B, g)
+            A = constructor.AbelianVariety(FF, m, g, Theta4, check = True)
+        else:
+            raise NotImplementedError('Random example for m > 4')
+    else:
+        E = HyperellipticCurve(p)
+        if g == 2:
+            A = constructor.AbelianVariety.from_curve(E, m)
+        else:
+            raise NotImplementedError('Random example for g > 2')
+    
+    print("Curve used for this test :", E)
+    print("\nAbelian variety used for this test :", A)
+    
+    if m == 2:
+        print("\nTest not working for m = 2, debug as to be done for basic functions")
+    ######
+    
+    lst_ai = choice(tools.set_sum_squares(d, n))
+    
+    Gtest_m, Ktest_m = gene_isog(cartesian_product([A._D] * 2), len(A._D) ** 2, g, m, d)
+    
+    print("\nNumbering of the selected basis for A[m] :", Gtest_m)
+    print("\nNumbering of the selected basis for K :", Ktest_m)
+    
+    Ktest = [A(0).action_theta(x) for x in Ktest_m]
+    Gtest_L = [A(0).action_theta(x) for x in Gtest_m]
+    Gtest_list = [utilities.half(A, [g]) for g in Gtest_L]
+    for _ in range(log(d, 2) - 1):
+        Gtest_list = [utilities.half(A, g) for g in Gtest_list]
+    print("\nA[n] partially computed")
+    
+    if supp is None:
+        Gtest = [choice(e) for e in Gtest_list]
+        
+        try:
+            Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
+            
+            print("\nNew abelian variety :", Ap)
+            print("\nTest compiled with a valid theta null point, but compatibility has not been checked")
+        except ValueError as inst:
+            if inst.args[0] == "The given list does not define a valid thetanullpoint":
+                print("\nTest compiled but failed")
+            else:
+                print("\nTest failed", inst.args[0])
+    
+    else:
+        nb_tests = 1
+        for Gtest in cartesian_product(Gtest_list):
+            try:
+                Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
+                print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked".format(nb_tests))
             except ValueError as inst:
                 if inst.args[0] == "The given list does not define a valid thetanullpoint":
                     print("\nTest n°{} compiled but failed".format(nb_tests))
