@@ -426,21 +426,20 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
         Gtest_list = [utilities.half(A, g) for g in Gtest_list]
     print("\nA[n] partially computed")
     
+    power_prim_roots = [A.roots(n) ** i for i in range(n)]
+    Zn = Zmod(n)
+    def log_W_pair_matrix(GG):
+        M = zero_matrix(Zn, 2 * g)
+        for i, e in enumerate(GG):
+            for j, f in enumerate(GG):
+                if i > j:
+                    a = Zn(power_prim_roots.index(e.weil_pairing(f, n)))
+                    M[i, j] = a
+                    M[j, i] = -a
+        return M
+    
     if supp is None:
         Gtest = [choice(e) for e in Gtest_list]
-        
-        
-        power_prim_roots = [A.roots(n) ** i for i in range(n)]
-        Zn = Zmod(n)
-        def log_W_pair_matrix(GG):
-            M = zero_matrix(Zn, 2 * g)
-            for i, e in enumerate(GG):
-                for j, f in enumerate(GG):
-                    if i > j:
-                        a = Zn(power_prim_roots.index(e.weil_pairing(f, n)))
-                        M[i, j] = a
-                        M[j, i] = -a
-            return M
 
         assert log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g)
 
@@ -458,6 +457,7 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
     else:
         nb_tests = 1
         for Gtest in cartesian_product(Gtest_list):
+            assert log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g)
             try:
                 Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
                 print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked".format(nb_tests))
