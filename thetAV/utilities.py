@@ -466,7 +466,7 @@ def calc_sqr_Sg(A, C, check = True):
     new = []
     rac, a, items = None, None, None
     for _, vk in B:
-        rac = sqrt(A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * vk), tools.vector_to_Zmg(Zmg, vk)))
+        rac = sqrt(A.eval_car_comp(tools.matrix_to_Zmg(Zmg, C * vk), tools.matrix_to_Zmg(Zmg, vk)))
         dico[vk] = rac
         new.append((vk, rac))
     if check:
@@ -480,11 +480,11 @@ def calc_sqr_Sg(A, C, check = True):
             a = i + j
             a.set_immutable()
             if a not in dico:
-                rac = raci * racj * A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * i), tools.vector_to_Zmg(Zmg, j))
+                rac = raci * racj * A.eval_car_comp(tools.matrix_to_Zmg(Zmg, C * i), tools.matrix_to_Zmg(Zmg, j))
                 dico[a] = rac
                 new.append((a, rac))
             elif check:
-                assert(dico[a] == raci * racj * A.eval_car_comp(tools.vector_to_Zmg(Zmg, C * i), tools.vector_to_Zmg(Zmg, j)))
+                assert(dico[a] == raci * racj * A.eval_car_comp(tools.matrix_to_Zmg(Zmg, C * i), tools.matrix_to_Zmg(Zmg, j)))
         if check:
             cond = new != []
         else:

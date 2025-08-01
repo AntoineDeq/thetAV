@@ -548,7 +548,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             if a == "Bg":
                 res1X = cop(resX)
                 for i in Zmg:
-                    resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
+                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
             elif a == "Sg":
                 res1X = cop(resX)
                 dico = utilities.calc_sqr_Sg(self, b)
@@ -562,7 +562,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
                     resX[idx(i)] = sum([self.eval_car_comp(i, j) * res1X[idx(j)] for j in Zmg])
                 res1X = cop(resX)
                 for i in Zmg:
-                    resX[idx(i)] = res1X[idx(tools.vector_to_Zmg(Zmg, -b * Matrix(Zm, i).transpose()))]
+                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, -b * Matrix(Zm, i).transpose()))]
         
         thet_new = [e_resX(res) for e_resX in resX]
 
@@ -1116,14 +1116,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
             m = len(Zm.base_ring())
             return Zm([ZZ(i) % m for i in list(tt)])
 
-        # try something here or later in the code to change the basis of K to a isotropic one ?
+        # try something here or later in the code to change the basis of K to an isotropic one ?
 
         # computation of M
-        G1_basis = []
-        for P in G1:
-            _, _, e = P.ell()
+        G1_basis = [P.ell()[2] for P in G1]
+        # for P in G1:
+            # _, _, e = P.ell()
             # a choice is made here. Does it always work? (can list possibilities if needed)
-            G1_basis.append(Zmd(list(e[0]) + list(e[1])))
+            # G1_basis.append(Zmd(list(e[0]) + list(e[1])))
         # print(G1_basis)
         M = tools.M_vers_symplec(G1_basis, m) # be careful with the choice of M : as done here, it is necessary that $d.g_i \in {k_i}$
         # print(M)
@@ -1140,6 +1140,9 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Kpp = [from_Bp_to_Bpp(kp) for kp in Kp]
         G1pp = [from_Bp_to_Bpp(g1p) for g1p in G1p]
         xpp = from_Bp_to_Bpp(xp)
+        
+        dG = [e.ell() for e in G1p]
+        print([(e[0], e[2]) for e in dG])
         
         B0 = tools.basis_num(G1pp, n)
         

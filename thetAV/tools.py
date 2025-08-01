@@ -283,15 +283,21 @@ def from_m_to_n(Zn, tt):
     s = n // m
     return Zn([s * ZZ(i) for i in list(tt)])
 
-def vector_to_Zmg(Zmg, v):
+def matrix_to_Zmg(Zmg, v):
     r"""
     .. todo:: add minimal docstring.
     """
     if v.nrows() != 1:
         v = v.transpose()
     if v.nrows() != 1:
-        raise ValueError("Not good dimension")
+        raise ValueError("Not a vector")
     return Zmg(tuple(v)[0])
+
+def Zmg_to_matrix(v):
+    r"""
+    .. todo:: add minimal docstring.
+    """
+    return Matrix([list(v[0]) + list(v[1])]).T
 
 def basis_num(G, n):
     """
@@ -361,13 +367,16 @@ def set_sum_squares(d, n, L = [], S = [], res = [], b = 0):
                 Sp.append([e[0] + f, e[1] + [f]])
     return set_sum_squares(d, n, L, Sp, res, b + 1)
 
-def is_isotrop(basis, J):
+def is_isotrop(basis):
     """
-    Vérifie que basis est isotrope pour J
+    Check if basis is isotropic
     """
+    g = len(basis)
+    Zn = basis[0][0].base_ring()
+    J = block_matrix(Zn, [[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]])
     for e in basis:
         for f in basis:
-            if (e * J * f) != 0:
+            if (Zmg_to_matrix(e).T * J * Zmg_to_matrix(f)) != 0:
                 return False
     return True
 
@@ -381,20 +390,20 @@ def M_vers_symplec(K, n):
     V = Zn ** (2 * g)
     J = block_matrix(Zn, [[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]])
 
-    if not is_isotrop(K, J):
+    if not is_isotrop(K):
         raise ValueError("K is not isotropic.")
-
-    basis = list(K)
-
-    for i in range(g):
+    print(K)
+    basis = [Zmg_to_matrix(e) for e in K]
+    for i in range(g, 2 * g):
         for candidate in V: # peut faire mieux ?
-            if all((basis[j] * J * candidate) == 0 for j in range(i)) and (basis[i] * J * candidate) == 1:
-                basis.append(candidate)
+            cand = Matrix(Zn, [list(candidate)]).T
+            if all((basis[j].T * J * cand) == 0 for j in range(i - g + 1, i)) and all((basis[j].T * J * cand) == 0 for j in range(i - g)) and (basis[i - g].T * J * cand) == 1:
+                basis.append(cand)
                 break
         else:
             raise ValueError("Impossible to extend the basis to a symplectic basis.")
-
-    M = Matrix(Zn, basis).T.inverse()
-    assert M.T * J * M == J
     
+    M = Matrix(Zn, [e.T[0] for e in basis]).T.inverse()
+    assert M.T * J * M == J
+    # print(M.inverse())
     return M

@@ -19,8 +19,8 @@ AUTHORS:
 from sage.categories.cartesian_product import cartesian_product
 from sage.rings.polynomial.msolve import *
 from copy import deepcopy as cop
-from sage.matrix.all import Matrix
-from sage.rings.all import PolynomialRing, Integer, ZZ
+from sage.matrix.all import Matrix, zero_matrix
+from sage.rings.all import PolynomialRing, Integer, ZZ, Zmod
 from random import choice, sample
 from sage.structure.factory import *
 from sage.schemes.hyperelliptic_curves.constructor import HyperellipticCurve
@@ -48,6 +48,11 @@ def progress_bar(count, total, prefix, size=50):
 
 
 def gene2(L):
+    """
+    Check if L forms a basis of Zm ** (2 * g), where Zm is the base ring of the elements of L.
+    
+    TODO: can be optimized with pseudo_smith ? (echelon form not implemented over finite rings)
+    """
     g = len(L)
     Zm = L[0][0].base_ring()
     Zmg = Zm ** g
@@ -102,6 +107,12 @@ def verif_duplication_formula(B, Bp):
     return True
 
 def new_rand_ab_var(g, m, n, FF11, FF):
+    """
+    Create a random abelian variety of genus g, level m, computed from a random curve,
+    and a random basis of its n-torsion, with n such that n=md with d|m.
+    FF11 is a field in which we choose the roots of the curve and FF the field of definition
+    of the abelian variety, big enough to allow to compute all the n-torsion.
+    """
     d = n // m
     assert(type(log(d, 2)) is Integer)
 
@@ -264,6 +275,12 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
                 break
 
 def gene_isog(Zmg2, ln, g, m, d):
+    """
+    Computes a random basis Gtest_m of a subgroup of A._D ** 2 isomorphic to A._D
+    and a random basis Ktest_m of a subgroup of A[d] \cap <Gtest_m> isomorphic to Zm ** g.
+    
+    TODO: can be optimized with pseudo_smith ? (echelon form not implemented over finite rings)
+    """
     Zm = Zmg2.base_ring()
     Zmg = Zm ** g
     a = None
@@ -271,38 +288,40 @@ def gene_isog(Zmg2, ln, g, m, d):
     bol = True
     while bol:
         Gtest_m = sample([Zmg2[i] for i in range(ln)], g) # [(A._D(1), A._D(0)), (A._D(0), A._D(1))]
-        for f in Gtest_m:
+        bol = tools.is_isotrop(Gtest_m)
+        if bol:
+            for f in Gtest_m:
+                for b in Zmg2:
+                    a = Matrix([b[0], b[1]])
+                    a.set_immutable()
+                    dico[a] = False
+                usef = []
+                for e in Zm:
+                    b = Zmg2((e * f[0], e * f[1]))
+                    a = Matrix([b[0], b[1]])
+                    a.set_immutable()
+                    dico[a] = True
+                
+                usef = [a for a, b in dico.items() if b]
+                bol = bol and len(usef) == m
+            
             for b in Zmg2:
                 a = Matrix([b[0], b[1]])
                 a.set_immutable()
                 dico[a] = False
             usef = []
-            for e in Zm:
-                b = Zmg2((e * f[0], e * f[1]))
+            for e in Zmg:
+                comb_lin = [Zmg2((e[i] * Gtest_m[i][0], e[i] * Gtest_m[i][1])) for i in range(g)]
+                b = Zmg2[0]
+                for u in comb_lin:
+                    b += u
                 a = Matrix([b[0], b[1]])
                 a.set_immutable()
                 dico[a] = True
             
-            usef = [a for a, b in dico.items() if b]
-            bol = bol and len(usef) == m
-        
-        for b in Zmg2:
-            a = Matrix([b[0], b[1]])
-            a.set_immutable()
-            dico[a] = False
-        usef = []
-        for e in Zmg:
-            comb_lin = [Zmg2((e[i] * Gtest_m[i][0], e[i] * Gtest_m[i][1])) for i in range(g)]
-            b = Zmg2[0]
-            for u in comb_lin:
-                b += u
-            a = Matrix([b[0], b[1]])
-            a.set_immutable()
-            dico[a] = True
-        
-        usef = [Zmg2((Zmg(a[0,:][0]), Zmg(a[1,:][0]))) for a, b in dico.items() if b]
-        bol = bol and len(usef) == m ** g
-        # print("usef", usef)
+            usef = [Zmg2((Zmg(a[0,:][0]), Zmg(a[1,:][0]))) for a, b in dico.items() if b]
+            bol = bol and len(usef) == m ** g
+            # print("usef", usef)
         
         if bol:
             # print("G", Gtest_m)
@@ -410,6 +429,21 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
     if supp is None:
         Gtest = [choice(e) for e in Gtest_list]
         
+        
+        power_prim_roots = [A.roots(n) ** i for i in range(n)]
+        Zn = Zmod(n)
+        def log_W_pair_matrix(GG):
+            M = zero_matrix(Zn, 2 * g)
+            for i, e in enumerate(GG):
+                for j, f in enumerate(GG):
+                    if i > j:
+                        a = Zn(power_prim_roots.index(e.weil_pairing(f, n)))
+                        M[i, j] = a
+                        M[j, i] = -a
+            return M
+
+        assert log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g)
+
         try:
             Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
             
