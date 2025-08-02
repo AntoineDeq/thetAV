@@ -277,7 +277,7 @@ def test_change_level(g, m, n, FF11, FF, supp = None):
 def gene_isog(Zmg2, ln, g, m, d):
     """
     Computes a random basis Gtest_m of a subgroup of A._D ** 2 isomorphic to A._D
-    and a random basis Ktest_m of a subgroup of A[d] \cap <Gtest_m> isomorphic to Zm ** g.
+    and a random basis Ktest_m of a subgroup of $A[d] cap <Gtest_m>$ isomorphic to Zm ** g.
     
     TODO: can be optimized with pseudo_smith ? (echelon form not implemented over finite rings)
     """
@@ -439,9 +439,10 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
         return M
     
     if supp is None:
+        
         Gtest = [choice(e) for e in Gtest_list]
-
-        assert log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g)
+        while log_W_pair_matrix(Gtest) != zero_matrix(Zn, 2 * g):
+            Gtest = [choice(e) for e in Gtest_list]
 
         try:
             Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
@@ -457,15 +458,15 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
     else:
         nb_tests = 1
         for Gtest in cartesian_product(Gtest_list):
-            assert log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g)
-            try:
-                Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
-                print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked".format(nb_tests))
-            except ValueError as inst:
-                if inst.args[0] == "The given list does not define a valid thetanullpoint":
-                    print("\nTest n°{} compiled but failed".format(nb_tests))
-                else:
-                    print("\nTest n°{} failed".format(nb_tests))
-            nb_tests += 1
-            if nb_tests >= supp:
-                break
+            if log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g):
+                try:
+                    Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
+                    print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked".format(nb_tests))
+                except ValueError as inst:
+                    if inst.args[0] == "The given list does not define a valid thetanullpoint":
+                        print("\nTest n°{} compiled but failed".format(nb_tests))
+                    else:
+                        print("\nTest n°{} failed".format(nb_tests))
+                nb_tests += 1
+                if nb_tests >= supp:
+                    break

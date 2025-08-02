@@ -392,7 +392,7 @@ def M_vers_symplec(K, n):
 
     if not is_isotrop(K):
         raise ValueError("K is not isotropic.")
-    print(K)
+    # print(K)
     basis = [Zmg_to_matrix(e) for e in K]
     for i in range(g, 2 * g):
         for candidate in V: # peut faire mieux ?

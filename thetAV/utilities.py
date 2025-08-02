@@ -28,6 +28,7 @@ from sage.structure.factory import *
 from sage.all import EllipticCurve
 from sage.misc.functional import sqrt
 from sage.categories.cartesian_product import cartesian_product
+from sage.arith.misc import gcd
 
 from . import tools
 integer_types = (int, Integer)
