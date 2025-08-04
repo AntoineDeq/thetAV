@@ -49,7 +49,7 @@ def progress_bar(count, total, prefix, size=50):
 
 def gene2(L):
     """
-    Check if L forms a basis of Zm ** (2 * g), where Zm is the base ring of the elements of L.
+    Check if L forms a basis of Zm ** g, where Zm is the base ring of the elements of L.
     
     TODO: can be optimized with pseudo_smith ? (echelon form not implemented over finite rings)
     """
@@ -445,7 +445,7 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
             Gtest = [choice(e) for e in Gtest_list]
 
         try:
-            Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
+            Ap, _ = A.isog_comput(n, lst_ai, Gtest)
             
             print("\nNew abelian variety :", Ap)
             print("\nTest compiled with a valid theta null point, but compatibility has not been checked")
@@ -460,7 +460,7 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
         for Gtest in cartesian_product(Gtest_list):
             if log_W_pair_matrix(Gtest) == zero_matrix(Zn, 2 * g):
                 try:
-                    Ap, _ = A.isog_comput(n, lst_ai, Ktest, Gtest)
+                    Ap, _ = A.isog_comput(n, lst_ai, Gtest)
                     print("\nTest n°{} compiled with a valid theta null point, but compatibility has not been checked".format(nb_tests))
                 except ValueError as inst:
                     if inst.args[0] == "The given list does not define a valid thetanullpoint":

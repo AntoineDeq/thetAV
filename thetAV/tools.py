@@ -389,10 +389,10 @@ def M_vers_symplec(K, n):
     g = len(K)
     V = Zn ** (2 * g)
     J = block_matrix(Zn, [[zero_matrix(Zn, g), identity_matrix(Zn, g)], [-identity_matrix(Zn, g), zero_matrix(Zn, g)]])
-
+    
     if not is_isotrop(K):
         raise ValueError("K is not isotropic.")
-    # print(K)
+    
     basis = [Zmg_to_matrix(e) for e in K]
     for i in range(g, 2 * g):
         for candidate in V: # peut faire mieux ?
@@ -405,5 +405,4 @@ def M_vers_symplec(K, n):
     
     M = Matrix(Zn, [e.T[0] for e in basis]).T.inverse()
     assert M.T * J * M == J
-    # print(M.inverse())
     return M

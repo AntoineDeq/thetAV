@@ -513,13 +513,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
 
             TODO : coerssion from thet to res
         """
+        # print(M, "\n", M.inverse())
         # M = M.inverse()
         Zmg = self._D
         thet = self(0)
         g = self.dimension()
         m = self.level()
         FF = self.base_ring()
-        
+
         if Zmg.base_ring() != M.base_ring():
             raise ValueError("Not the same base ring")
         if not(M.is_square()):
@@ -548,22 +549,22 @@ class Variety_ThetaStructure(AlgebraicScheme):
             if a == "Bg":
                 res1X = cop(resX)
                 for i in Zmg:
-                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, b * Matrix(Zm, i).transpose()))]
+                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, b.inverse() * Matrix(Zm, i).T))]
             elif a == "Sg":
                 res1X = cop(resX)
                 dico = utilities.calc_sqr_Sg(self, b)
                 for i in Zmg:
                     a = Matrix(Zm, i).transpose()
                     a.set_immutable()
-                    resX[idx(i)] = res1X[idx(i)] * dico[a]
+                    resX[idx(i)] = (dico[a] ** (-1)) * res1X[idx(i)]
             else: # a == "Hg"
                 res1X = cop(resX)
                 for i in Zmg:
                     resX[idx(i)] = sum([self.eval_car_comp(i, j) * res1X[idx(j)] for j in Zmg])
                 res1X = cop(resX)
                 for i in Zmg:
-                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, -b * Matrix(Zm, i).transpose()))]
-        
+                    resX[idx(i)] = res1X[idx(tools.matrix_to_Zmg(Zmg, b * Matrix(Zm, i).T))]
+
         thet_new = [e_resX(res) for e_resX in resX]
 
         B_new = constructor.AbelianVariety(self.base_ring(), self.level(), g, thet_new, roots = self._roots, check = check)
@@ -883,7 +884,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
             return Gt
         return Gt, xpGt
 
-    def change_level_fonc(self, n, lst_ai, G1t, G2t, x):
+    def change_level_fonc(self, n, lst_ai, G1t, G2t, x, j0, alpha):
         """
             See Algorithm 7 in [].
 
@@ -893,6 +894,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
             -   G1t a good lift of G1
             -   G2t a good lift of G2
             -   x an affine lift of a point of self
+            -   j0 in Zm, see change_level
+            -   alpha in Zm, see change_level
             
             OUTPUT:
 
@@ -910,7 +913,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
         m = self.level()
         assert(n % m == 0)
         
-        idx = partial(tools.idx, n=n)
+        idxn = partial(tools.idx, n=n)
+        idxm = partial(tools.idx, n=m)
         
         Zn = tools.create_conversions(n, g)
         Zm = tools.create_conversions(m, g)
@@ -934,12 +938,12 @@ class Variety_ThetaStructure(AlgebraicScheme):
         j0 = Zm(0)
         res = [None] * ng
         for j in Zn:
-            num_P = idx(j - tools.from_m_to_n(Zn, j0))
+            num_P = idxn(j + tools.from_m_to_n(Zn, j0))
             
             e_res = 0
             for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
-                e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][0] for ai in lst_ai)
-            res[idx(j)] = e_res
+                e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][idxm(ZZ(ai) * j0 + alpha)] for ai in lst_ai)
+            res[idxn(j)] = e_res
         
         return res
     
@@ -1001,36 +1005,38 @@ class Variety_ThetaStructure(AlgebraicScheme):
             Lst_ai_L_xpPpG2t.append(Lst_ai_L_xpPpQ)
         
         res = [0] * ng
+        j0 = Zm(0)
+        alpha = Zm(0)
         # while res == [0] * ng:
             # j0 = choice(list(Zm))
             # alpha = choice(list(Zm))
-        for j0 in Zm:
-            for alpha in Zm:
-                print(j0, alpha)
-                res = [None] * ng
-                for j in Zn:
-                    num_P = idxn(j + tools.from_m_to_n(Zn, j0))
-                    
-                    e_res = 0
-                    for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
-                        e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][idxm(ZZ(ai) * j0 + alpha)] for ai in lst_ai)
-                    res[idxn(j)] = e_res
-                try:
-                    A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
-                except ValueError as inst:
-                    print("\nTest failed", inst.args[0])
-                else:
-                    print("\nTest succeeded")
+        # for j0 in Zm:
+        #     for alpha in Zm:
+        #         print(j0, alpha)
+        res = [None] * ng
+        for j in Zn:
+            num_P = idxn(j + tools.from_m_to_n(Zn, j0))
+            
+            e_res = 0
+            for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
+                e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][idxm(ZZ(ai) * j0 + alpha)] for ai in lst_ai)
+            res[idxn(j)] = e_res
+        try:
+            A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
+        except ValueError as inst:
+            print("\nTest failed", inst.args[0])
+        else:
+            print("\nTest succeeded")
         
-        # fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x))
+        fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x, j0, alpha))
         
-        return A#, fonc_conv
+        return A, fonc_conv
 
 
 ######
 
 
-    def isog_comput_fonc(self, n, lst_ai, Bpp, Kpp, G1t, from_B_to_Bpp, x): # currently not working
+    def isog_comput_fonc(self, n, lst_ai, Bpp, G1t, from_B_to_Bpp, x):
         """
             See Algorithm 8 in [DeLu25].
 
@@ -1038,7 +1044,6 @@ class Variety_ThetaStructure(AlgebraicScheme):
             -   n = md
             -   lst_ai a list of the ais
             -   Bpp as computed in isog_comput
-            -   Kpp as computed in isog_comput
             -   G1t a good lift of G1 as computed in isog_comput
             -   from_B_to_Bpp a conversion function from self to Bpp as computed in isog_comput
             -   x an affine lift of a point of self
@@ -1058,6 +1063,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         Zm = tools.create_conversions(m, g)
         Zmd = tools.create_conversions(m, 2 * g)
         d = n // m
+        Zd = tools.create_conversions(d, g)
         md = m // d
         mg = m ** g
         idxn = partial(tools.idx, n=n)
@@ -1079,8 +1085,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
             ai_reduit = list(set(lst_ai))
             
             Lst_ai_L_xpPpg1j1 = []
-            for P in Kpp:
-                xpPpg1j1 = xpG1t[idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1)]
+            for jj in Zd:
+                xpPpg1j1 = xpG1t[idxn(tools.from_m_to_n(Zn, jj) + j1)]
                 Lst_ai_L_xpPpg1j1.append([xpPpg1j1._mult(ai) for ai in ai_reduit])
             
             res = 0
@@ -1091,15 +1097,14 @@ class Variety_ThetaStructure(AlgebraicScheme):
         
         return res_sol
 
-    def isog_comput(self, n, lst_ai, K, G1, check = True): # currently not working
+    def isog_comput(self, n, lst_ai, G1, check = True):
         """
             See Algorithm 8 in [DeLu25].
 
             INPUT:
             -   n = md
             -   lst_ai a list of the ais
-            -   K a basis of K
-            -   G1 a basis of G1
+            -   G1 a basis of G1 containing K the kernel of the isogeny
             -   x an affine lift of a point of self
             
             OUTPUT:
@@ -1129,52 +1134,58 @@ class Variety_ThetaStructure(AlgebraicScheme):
             m = len(Zm.base_ring())
             return Zm([ZZ(i) % m for i in list(tt)])
 
-        # try something here or later in the code to change the basis of K to an isotropic one ?
+        dG = [e.ell()[2] for e in G1]
+        bol = all(e[0][i] == 1 and e[1][i] == 0 and all(e[0][j] == 0 and e[1][j] == 0 for j in range(g) if j != i) for i, e in enumerate(dG))
 
-        # computation of M
-        G1_basis = [P.ell()[2] for P in G1]
-        # for P in G1:
-            # _, _, e = P.ell()
-            # a choice is made here. Does it always work? (can list possibilities if needed)
-            # G1_basis.append(Zmd(list(e[0]) + list(e[1])))
-        # print(G1_basis)
-        M = tools.M_vers_symplec(G1_basis, m) # be careful with the choice of M : as done here, it is necessary that $d.g_i \in {k_i}$
-        # print(M)
+        Bp = cop(self)
+        G1p = cop(G1)
+        xp = cop(x)
         
-        Bp, from_B_to_Bp = self.action_Sp(M, check = check)
-        Kp = [from_B_to_Bp(k) for k in K]
-        G1p = [from_B_to_Bp(g1) for g1 in G1]
-        xp = from_B_to_Bp(x)
-        
-        # dG = [e.ell() for e in G1p]
-        # print([(e[0], e[2]) for e in dG])
+        while not bol:
+             
+            dG = [P.ell()[2] for P in G1p]
+            M = tools.M_vers_symplec(dG, m)
+
+            B1p, from_Bp_to_B1p = Bp.action_Sp(M, check = check)
+            G11p = [from_Bp_to_B1p(g1) for g1 in G1p]
+            x1p = from_Bp_to_B1p(xp)
+
+            dG = [e.ell()[2] for e in G11p]
+            bol = all(e[0][i] == 1 and e[1][i] == 0 and all(e[0][j] == 0 and e[1][j] == 0 for j in range(g) if j != i) for i, e in enumerate(dG))
+            
+            if bol:
+                Bp = cop(B1p)
+                G1p = cop(G11p)
+                xp = cop(x1p)
+                break
+            
+            PP = Matrix(Zmod(m), [list(e[0]) for e in dG]).T.inverse()
+            M = block_matrix([[PP, zero_matrix(Zmod(m), g)], [zero_matrix(Zmod(m), g), PP.T.inverse()]]).inverse()
+
+            Bp, from_B1p_to_Bp = B1p.action_Sp(M, check = check)
+            G1p = [from_B1p_to_Bp(g1) for g1 in G11p]
+            xp = from_B1p_to_Bp(x1p)
+
+            dG = [e.ell()[2] for e in G1p]
+            bol = all(e[0][i] == 1 and e[1][i] == 0 and all(e[0][j] == 0 and e[1][j] == 0 for j in range(g) if j != i) for i, e in enumerate(dG))
 
         Bpp, from_Bp_to_Bpp = Bp.thet_pt_comp(n, G1p, check = check)
-        Kpp = [from_Bp_to_Bpp(kp) for kp in Kp]
         G1pp = [from_Bp_to_Bpp(g1p) for g1p in G1p]
         xpp = from_Bp_to_Bpp(xp)
-
-        # print([ej.sym_comp(n) for ej in G1pp])
-        # dG = [e.ell() for e in G1pp]
-        # print([(e[0], e[2]) for e in dG])
-        # dG = [e.ell() for e in Kpp]
-        # print([(e[0], e[2]) for e in dG])
         
         B0 = tools.basis_num(G1pp, n)
-        # print(B0)
         
         G1t, xpG1t = Bpp.good_lift_group(n, G1pp, xpp, 1, False, B0)
         
         res_sol = [None] * mg
-        for j0 in Zm:#dump choices for j1 and j2
+        for j0 in Zm: # dump choices for j1 and j2
             j1 = Zn([ZZ(i) for i in list(j0)])
             j2 = Zm(0)
-            assert j0 == rho_nm(Zm, j1 + tools.from_m_to_n(Zn, j2))
+            # assert j0 == rho_nm(Zm, j1 + tools.from_m_to_n(Zn, j2)) # True
             
             ai_reduit = list(set(lst_ai))
             
             Lst_ai_L_xpPpg1j1 = []
-            # for P in Kpp:
             for jj in Zd:
                 # assert G1t.index(P._add(G1t[idxn(j1)])) == idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1) # True
                 # xpPpg1j1 = xpG1t[idxn(Zn(ZZ(G1t.index(P)).digits(n, padto=g)) + j1)]
@@ -1189,7 +1200,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         
         A = constructor.AbelianVariety(self.base_ring(), m, g, res_sol, roots = self._roots, check = check)
         
-        fonc_conv = lambda x:A(isog_comput_fonc(self, n, lst_ai, Bpp, Kpp, G1t, lambda y:from_Bp_to_Bpp(from_B_to_Bp(y)), x))
+        fonc_conv = lambda x:A(isog_comput_fonc(self, n, lst_ai, Bpp, G1t, lambda y:from_Bp_to_Bpp(from_B_to_Bp(y)), x))
         
         return A, fonc_conv
 

@@ -266,7 +266,7 @@ def pseudo_smith(M0):
     """
         For M in M_g(Z/mZ), compute U, V in M_g(Z/mZ) 
         such that UMV is of the form diag(X, ..., X, 0, ..., 0).
-                                          {r times }
+                                          {i times }
         Warning : We need U and V in GL_g(Z/mZ), but it is not always the case...
         
         INPUT:
@@ -275,7 +275,7 @@ def pseudo_smith(M0):
         OUTPUT:
 
         -  U, V, M such that U * M0 * V == M
-        -  the pseudo rank r of M.
+        -  i the pseudo rank of M.
 
         EXAMPLES:
 
@@ -374,9 +374,27 @@ def pseudo_smith(M0):
                 V[:, i] -= q * V[:, row]
         
         row += 1
+    
+    i, j = 0, g - 1
+    while i < j:
+        if gcd(ZZ(M[i, i]), m) == 1:
+            i += 1
+            if gcd(ZZ(M[j, j]), m) != 1:
+                j -= 1
+        else:
+            if gcd(ZZ(M[j, j]), m) == 1:
+                M.swap_columns(i, j)
+                V.swap_columns(i, j)
+                M.swap_rows(i, j)
+                U.swap_rows(i, j)
+                i += 1
+                j -= 1
+            else:
+                j -= 1
     assert(U * M0 * V == M)
-    # assert(U.det() != 0 and V.det() != 0)
-    return M, U, V, len([i for i in range(g) if M[i, i] != 0])
+    assert(U.is_invertible() and V.is_invertible())
+    # print(M)
+    return M, U, V, i
 
 def decomposition(M1, check = True):
     """
@@ -410,13 +428,17 @@ def decomposition(M1, check = True):
             L_left = L_left + [(("Bg", mIDg), mID2g), (("Hg", 1), Hg)]
             M = Hg * M
         else:
-            _, U, V, r = pseudo_smith(M[g:,g:])
+            _, U, V, r = pseudo_smith(M[:g,:g])
+            # print(U, V, r)
             L_left.append((("Bg", U.inverse()), Bg(Zm, g, U.inverse())))
             L_right.append((("Bg", V.inverse()), Bg(Zm, g, V.inverse())))
             M = Bg(Zm, g, U) * M * Bg(Zm, g, V)
+            # print(M)
+            # print("\n")
             X = block_matrix([[zero_matrix(Zm, r), zero_matrix(Zm, r, g - r)], [zero_matrix(Zm, g - r, r), identity_matrix(Zm, g - r)]])
             L_left = L_left + [(("Bg", mIDg), mID2g), (("Hg", 1), Hg), (("Sg", X), Sg(Zm, g, X)), (("Hg", 1), Hg)]
             M = mID2g * Hg * Sg(Zm, g, -X) * Hg * M
+            # print(M)
     
     A = M[:g,:g]
     if A != identity_matrix(Zm, g):
@@ -467,7 +489,7 @@ def calc_sqr_Sg(A, C, check = True):
     new = []
     rac, a, items = None, None, None
     for _, vk in B:
-        rac = sqrt(A.eval_car_comp(tools.matrix_to_Zmg(Zmg, C * vk), tools.matrix_to_Zmg(Zmg, vk)))
+        rac = sqrt(A.eval_car_comp(tools.matrix_to_Zmg(Zmg, C * vk), tools.matrix_to_Zmg(Zmg, vk))) # a choice is made here
         dico[vk] = rac
         new.append((vk, rac))
     if check:
