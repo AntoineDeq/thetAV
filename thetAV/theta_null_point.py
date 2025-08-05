@@ -1021,12 +1021,8 @@ class Variety_ThetaStructure(AlgebraicScheme):
             for L_ai_xpPpQ in Lst_ai_L_xpPpG2t[num_P]:
                 e_res += prod(L_ai_xpPpQ[ai_reduit.index(ai)][idxm(ZZ(ai) * j0 + alpha)] for ai in lst_ai)
             res[idxn(j)] = e_res
-        try:
-            A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
-        except ValueError as inst:
-            print("\nTest failed", inst.args[0])
-        else:
-            print("\nTest succeeded")
+        
+        A = constructor.AbelianVariety(self.base_ring(), n, g, res, roots = self._roots, check = check)
         
         fonc_conv = lambda x:A(self.change_level_fonc(n, lst_ai, G1t, G2t, x, j0, alpha))
         
