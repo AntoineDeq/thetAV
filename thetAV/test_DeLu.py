@@ -414,12 +414,12 @@ def test_isog_comput(g, m, n, FF11, FF, supp = None):
     
     lst_ai = choice(tools.set_sum_squares(d, n))
     
-    Gtest_m, Ktest_m = gene_isog(cartesian_product([A._D] * 2), len(A._D) ** 2, g, m, d)
+    Gtest_m, Ktest_m = gene_isog(cartesian_product([A._D] * 2), len(A._D) ** 2, g, m, d) # Ktest_m is not necessary
     
     print("\nNumbering of the selected basis for A[m] :", Gtest_m)
     print("\nNumbering of the selected basis for K :", Ktest_m)
     
-    Ktest = [A(0).action_theta(x) for x in Ktest_m]
+    Ktest = [A(0).action_theta(x) for x in Ktest_m] # Ktest_m is not necessary
     Gtest_L = [A(0).action_theta(x) for x in Gtest_m]
     Gtest_list = [utilities.half(A, [g]) for g in Gtest_L]
     for _ in range(log(d, 2) - 1):

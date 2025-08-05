@@ -61,7 +61,7 @@ def thet4(A, S):
     else:
         return (-1) ** len(SiU) * prod([(A[i - 1] - A[j - 1]) ** (-1) for i in SoU for j in BmSoU])
 
-def mat_thomae(FF, g, n = 4):
+def mat_thomae(g, n = 4):
     """
     Change-of-basis matrix for the theta functions of level n, related to theta[n_S] as in Mumford Tata II p. 120 and [DeLu25].
     """
@@ -134,7 +134,7 @@ def generation_thet4(FF, B, g):
     
     ThetaJ2 = [sqrt(e) for e in ThetaJ4]
     ThetaJ = [sqrt(e) for e in ThetaJ2]
-    Theta = list(mat_thomae(FF, g).solve_right(Matrix(ThetaJ).transpose()).transpose()[0])
+    Theta = list(mat_thomae(g).solve_right(Matrix(ThetaJ).transpose()).transpose()[0])
     return Theta
 
 def groeb_roots(FF, L, LX, sub, stop=Infinity):
@@ -229,9 +229,15 @@ def half(A, Lst, stop=Infinity):
 
 
 def Sg(Zm, g, C):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     return block_matrix([[identity_matrix(Zm, g), zero_matrix(Zm, g)], [C, identity_matrix(Zm, g)]])
 
 def Bg(Zm, g, A):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     return block_matrix([[A, zero_matrix(Zm, g)], [zero_matrix(Zm, g), A.transpose().inverse()]])
 
 def xgcd(a, b=None):
@@ -680,7 +686,7 @@ def thet_us_to_thet_eta(tnp, n = 4):
     """
     g = tnp.scheme().dimension()
     FF = tnp.scheme().base_ring()
-    return list(mat_thomae(FF, g, n).inverse().solve_right(Matrix(tnp).transpose()).transpose()[0])
+    return list(mat_thomae(g, n).inverse().solve_right(Matrix(tnp).transpose()).transpose()[0])
 
 def lv4tnp_to_ai_space(tnp):
     """
@@ -716,6 +722,9 @@ def lv4tnp_to_j_inv(lv4tnp):
     return j
 
 def equation_to_igusa_inv(p): # coherent with lv4tnp_to_igusa_inv
+    r"""
+    .. todo:: add minimal docstring.
+    """
     A, B, C, D = clebsch_invariants(p)
     I2, I4, I6, I10 = clebsch_to_igusa(A, B, C, D)
     j1, j2, j3 = I2 ** 5 / I10, I4 * I2 ** 3 / I10, I6 * I2 ** 2 / I10 # see version j' of Weng [Wen01] p.28, PHD thesis in German

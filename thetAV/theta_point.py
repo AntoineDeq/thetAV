@@ -50,6 +50,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
     """
 
     def _acted_upon_(self, k, on_left):
+        r"""
+        .. todo:: add minimal docstring.
+        """
         return self._mult(k)
 
 
@@ -226,12 +229,18 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
     __nonzero__ = __bool__
 
     def _get_nonzero_coord(self, idx=True):
+        r"""
+        .. todo:: add minimal docstring.
+        """
         for i, val in enumerate(self):
             if val != 0:
                 return i if idx else tools.idx(i, self.level())
         raise ValueError('All entries are zero.')
     
     def get_all_nonzero_coord(self, idx=True): #not used
+        r"""
+        .. todo:: add minimal docstring.
+        """
         res = []
         for i, val in enumerate(self):
             if val != 0:
@@ -311,6 +320,9 @@ class VarietyThetaStructurePoint(SchemeMorphism_point):
         return self._add(other)
 
     def _add(self, other, i0=0):
+        r"""
+        .. todo:: add minimal docstring.
+        """
         return self.schematic_addition(other)
 
     def _neg_(self):

@@ -91,6 +91,9 @@ def AbelianVariety(*data, **kwargs):
 
 
 def _with_theta_basis(label: str, *data, **kwargs):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     if label == 'Fn':
         return AbelianVariety(*data, **kwargs)
     if label in ['F(2,2)', 'F(2,2)^2', 'classical']:

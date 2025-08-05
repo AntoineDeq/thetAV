@@ -283,6 +283,9 @@ class Variety_ThetaStructure(AlgebraicScheme):
         return self.change_ring(R)
 
     def _point_homset(self, *args, **kwds):
+        r"""
+        .. todo:: add minimal docstring.
+        """
         return SchemeHomset_points(*args, **kwds)
 
     def point(self, P, **kwds):
@@ -1140,7 +1143,7 @@ class Variety_ThetaStructure(AlgebraicScheme):
         while not bol:
              
             dG = [P.ell()[2] for P in G1p]
-            M = tools.M_vers_symplec(dG, m)
+            M = tools.M_to_symplec(dG, m)
 
             B1p, from_Bp_to_B1p = Bp.action_Sp(M, check = check)
             G11p = [from_Bp_to_B1p(g1) for g1 in G1p]

@@ -30,6 +30,9 @@ integer_types = (int, Integer)
 
 
 def rangeS(n, S):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     for x in range(n):
         if x in S:
             continue
@@ -317,6 +320,9 @@ def basis_num(G, n):
     return [Zn([ZZ(i) for i in list(tt[2][0])]) for tt in dG[:g]] + [Zn([ZZ(i) for i in list(tt[2][1])]) for tt in dG[g:]]
 
 def basis_chain_basis(Zd, B0 = None):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     if B0 is None:
         B0 = list(Zd.gens())
     g = len(B0)
@@ -324,6 +330,9 @@ def basis_chain_basis(Zd, B0 = None):
     return B0, B_chain
 
 def strat_decomp(Zd, B0 = None):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     B0, B_chain = basis_chain_basis(Zd, B0)
     res_en_cours = [Zd(0)] + B0 + B_chain
     pile_en_cours = B0 + B_chain
@@ -353,6 +362,9 @@ def strat_decomp(Zd, B0 = None):
     return res
 
 def set_sum_squares(d, n, L = [], S = [], res = [], b = 0):
+    r"""
+    .. todo:: add minimal docstring.
+    """
     if b == 0:
         L = [i ** 2 for i in range(1, d + 1) if i**2 <= d and gcd(i, n) == 1]
         S = [[u, [u]] for u in L]
@@ -380,10 +392,10 @@ def is_isotrop(basis):
                 return False
     return True
 
-def M_vers_symplec(K, n):
+def M_to_symplec(K, n):
     """
-    Retourne une matrice symplectique M telle que M envoie les vecteurs de K
-    sur les vecteurs e_1,...,e_g
+    Return a symplectic matrix M such that M sends the vectors of K
+    to the vectors e_1,...,e_g
     """
     Zn = Zmod(n)
     g = len(K)
@@ -395,7 +407,7 @@ def M_vers_symplec(K, n):
     
     basis = [Zmg_to_matrix(e) for e in K]
     for i in range(g, 2 * g):
-        for candidate in V: # peut faire mieux ?
+        for candidate in V: # can we do better easily?
             cand = Matrix(Zn, [list(candidate)]).T
             if all((basis[j].T * J * cand) == 0 for j in range(i - g + 1, i)) and all((basis[j].T * J * cand) == 0 for j in range(i - g)) and (basis[i - g].T * J * cand) == 1:
                 basis.append(cand)
